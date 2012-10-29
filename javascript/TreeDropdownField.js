@@ -1,10 +1,33 @@
+var TreeDropdownField_IE8_OldWindowSize;
+
 (function($) {
 	$.entwine('ss', function($){
 		/**
 		 * On resize of any close the open treedropdownfields
 		 * as we'll need to redo with widths
 		 */
-		$(window).resize(function() {
+		$(window).resize(function(e) {
+			// IE8 has a bug that causes it to spam resize events when the link dialog is spawned.
+			// A better fix would be to prevent that from happening in the first place, but this will
+			// remove the symptom for now.
+			if ($.browser.msie && $.browser.version.slice(0, 2) == '8.') {
+				if (e.target instanceof HTMLDocument || Object.prototype.toString.call(e.target) == "[object HTMLDocument]") {
+					if (TreeDropdownField_IE8_OldWindowSize == undefined) {
+						TreeDropdownField_IE8_OldWindowSize = {
+							width: $(window).width(),
+							height: $(window).height()
+						}
+					}
+
+					if (TreeDropdownField_IE8_OldWindowSize.width == $(window).width() && TreeDropdownField_IE8_OldWindowSize.height == $(window).height()) {
+						return;
+					}
+
+					TreeDropdownField_IE8_OldWindowSize.width = $(window).width();
+					TreeDropdownField_IE8_OldWindowSize.height = $(window).height();
+				}
+			}
+
 			$('.TreeDropdownField').closePanel();
 		});
 		
