@@ -723,6 +723,10 @@ jQuery.noConflict();
 				
 				// Mark up buttonsets
 				this.find('.ss-ui-buttonset').buttonset();
+
+				// Add activetabs - the dropdown/dropups that appear in between buttons.
+				// When we upgrade jQuery UI we could do {active: false} instead of select.
+				this.find('.ss-ui-action-tabset').tabs({collapsible: true}).tabs('select', false);
 			}
 		});
 		
