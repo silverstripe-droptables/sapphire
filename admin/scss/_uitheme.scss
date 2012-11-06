@@ -13,44 +13,14 @@
 .cms {	
 	.ui-tabs {
 		padding: 0;
-		background: none;
-		
+		background: none;		
 		.ui-widget-header {
 			border: 0;
 			background: none;
-		}
-	 	
+		}	 	
 		.ui-tabs-nav {
 			margin: 0;
-			padding: 0;
-			
-			li{
-				float:none;
-				position:static;
-				margin:0;
-				white-space: normal;				
-				a{
-					cursor: default;
-					padding:0;
-				}
-			}
-			> li {
-				top: 0px;
-				border-bottom: 0 !important;
-				list-style: none; 
-				float: left; 
-				position: relative; 
-				padding: 0; 
-				white-space: nowrap; 
-				border-bottom:0;
-				> a {
-					cursor: text;
-					padding: 0 15px;
-				}
-			}
-			
-				
-			
+			padding: 0;	
 			
 			&.ui-state-active {
 				border-color: $color-medium-separator;
