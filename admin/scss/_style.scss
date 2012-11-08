@@ -937,37 +937,50 @@ select.preview-dropdown {
 				float: right;
 			}
 
-			.cms-preview-states li{
+			.cms-preview-states {
+				margin: 0 $grid-x - 2;
 				display: inline-block;
-				margin: 0 2px;
+				border-radius: 4px;
+				height: 26px;
+				border-width: 1px;
+				border-style: solid;
+				border-color: #C0C0C2 #C0C0C2 #A6A6A9;
+				background: #D9D9D9 linear-gradient(#FFFFFF, #D9D9D9) repeat scroll 0 0;
 
-				a {
+				li {
 					display: inline-block;
+					margin: 0;
+					float: left;
+					a {
+						padding: 5px 12px;
+						display: block;
+
+						&:hover {
+							text-decoration: none;
+							box-shadow: 0 0 5px #B3B3B3;
+						}
+
+						&.disabled {
+							color: lighten($color-text-dark, 20%);
+							cursor: default;
+							background: $color-base;
+							@include background-image(linear-gradient(top, darken($color-base,10%), $color-base));
+							text-decoration: none;
+							pointer-events: none;
+
+   							-moz-box-shadow:    inset 0 0 2px darken($color-base,20%);
+   							-webkit-box-shadow: inset 0 0 2px darken($color-base,20%);
+   							box-shadow:         inset 0 0 2px darken($color-base,20%);
+						}
+					}
 				}
 			}
-		}
-
-		a.disabled {
-			padding:.4em 1em;
-			color: lighten($color-text-dark, 20%);
-			/*border: 1px solid;
-			border-color: darken($color-button-disabled, 20%);*/
-			border-radius:12px;
-			cursor: default;
-			background:$color-base;
-		}
-		
-		.cms-preview-states {
-			margin-right: 10px;
-			margin-left: 10px;
-		}
+		}	
 
 		.cms-preview-popup-link {
 			display: inline-block;
 		}
-
 	}
-	
 }
 
 .cms-preview-toggle-link {
