@@ -10,44 +10,24 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			}
 		}	*/	
 		position:relative;
+		float:left;
 		ul.ui-tabs-nav{		
 			&.multi{
 				@include clearfix;			
 				padding:0;			
 				overflow:visible;
-				
-				li{
-					float:none;
-					position:static;
-					margin:0;
-					white-space: normal;				
-					a{
-						cursor: default;
-						padding:0;
-					}
-				}
-				> li {
-					top: 0px;
-					border-bottom: 0 !important;
-					list-style: none; 
-					float: left; 
-					position: relative; 
-					padding: 0; 
-					white-space: nowrap; 
-					border-bottom:0;
-					> a {
-						cursor: text;
-						padding: 0 15px;
-					}
-				}
-
-
-
-
-
-
-				
+				float:left;	
+				&:focus{
+					outline:none;
+					box-shadow:none;
+					-webkit-box-shadow: none;
+				}			
 				> li{
+					&:focus{
+						outline:none;
+						box-shadow:none;
+						-webkit-box-shadow: none;
+					}
 					overflow:visible;
 					@include background-image(linear-gradient(top, #fff, #D9D9D9));	
 					@include border-radius(0);
@@ -58,10 +38,18 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					margin:0;
 					&.ui-state-active{
 						background:#fff;
-						border-bottom:1px solid #fff !important; //jquery-ui style has important on it :(
+						border-bottom:none !important; //jquery-ui style has important on it :(
 						&.first, &.last{
 							@include border-bottom-left-radius(0px);
 							@include border-bottom-right-radius(0px);
+						}
+						a.tab-nav-link{
+							padding-bottom:6px;
+							&:focus, span:focus{
+								outline:none;
+								box-shadow:none;
+								-webkit-box-shadow: none;
+							}
 						}
 					}
 					&.first{
@@ -109,7 +97,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		background:#fff;
 		@include clearfix;
 		position:absolute;
-		top:28px;
+		top:29px;
 		border:$border;
 		border-top:none;
 		width:200px;

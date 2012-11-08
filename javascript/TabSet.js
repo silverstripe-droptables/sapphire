@@ -16,6 +16,27 @@
 			redrawTabs: function() {
 				this.rewriteHashlinks();
 				this.tabs();
+				
+				if(this.hasClass('ss-ui-action-tabset')){
+					this.tabs(
+						'option', 
+						'collapsible',
+						true					
+					).tabs('select', false);					
+					if(this.hasClass('ss-ui-action-tabset')){
+						this.tabs({
+							beforeActivate:function(event, ui){
+								var activePanel = ui.newPanel;
+								var activeTab = ui.newTab;
+								if($(activeTab).hasClass("last")){
+									$(activePanel).attr("style","left : auto; right: "+ 0 +"px");
+								}else{
+									$(activePanel).attr("style","left: "+activeTab.position().left+"px");									
+								}								
+							}					
+						});	
+					}
+				}
 			},
 		
 			/**
@@ -29,6 +50,7 @@
 					$(this).attr('href', document.location.href.replace(/#.*/, '') + matches[0]);
 				});
 			}
+
 		});
 	});
 })(jQuery);
