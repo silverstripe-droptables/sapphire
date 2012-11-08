@@ -224,12 +224,17 @@
 			}
 		});
 
-		$('.cms-preview-toggle-link').entwine({
-			onclick: function(e) {
+		$('#cms-preview-state-dropdown').entwine({
+			onchange: function(e) {
 				e.preventDefault();
 
 				var content = $('.cms-content');
-				content.toggleClass('is-collapsed');
+				var state = $(this).val();
+				if (state == 'split') {
+					content.removeClass('is-collapsed');
+				} else {
+					content.addClass('is-collapsed');
+				}
 				content.parent().redraw();
 			}
 		});

@@ -852,6 +852,14 @@ body.cms {
 	}
 }
 
+/* Necessary because when chosen is initialised the selects are not part of cms-preview
+   and so the sizes are wrong. */
+select.preview-dropdown {
+	display: inline;
+	width: auto;
+	padding-right: 20px;
+}
+
 .cms-preview {
 
 	.cms-preview-toggle {
@@ -917,14 +925,20 @@ body.cms {
 		
 		.cms-navigator {
 			width: 100%;
-			
-			* {
-				display: inline-block;
-			}
-		}
 
-		li{
-			margin: 0 2px;
+			.chzn-results li {
+				display: list-item;
+			}
+
+			.field {
+				display: inline-block;
+				float: right;
+			}
+
+			.cms-preview-states li{
+				display: inline-block;
+				margin: 0 2px;
+			}
 		}
 
 		a.disabled {
@@ -944,10 +958,6 @@ body.cms {
 
 		.cms-preview-popup-link {
 			display: inline-block;
-		}
-
-		.cms-preview-toggle-link {
-			float: right;
 		}
 
 	}
