@@ -571,43 +571,6 @@ body.cms {
 			}
 		}
 	}
-
-	/* smaller treedropdown */
-	.chzn-container-single .chzn-single  {
-		height: 26px;
-		line-height: 26px;
-		padding-left:25px;
-		color: darken($color-dark-grey, 15%);
-		@include background-image(
-			linear-gradient($color-button-generic, darken($color-button-generic, 10%))
-		);
-		font: {
-			size:13px;
-			weight:bold;
-		}
-		text-shadow:darken($color-text-shadow, 10%) 0 -1px 1px;
-		box-shadow:none;
-		&:hover {
-			@include box-shadow(0 0 5px darken($color-button-generic, 20%));
-			@include background-image(
-				linear-gradient(lighten($color-button-generic, 2%), darken($color-button-generic, 8%))
-			);
-		}
-
-		&:active {
-			@include box-shadow(inset 0 1px 3px darken($color-button-generic, 60%));
-		}
- 		
- 		span {
- 			padding-top:1px;
- 		}
-
-		div {
-			/*background:url(../images/btn-icon/settings.png) 5px 4px no-repeat;*/
-			border-left:none;
-			width:100%;
-		}
-	}
 }
 
 
