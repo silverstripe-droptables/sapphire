@@ -1,55 +1,16 @@
+/********************************************
+
+Defines the styles for the action tabset, found on the site tree, 
+and as a single (more options) tab in page view. This is a special 
+use case of tabs, so the default tab styling should not apply 
+
+
+**********************************************/
+
+
 $border: 1px solid darken(#D9D9D9, 15%);
 
-.cms {
-	/*Hide the title in tree view, unless selected*/
-	.cms-tree-view-sidebar{
-		.cms-tree-expand-trigger{
-			display:none; //Temp. Want to eventually add this functionality as an expand tree view
-		}
-		.ss-ui-action-tabset.ss-tabset{
-			ul.ui-tabs-nav.multi{
-				>li{					
-					a.tab-nav-link{
-						//padding: 5px 2px 20px 10px;
-						width:30px;
-						overflow:hidden;
-						@include box-sizing(border-box);
-						padding-right:0;
-						@include duration(0.5s);
-						&.active{
-							width:110px;	
-							@include duration(0.5s);
-						}
-					}
-					&.first{
-						a.tab-nav-link{	
-
-						}		
-									
-					}					
-				}				
-			}
-		}
-
-		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
-			width:166px;
-			padding:10px 4px;
-
-			.field {
-				width:150px;				
-			}
-			.ui-button-text-only .ui-button-text{
-				padding:.4em .8em;
-			}
-		
-			
-		}
-		.last .ui-tabs-panel.ss-ui-action-tab{
-			right:0;
-			left:auto;
-		}
-
-	}	
+.cms {	
 	.ss-ui-action-tabset.ss-tabset{
 		/*	> li{ //Needs to nbe specific to bottom drop-up
 			background:none;
@@ -60,8 +21,10 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		}	*/	
 		position:relative;
 		float:left;
-		ul.ui-tabs-nav{		
-			&.multi{
+		/* Style the "tabs" navigation*/
+		ul.ui-tabs-nav{	
+
+			&.multi{ /*styling for multiple tabs*/
 				@include clearfix;			
 				padding:0;			
 				overflow:visible;
@@ -81,13 +44,13 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					@include background-image(linear-gradient(top, #fff, #D9D9D9));	
 					@include border-radius(0);
 					border-top:$border;
-					border-bottom:$border !important; //jquery-ui style has important on it :(
+					border-bottom:$border !important; //jquery-ui style has important on it
 					border-right:1px solid #fff;
 					border-left:$border;
 					margin:0;
 					&.ui-state-active{
 						background:#fff;
-						border-bottom:none !important; //jquery-ui style has important on it :(
+						border-bottom:none !important; //jquery-ui style has important on it
 						&.first, &.last{
 							@include border-bottom-left-radius(0px);
 							@include border-bottom-right-radius(0px);
@@ -99,7 +62,6 @@ $border: 1px solid darken(#D9D9D9, 15%);
 								box-shadow:none;
 								-webkit-box-shadow: none;
 							}
-
 						}
 					}
 					&.first{
@@ -133,7 +95,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				}
 			}
 		}
-		.batch-check{
+		.batch-check{ /*position a checkbox within a tab*/
 			position:absolute;
 			float:left;
 			margin:7px 5px 3px 10px;
@@ -144,7 +106,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			margin-right:5px;
 		}
 	}
-
+	/* Style the tab panels */
 	.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
 		display:block;
 		clear:both;
@@ -160,7 +122,6 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		@include tightSpacing;
 		margin:0;
 		left:-1px;
-
 		.chzn-container-single .chzn-single{
 			padding: 0 0 0 5px;
 			float:none;
@@ -171,75 +132,41 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		left:auto;
 	}
 
-	/** 
-	 * CMS Batch actions
-	 */
-/*	.cms-content-batchactions {
-		float: left;
-		position:  relative;
-		display: block;
-		margin-left: 8px;
-
-		.view-mode-batchactions-wrapper {
-			float: left;
-			padding: 4px 6px;
-			border: 1px solid #aaa;
-			margin-bottom: 8px;
-			@include background-image(linear-gradient(top, #fff, #D9D9D9));
-			border-top-left-radius: 4px;
-			border-bottom-left-radius: 4px;	
-
-			label {
-				display: none;
-			}
-
-			fieldset, .Actions {
-				display: inline-block;
+	/* Styles for the cms-actions in tree view, to use more limited space.
+	Title hidden in tree view, until hover/active state added. Active is applied 
+	to the first tab within the template, so there should always be one title 
+	visible. Added and removed with js in TabSet.js  */
+	.cms-tree-view-sidebar{
+		.ss-ui-action-tabset.ss-tabset{
+			ul.ui-tabs-nav.multi{
+				>li{					
+					a.tab-nav-link{
+						width:30px;
+						overflow:hidden;
+						@include box-sizing(border-box);
+						padding-right:0;
+						@include duration(0.5s);
+						&.active{
+							width:110px;	
+							@include duration(0.5s);
+						}
+					}				
+				}				
 			}
 		}
-
-			&.inactive .view-mode-batchactions-wrapper {
-				border-radius: 4px;		
-
-				label {
-					display: inline;
-				}
+		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
+			width:166px;
+			padding:10px 4px;
+			.field {
+				width:150px;				
 			}
-		
-		form > * {
-			display: block;
-			float: left;
+			.ui-button-text-only .ui-button-text{
+				padding:.4em .8em;
+			}			
 		}
-		
-		form.cms-batch-actions {
-			float:  left;
+		.last .ui-tabs-panel.ss-ui-action-tab{
+			right:0;
+			left:auto;
 		}
-
-		&.inactive form {
-			display: none;
-		}
-
-		.chzn-container-single .chzn-single {
-			margin-left: -1px;
-			border-radius: 0;
-			@include background-image(linear-gradient(top, #fff, #D9D9D9));
-		}
-
-		.cms-batch-actions .Actions .ss-ui-button {
-			margin-left: -1px;
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
-
-			&.ui-state-disabled {
-				opacity: 1;
-				color: #ccc;
-			}
-		}
-	}
-
-	#Form_BatchActionsForm select {
-		width: 200px;
-	} */
-
-
+	}	
 }

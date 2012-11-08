@@ -279,7 +279,6 @@ class LeftAndMain extends Controller implements PermissionProvider {
 				FRAMEWORK_DIR . '/javascript/TreeDropdownField.js',
 				FRAMEWORK_DIR . '/javascript/DateField.js',
 				FRAMEWORK_DIR . '/javascript/HtmlEditorField.js',
-				FRAMEWORK_DIR . '/javascript/DropMenu.js',
 				FRAMEWORK_DIR . '/javascript/TabSet.js',
 				FRAMEWORK_DIR . '/javascript/i18n.js',
 				FRAMEWORK_ADMIN_DIR . '/javascript/ssui.core.js',
