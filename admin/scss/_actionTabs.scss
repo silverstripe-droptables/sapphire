@@ -1,6 +1,55 @@
 $border: 1px solid darken(#D9D9D9, 15%);
 
-.cms {	
+.cms {
+	/*Hide the title in tree view, unless selected*/
+	.cms-tree-view-sidebar{
+		.cms-tree-expand-trigger{
+			display:none; //Temp. Want to eventually add this functionality as an expand tree view
+		}
+		.ss-ui-action-tabset.ss-tabset{
+			ul.ui-tabs-nav.multi{
+				>li{					
+					a.tab-nav-link{
+						//padding: 5px 2px 20px 10px;
+						width:30px;
+						overflow:hidden;
+						@include box-sizing(border-box);
+						padding-right:0;
+						@include duration(0.5s);
+						&.active{
+							width:110px;	
+							@include duration(0.5s);
+						}
+					}
+					&.first{
+						a.tab-nav-link{	
+
+						}		
+									
+					}					
+				}				
+			}
+		}
+
+		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
+			width:166px;
+			padding:10px 4px;
+
+			.field {
+				width:150px;				
+			}
+			.ui-button-text-only .ui-button-text{
+				padding:.4em .8em;
+			}
+		
+			
+		}
+		.last .ui-tabs-panel.ss-ui-action-tab{
+			right:0;
+			left:auto;
+		}
+
+	}	
 	.ss-ui-action-tabset.ss-tabset{
 		/*	> li{ //Needs to nbe specific to bottom drop-up
 			background:none;
@@ -50,6 +99,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 								box-shadow:none;
 								-webkit-box-shadow: none;
 							}
+
 						}
 					}
 					&.first{
@@ -65,7 +115,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					a.tab-nav-link{
 						color:$color-text;
 						font-weight:bold;				
-						padding: 5px 28px 5px 10px;	
+						padding: 5px 28px 5px 8px;	
 						line-height:17px;
 						display:block;
 						.ui-no-icon{
@@ -74,6 +124,10 @@ $border: 1px solid darken(#D9D9D9, 15%);
 							margin-right:5px;
 							width:16px;
 							height:16px;
+						}
+						.title{
+							padding-left:4px;
+							display:inline-block;
 						}
 					}
 				}

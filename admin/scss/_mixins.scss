@@ -102,6 +102,17 @@
 }
 
 
+
+@mixin duration($time, $webkit:true){
+  @if($webkit){
+    -webkit-transition-duration: $time;
+  } 
+  -moz-transition-duration: $time;
+  -o-transition-duration: $time;
+  transition-duration: $time; 
+}
+
+
 /*Mixin used to generate slightly smaller text and forms
 Used in side panels and action tabs
 */
@@ -168,6 +179,7 @@ Used in side panels and action tabs
 		}
 	}
 }
+
 
 
 
