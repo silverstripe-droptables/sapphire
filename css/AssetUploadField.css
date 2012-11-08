@@ -4,6 +4,9 @@
 /** ----------------------------------------------- Typography.  ------------------------------------------------ */
 /** ----------------------------------------------- Grid Units (px)  We have a vertical rhythm that the grid is based off both x (=horizontal) and y (=vertical). All internal padding and margins are scaled to this and accounting for paragraphs ------------------------------------------------ */
 /** ----------------------------------------------- Application Logo (CMS Logo) Must be 24px x 24px ------------------------------------------------ */
+/*Mixin used to generate slightly smaller text and forms
+Used in side panels and action tabs
+*/
 .ss-uploadfield-view-allowed-extensions { padding-top: 20px; clear: both; max-width: 750px; display: block; }
 
 #AssetUploadField { border-bottom: 0; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
@@ -60,7 +63,6 @@ body.cms.ss-uploadfield-edit-iframe .fieldholder-small label, .composite.ss-asse
 .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-info { float: left; margin: 34px 0 0; }
 .ss-insert-media .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-info { margin: 15px 0px 0 20px; }
 .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-info label { min-width: 250px; height: 30px; font-size: 14px; }
-.ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-info label.ui-state-focus { -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
 .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-fromcomputer { position: relative; overflow: hidden; display: block; margin: 0 10px 0 0; }
 .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-uploador { float: left; font-weight: bold; font-size: 22px; padding: 0 20px; line-height: 70px; margin-top: 16px; display: none; }
 .ss-insert-media .ss-assetuploadfield .ss-uploadfield-addfile .ss-uploadfield-item-uploador { font-size: 18px; margin-top: 0; }
