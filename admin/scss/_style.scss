@@ -940,6 +940,10 @@ select.preview-dropdown {
 			.cms-preview-states li{
 				display: inline-block;
 				margin: 0 2px;
+
+				a {
+					display: inline-block;
+				}
 			}
 		}
 
