@@ -1,0 +1,245 @@
+$border: 1px solid darken(#D9D9D9, 15%);
+
+.cms {
+	/*Hide the title in tree view, unless selected*/
+	.cms-tree-view-sidebar{
+		.cms-tree-expand-trigger{
+			display:none; //Temp. Want to eventually add this functionality as an expand tree view
+		}
+		.ss-ui-action-tabset.ss-tabset{
+			ul.ui-tabs-nav.multi{
+				>li{					
+					a.tab-nav-link{
+						//padding: 5px 2px 20px 10px;
+						width:30px;
+						overflow:hidden;
+						@include box-sizing(border-box);
+						padding-right:0;
+						@include duration(0.5s);
+						&.active{
+							width:110px;	
+							@include duration(0.5s);
+						}
+					}
+					&.first{
+						a.tab-nav-link{	
+
+						}		
+									
+					}					
+				}				
+			}
+		}
+
+		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
+			width:166px;
+			padding:10px 4px;
+
+			.field {
+				width:150px;				
+			}
+			.ui-button-text-only .ui-button-text{
+				padding:.4em .8em;
+			}
+		
+			
+		}
+		.last .ui-tabs-panel.ss-ui-action-tab{
+			right:0;
+			left:auto;
+		}
+
+	}	
+	.ss-ui-action-tabset.ss-tabset{
+		/*	> li{ //Needs to nbe specific to bottom drop-up
+			background:none;
+			border:none;
+			a{
+				color: $color-text-blue-link;
+			}
+		}	*/	
+		position:relative;
+		float:left;
+		ul.ui-tabs-nav{		
+			&.multi{
+				@include clearfix;			
+				padding:0;			
+				overflow:visible;
+				float:left;	
+				&:focus{
+					outline:none;
+					box-shadow:none;
+					-webkit-box-shadow: none;
+				}			
+				> li{
+					&:focus{
+						outline:none;
+						box-shadow:none;
+						-webkit-box-shadow: none;
+					}
+					overflow:visible;
+					@include background-image(linear-gradient(top, #fff, #D9D9D9));	
+					@include border-radius(0);
+					border-top:$border;
+					border-bottom:$border !important; //jquery-ui style has important on it :(
+					border-right:1px solid #fff;
+					border-left:$border;
+					margin:0;
+					&.ui-state-active{
+						background:#fff;
+						border-bottom:none !important; //jquery-ui style has important on it :(
+						&.first, &.last{
+							@include border-bottom-left-radius(0px);
+							@include border-bottom-right-radius(0px);
+						}
+						a.tab-nav-link{
+							padding-bottom:6px;
+							&:focus, span:focus{
+								outline:none;
+								box-shadow:none;
+								-webkit-box-shadow: none;
+							}
+
+						}
+					}
+					&.first{
+						@include border-top-left-radius(4px);
+						@include border-bottom-left-radius(4px);
+						border-left:$border;
+					}
+					&.last{					
+						@include border-top-right-radius(4px);
+						@include border-bottom-right-radius(4px);
+						border-right:$border;
+					}
+					a.tab-nav-link{
+						color:$color-text;
+						font-weight:bold;				
+						padding: 5px 28px 5px 8px;	
+						line-height:17px;
+						display:block;
+						.ui-no-icon{
+							display:block;
+							float:left;
+							margin-right:5px;
+							width:16px;
+							height:16px;
+						}
+						.title{
+							padding-left:4px;
+							display:inline-block;
+						}
+					}
+				}
+			}
+		}
+		.batch-check{
+			position:absolute;
+			float:left;
+			margin:7px 5px 3px 10px;
+		}
+		.ui-icon{
+			display:block;
+			float:left; 
+			margin-right:5px;
+		}
+	}
+
+	.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
+		display:block;
+		clear:both;
+		background:#fff;
+		@include clearfix;
+		position:absolute;
+		top:29px;
+		border:$border;
+		border-top:none;
+		width:200px;
+		z-index:1;
+		padding:10px;
+		@include tightSpacing;
+		margin:0;
+		left:-1px;
+
+		.chzn-container-single .chzn-single{
+			padding: 0 0 0 5px;
+			float:none;
+		}
+	}
+	.last .ui-tabs-panel.ss-ui-action-tab{
+		right:-1px;
+		left:auto;
+	}
+
+	/** 
+	 * CMS Batch actions
+	 */
+/*	.cms-content-batchactions {
+		float: left;
+		position:  relative;
+		display: block;
+		margin-left: 8px;
+
+		.view-mode-batchactions-wrapper {
+			float: left;
+			padding: 4px 6px;
+			border: 1px solid #aaa;
+			margin-bottom: 8px;
+			@include background-image(linear-gradient(top, #fff, #D9D9D9));
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px;	
+
+			label {
+				display: none;
+			}
+
+			fieldset, .Actions {
+				display: inline-block;
+			}
+		}
+
+			&.inactive .view-mode-batchactions-wrapper {
+				border-radius: 4px;		
+
+				label {
+					display: inline;
+				}
+			}
+		
+		form > * {
+			display: block;
+			float: left;
+		}
+		
+		form.cms-batch-actions {
+			float:  left;
+		}
+
+		&.inactive form {
+			display: none;
+		}
+
+		.chzn-container-single .chzn-single {
+			margin-left: -1px;
+			border-radius: 0;
+			@include background-image(linear-gradient(top, #fff, #D9D9D9));
+		}
+
+		.cms-batch-actions .Actions .ss-ui-button {
+			margin-left: -1px;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+
+			&.ui-state-disabled {
+				opacity: 1;
+				color: #ccc;
+			}
+		}
+	}
+
+	#Form_BatchActionsForm select {
+		width: 200px;
+	} */
+
+
+}

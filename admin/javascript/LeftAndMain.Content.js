@@ -14,10 +14,9 @@
 				var self = this;
 				
 				// Force initialization of certain UI elements to avoid layout glitches
-				this.find('.cms-tabset').redrawTabs();
-				this.find('.ss-ui-tabs-nav').redraw();
-				
+				this.find('.cms-tabset').redrawTabs();			
 				this._super();
+
 			},
 
 			redraw: function() {
@@ -26,7 +25,7 @@
 				// Force initialization of certain UI elements to avoid layout glitches
 				this.add(this.find('.cms-tabset')).redrawTabs();
 				this.find('.cms-content-header').redraw();
-				this.find('.cms-content-actions').redraw();
+				this.find('.cms-content-actions').redraw();				
 			}
 		});
 
