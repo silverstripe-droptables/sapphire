@@ -9,7 +9,7 @@
 	<ul class="cms-preview-states">
 		<% loop Items %>
 			<li class="<% if isActive %> active<% end_if %>">$HTML
-				<% if Watermark %><span class="cms-preview-watermark">$Watermark</span><% end_if %>
+				<!-- <% if Watermark %><span class="cms-preview-watermark">$Watermark</span><% end_if %> not needed -->
 			</li>
 		<% end_loop %>
 	</ul>

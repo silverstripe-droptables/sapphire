@@ -52,18 +52,33 @@
 						contentWidth = right - left - menuWidth;
 						previewWidth = right - left - menuWidth;
 						previewUnderlay = true;
+						$('#cms-menu.cms-panel').removeClass('collapsed');
 
 						if (contentWidth < 820) {
 							menuWidth = minMenuWidth;
 							contentWidth = right - left - menuWidth;
 							previewWidth = right - left - menuWidth;
+							$('#cms-menu.cms-panel').addClass('collapsed');
+						} else {
+							$('#cms-menu.cms-panel').removeClass('collapsed');
+						}
+					} else {
+						$('#cms-menu.cms-panel').addClass('collapsed');
+						console.log('previewWidth > minPreviewWidth');
+						if (contentWidth < 820) {
+							$('#cms-menu.cms-panel').removeClass('collapsed');
+						} else {
+							$('#cms-menu.cms-panel').addClass('collapsed');
 						}
 					}
 				}
 
-				else if (previewWidth > 820) {
+				else if (previewWidth > 500) {
 					contentWidth = (right - left - menuWidth) / 2;
 					previewWidth = right - left - (menuWidth + contentWidth);
+					$('#cms-menu.cms-panel').removeClass('collapsed');
+				} else {
+					console.log('shouldnt get here');
 				}
 			}
 

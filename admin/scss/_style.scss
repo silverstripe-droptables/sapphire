@@ -603,7 +603,7 @@ body.cms {
  		}
 
 		div {
-			background:url(../images/btn-icon/settings.png) 5px 4px no-repeat;
+			/*background:url(../images/btn-icon/settings.png) 5px 4px no-repeat;*/
 			border-left:none;
 			width:100%;
 		}
@@ -625,7 +625,6 @@ body.cms {
 	background-color: #F1F4F5;
 	background: $tab-panel-texture-background; // Pages bg panel look like same as pages view
 	width: $grid-x * 24;
-	border-right: 1px solid darken($color-widget-bg, 15%);
 	overflow-y: auto;	
 	overflow-x: hidden;
 	z-index: 70;
@@ -861,6 +860,7 @@ select.preview-dropdown {
 }
 
 .cms-preview {
+	background: #FFF url(../images/preview.png) no-repeat center center;
 
 	.cms-preview-toggle {
 		width: 10px;
@@ -881,7 +881,6 @@ select.preview-dropdown {
 			
 			@include border-bottom-right-radius(4px);
 			@include border-top-right-radius(4px);
-			
 			@include box-shadow(0 0 10px rgba(180, 180,180,0.4));
 		}
 	}
@@ -899,7 +898,7 @@ select.preview-dropdown {
 		height: 100%;
 	}
 
-	.cms-preview-watermark {
+	/*.cms-preview-watermark { Watermark removed for side-by-side
 		z-index: 99;
 		position: fixed;
 		right: 60px;
@@ -915,13 +914,16 @@ select.preview-dropdown {
 		border-radius:12px;
 		background-color: white;
 		text-shadow: lighten($color-tab, 5%) 0 1px 0;
-	}
+		display: none;
+	}*/
 	
 	.cms-preview-controls {
 		z-index: 1;
 		background: $color-widget-bg;
 		padding: 10px;
 		min-height: 30px;
+		box-shadow: 0 -1px 1px #CCCCCC;
+		border-top: 1px solid #FAFAFA;
 		
 		.cms-navigator {
 			width: 100%;
@@ -944,8 +946,8 @@ select.preview-dropdown {
 		a.disabled {
 			padding:.4em 1em;
 			color: lighten($color-text-dark, 20%);
-			border: 1px solid;
-			border-color: darken($color-button-disabled, 20%);
+			/*border: 1px solid;
+			border-color: darken($color-button-disabled, 20%);*/
 			border-radius:12px;
 			cursor: default;
 			background:$color-base;
@@ -1070,7 +1072,7 @@ form.member-profile-form {
 
 .cms {
 	.cms-content {
-		@include box-shadow(0 0 10px rgba(0,0,0,0.5));
+		@include box-shadow(1px 0 0 #BBB);
 		@include border-radius(0);
 		background: $tab-panel-texture-background;
 		width: 800px;
@@ -1284,7 +1286,7 @@ form.member-profile-form {
 
 .cms {
 	.cms-panel-padded {
-		padding: $grid-y*2 $grid-x*2;
+		padding: $grid-y $grid-x*2 $grid-y*2;
 		margin:0;
 	}
 }
