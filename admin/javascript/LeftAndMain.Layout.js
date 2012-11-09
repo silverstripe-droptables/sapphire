@@ -7,6 +7,8 @@
 	$.fn.layout.defaults.resize = false;
 
 	var minMenuWidth = 40;
+	var maxMenuWidth = 150;
+	var prefContentWidth = 820;
 	var prefPreviewWidth = 500;
 	var minPreviewWidth = 400;
 
@@ -25,50 +27,24 @@
 				left = insets.left,
 				right = size.width - insets.right;
 
-			if (contentHidden) {
-				var menuWidth = 150;
-				var contentWidth = 0
-				var previewWidth = right - left - (menuWidth + contentWidth);
+			var menuWidth = $('#cms-menu.cms-panel').hasClass('collapsed') ? minMenuWidth : maxMenuWidth;
+			var contentWidth = contentHidden ? 0 : prefContentWidth;
+			var previewWidth = right - left - (menuWidth + contentWidth);
 
-				// If preview width is less than the minimum size, take some off the menu
-				if (previewWidth < prefPreviewWidth) {
-					menuWidth = minMenuWidth;
-					previewWidth = right - left - (menuWidth + contentWidth);
-				}
-			}
-			else {
-				var menuWidth = 150;
-				var contentWidth = 820;
+			if (!contentHidden) {
 				var previewWidth = right - left - (menuWidth + contentWidth);
 				var previewUnderlay = false;
 
 				// If preview width is less than the minimum size, take some off the menu
 				if (previewWidth < prefPreviewWidth) {
-					menuWidth = minMenuWidth;
-					previewWidth = right - left - (menuWidth + contentWidth);
-
 					if (previewWidth < minPreviewWidth) {
-						menuWidth = 150;
 						contentWidth = right - left - menuWidth;
 						previewWidth = right - left - menuWidth;
 						previewUnderlay = true;
-						$('#cms-menu.cms-panel').removeClass('collapsed');
 
-						if (contentWidth < 820) {
-							menuWidth = minMenuWidth;
+						if (contentWidth < prefContentWidth) {
 							contentWidth = right - left - menuWidth;
 							previewWidth = right - left - menuWidth;
-							$('#cms-menu.cms-panel').addClass('collapsed');
-						} else {
-							$('#cms-menu.cms-panel').removeClass('collapsed');
-						}
-					} else {
-						$('#cms-menu.cms-panel').addClass('collapsed');
-						console.log('previewWidth > minPreviewWidth');
-						if (contentWidth < 820) {
-							$('#cms-menu.cms-panel').removeClass('collapsed');
-						} else {
-							$('#cms-menu.cms-panel').addClass('collapsed');
 						}
 					}
 				}
@@ -76,9 +52,6 @@
 				else if (previewWidth > 500) {
 					contentWidth = (right - left - menuWidth) / 2;
 					previewWidth = right - left - (menuWidth + contentWidth);
-					$('#cms-menu.cms-panel').removeClass('collapsed');
-				} else {
-					console.log('shouldnt get here');
 				}
 			}
 

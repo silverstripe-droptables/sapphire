@@ -1024,6 +1024,7 @@ form.member-profile-form {
 			
 			&.toggle-expand {
 				width: 40px; // will set the collapsed width
+				display: none;
 			}
 		}
 	}
@@ -1042,6 +1043,14 @@ form.member-profile-form {
 		}
 		
 		.cms-panel-content {
+			display: none;
+		}
+
+		.cms-panel-toggle a.toggle-expand {
+			display: block;
+		}
+
+		.cms-panel-toggle a.toggle-collapse {
 			display: none;
 		}
 		
