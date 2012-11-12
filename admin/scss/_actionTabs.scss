@@ -12,19 +12,50 @@ $border: 1px solid darken(#D9D9D9, 15%);
 
 .cms {	
 	.ss-ui-action-tabset.ss-tabset{
-		/*	> li{ //Needs to nbe specific to bottom drop-up
-			background:none;
-			border:none;
-			a{
-				color: $color-text-blue-link;
-			}
-		}	*/	
 		position:relative;
 		float:left;
-		/* Style the "tabs" navigation*/
-		ul.ui-tabs-nav{	
-
-			&.multi{ /*styling for multiple tabs*/
+		&.single{ 
+			ul.ui-tabs-nav{		
+				background:none;
+				border:none;
+				display:inline;
+				padding:0;
+				float:left;
+				li{
+					display:inline;
+					background:none;
+					border:none;
+					padding:0;
+					&:hover, &:focus, &:active{
+						@include box-shadow(none);
+						outline:none;
+					}
+					a{
+						color: $color-text-blue-link;
+						@include text-shadow(#fff 0 1px 1px);
+						padding:0 0 0 10px;
+						line-height:30px;
+						min-width:176px;
+						&:after{
+							margin-left:10px;
+							content:"";
+							display:inline-block;
+							width: 0; 
+							height: 0; 
+							border-left: 4px solid transparent;
+							border-right: 4px solid transparent;							
+							border-bottom: 4px solid $color-text-blue-link;
+						}
+						&:hover, &:focus, &:active{
+							@include box-shadow(none);
+							outline:none;
+						}
+					}					
+				}
+			}
+		}			
+		&.multi{ /*Style the "tabs" navigation for multiple tabs*/
+			ul.ui-tabs-nav{				
 				@include clearfix;			
 				padding:0;			
 				overflow:visible;
@@ -132,13 +163,75 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		left:auto;
 	}
 
+
+	/**********************
+	Styles for pop-up tabs in bottom panel
+	************************/
+	.south .Actions{
+		overflow:visible; //put this somewhere else/more generic
+		.rise-up.ss-ui-action-tabset{
+			.ui-tabs-panel{
+				@include clearfix;
+				@include border-top-radius(3px);
+				@include border-bottom-radius(0);
+				@include box-shadow(0 -1px 2px 1px lighten(#cccccc,5%));
+				@include tightSpacing;
+				background:#f0f3f4 url(../images/textures/bg_cms_main_content.png) repeat top left;
+				border:1px solid #FAFAFA;
+				border-left:none;
+				border-bottom-color:#f0f3f4;
+				clear:both;
+				display:block;
+				position:absolute;
+				top:-204px;
+				width:auto;
+				max-width:200px;
+				z-index:1;
+				padding:10px;				
+				margin:0;
+				margin-top:1px;
+				left:-1px;
+				.chzn-container-single .chzn-single{
+					padding: 0 0 0 5px;
+					float:none;
+				}
+				button.ss-ui-button{
+					background:none;
+					border:none;
+					display:inline;
+					padding:0;
+					margin:0;
+					outline:none;
+					color: $color-text-blue-link;
+					@include text-shadow(#fff 0 1px 1px);
+					&.ss-ui-action-destructive{
+						color: $color-error;
+					}
+					span{
+						padding-left:0;
+						padding-right:0;
+					}
+					&:hover, &:focus, &:active{
+						@include box-shadow(none);
+						outline:none;
+					}
+
+				}
+			}
+			.last .ui-tabs-panel.ss-ui-action-tab{
+				right:-1px;
+				left:auto;
+			}
+		}
+	}
+
 	/* Styles for the cms-actions in tree view, to use more limited space.
 	Title hidden in tree view, until hover/active state added. Active is applied 
 	to the first tab within the template, so there should always be one title 
 	visible. Added and removed with js in TabSet.js  */
 	.cms-tree-view-sidebar{
-		.ss-ui-action-tabset.ss-tabset{
-			ul.ui-tabs-nav.multi{
+		.ss-ui-action-tabset.ss-tabset.multi{
+			ul.ui-tabs-nav{
 				>li{					
 					a.tab-nav-link{
 						width:30px;
