@@ -198,12 +198,11 @@
 			}
 		});
 		
+		// Can be removed once switch is in use
 		$('.cms-preview .cms-preview-states').entwine({
 			onmatch: function() {
 				this.find('a').addClass('disabled');
 				this.find('.active a').removeClass('disabled');
-				this.find('.cms-preview-watermark').show();
-				this.find('.active .cms-preview-watermark').hide();
 				this._super();
 			},
 			onunmatch: function() {
@@ -211,18 +210,24 @@
 			}
 		});
 
+		// Can be removed once switch is in use
 		$('.cms-preview .cms-preview-states a').entwine({
 			onclick: function(e) {
 				e.preventDefault();
 				this.parents('.cms-preview').loadUrl(this.attr('href'));
 				this.addClass('disabled');
 				this.parents('.cms-preview-states').find('a').not(this).removeClass('disabled');
-				//This hides all watermarks
-				this.parents('.cms-preview-states').find('.cms-preview-watermark').hide();
-				//Show the watermark for the current state
-				this.siblings('.cms-preview-watermark').show();
 			}
 		});
+
+		// Preview selector
+		$('.preview-selector .preview-size-selected').entwine({
+			onclick: function(e) {
+				e.preventDefault();
+				this.parents('.preview-selector').toggleClass('active');
+			}
+		});
+
 
 		$('#cms-preview-state-dropdown').entwine({
 			onchange: function(e) {
