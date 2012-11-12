@@ -6,7 +6,7 @@
 		$('.ss-tabset').entwine({
 
 			/*Custom functionality for special action tabsets*/
-			action_tabs: function(){
+			actionTabs: function(){
 				this.tabs(
 					'option', 
 					'collapsible',
@@ -14,7 +14,7 @@
 				).tabs('select', false);
 				
 				//Check if tabs should open upwards, and adjust
-				this.rise_up();
+				this.riseUp();
 					
 				//Apply special behaviour to the cms actions row				
 				if(this.hasClass('cms-actions-row')){
@@ -64,7 +64,7 @@
 				if(this.data('uiTabs')) this.tabs('destroy');
 				this._super();
 			},
-			rise_up: function(){
+			riseUp: function(){
 				/* Function checks to see if a tab should be opened upwards 
 				(based on space concerns. If true, the rise-up class is applied 
 				and the position is calculated and applied to the element */
@@ -104,7 +104,7 @@
 				
 				//Apply special behaviour to action tabs: closed by default, and collapsible
 				if(this.hasClass('ss-ui-action-tabset')){				
-					this.action_tabs();
+					this.actionTabs();
 				}
 			},
 		
