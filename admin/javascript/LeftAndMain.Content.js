@@ -14,7 +14,7 @@
 				var self = this;
 				
 				// Force initialization of certain UI elements to avoid layout glitches
-				this.find('.cms-tabset').redrawTabs();			
+				this.find('.cms-tabset').redrawTabs();
 				this._super();
 
 			},
