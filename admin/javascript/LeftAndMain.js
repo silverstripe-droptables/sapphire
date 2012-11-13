@@ -927,11 +927,11 @@ jQuery.noConflict();
 			},
 			redrawTabs: function() {
 				this.rewriteHashlinks();
-
+				
 				var id = this.attr('id'), selectedTab = this.find('ul:first .ui-tabs-active');
 
 				if(!this.data('tabs')) this.tabs({
-					selected: (selectedTab.index() != -1) ? selectedTab.index() : 0,
+					active: (selectedTab.index() != -1) ? selectedTab.index() : 0,
 					beforeLoad: function(e, settings) {
 						// Overwrite ajax loading to use CMS logic instead
 						var makeAbs = $.path.makeUrlAbsolute,
@@ -939,19 +939,26 @@ jQuery.noConflict();
 							isSame = (makeAbs(settings.url, baseUrl) == makeAbs(document.location.href));
 
 						if(!isSame) $('.cms-container').loadPanel(settings.url);
-						$(this).tabs('select', settings.tab.index());
+						$(this).tabs('option', 'active', settings.tab.index());
 
 						return false;
 					},
-					show: function(e, ui) {
+					activate: function(e, ui) {
 						// Usability: Hide actions for "readonly" tabs (which don't contain any editable fields)
 						var actions = $(this).closest('form').find('.Actions');
-						if($(ui.tab).closest('li').hasClass('readonly')) {
+						if($(ui.newTab).closest('li').hasClass('readonly')) {
 							actions.fadeOut();
 						} else {
 							actions.show();
 						}
-					}
+					},
+					create: function(event, ui){
+						$('#tree_actions').detach().appendTo(ui.panel.find('.cms-content-toolbar'));
+					},
+					beforeActivate:function(event, ui){	
+						$('#tree_actions').detach().appendTo(ui.newPanel.find('.cms-content-toolbar'));
+					}			
+							
 				});
 			},
 		
