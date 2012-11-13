@@ -585,6 +585,7 @@ body.cms {
 	min-height: 29px;
 	display: block;
 	margin: 0 0 15px 0;
+	padding-bottom:7px;
 	
 	@include doubleborder(bottom, $color-light-separator, lighten($color-light-separator, 50%));
 	@include legacy-pie-clearfix();
