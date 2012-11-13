@@ -44,11 +44,16 @@
 	<div class="onoffswitch cms-preview-states">
 	    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
 	    <label class="onoffswitch-label" for="myonoffswitch">
-		    <div class="onoffswitch-inner">
-		    	<div class="first onoffswitch-link">Draft site</div>
-		    	<div class="onoffswitch-link">Published site</div>
-		    </div>
-		    <div class="onoffswitch-switch"></div>
+		    <span class="onoffswitch-inner">
+		    	<!-- <div class="first onoffswitch-link">Draft site</div>
+		    	<div class="onoffswitch-link">Published site</div> -->
+		    	<% loop Items %>
+		    	<span class="onoffswitch-link<% if isActive %> active<% end_if %>">
+		    	$HTML				
+				</span>
+				<% end_loop %>
+		    </span>
+		    <span class="onoffswitch-switch"></span>
 	    </label>
     </div> 
 

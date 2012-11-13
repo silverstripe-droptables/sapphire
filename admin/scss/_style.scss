@@ -926,6 +926,7 @@ select.preview-dropdown {
 		   		box-shadow:         inset 0 0 2px darken(#287099,20%);
 		    }
 		    .onoffswitch-inner {
+		    	display:block;
 		    	width: 200%; 
 		    	margin-left: -100%;
 		    	-moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
@@ -953,9 +954,13 @@ select.preview-dropdown {
 				    	padding-left: 8px;
 				    	padding-right: 0;
 			    	}
+			    	a{
+			    		color:#fff;
+			    	}
 		    	}
 			}
 		    .onoffswitch-switch {
+		    	display:block;
 			    width: 8px; 
 			    margin: 0px;
 			    background: #FFFFFF;
