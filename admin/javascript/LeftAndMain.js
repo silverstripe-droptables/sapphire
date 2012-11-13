@@ -958,10 +958,16 @@ jQuery.noConflict();
 						}
 					},
 					create: function(event, ui){
-						$('#tree_actions').detach().appendTo(ui.panel.find('.cms-content-toolbar'));
+						var panel = ui.panel.find('.cms-content-toolbar');
+						if(panel.length > 0){
+							$('#tree_actions').detach().appendTo(panel);
+						}
 					},
 					beforeActivate:function(event, ui){	
-						$('#tree_actions').detach().appendTo(ui.newPanel.find('.cms-content-toolbar'));
+						var panel = ui.newPanel.find('.cms-content-toolbar');
+						if(panel.length > 0){
+							$('#tree_actions').detach().appendTo(panel);
+						}						
 					}			
 							
 				});
