@@ -220,15 +220,6 @@
 			}
 		});
 
-		// Preview selector
-		$('.preview-selector .preview-size-selected').entwine({
-			onclick: function(e) {
-				e.preventDefault();
-				this.parents('.preview-selector').toggleClass('active');
-			}
-		});
-
-
 		$('#cms-preview-state-dropdown').entwine({
 			onchange: function(e) {
 				e.preventDefault();
@@ -243,6 +234,26 @@
 				content.parent().redraw();
 			}
 		});
+
+
+		// Preview selectors (screen size, screen mode)
+		$('.preview-selector .preview-selected').entwine({
+			onclick: function(e) {
+				e.preventDefault();
+				this.parents('.preview-selector').toggleClass('active');
+			}
+		});
+		$(".preview-selector .preview-size-menu li").entwine({
+			onclick: function(e) {
+				var text = $(this).html();
+				this.parents('.preview-selector').removeClass('active').find('.preview-selected').html(text);
+				this.siblings().removeClass('active');
+				this.addClass('active');
+			}
+		}); 
+
+
+		
 
 		$('.cms-edit-form').entwine({
 			/**

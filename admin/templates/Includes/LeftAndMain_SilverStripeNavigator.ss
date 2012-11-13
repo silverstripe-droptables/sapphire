@@ -1,12 +1,14 @@
 <div class="cms-navigator">
 	<ul class="preview-selector">
 	    <li>
-	        <a href="#" class="preview-size-selected icon-split">	<!-- Selected -->
+	        <span class="preview-selected">
+	        	<a href="" class="icon-split">	
 	        	<% _t('SilverStripeNavigator.SplitView', 'Split mode') %>
-	        </a>
+	        	</a>
+	    	</span> 
 	        <ul class="preview-size-menu">
-	            <li>
-					<a class="icon-split active" href="">Split mode</a> 
+	            <li class="active">
+					<a class="icon-split" href="">Split mode</a> 
 				</li>
 				<li>
 					<a class="icon-preview" href="">Preview mode</a> 
@@ -15,7 +17,7 @@
 					<a class="icon-edit" href="">Edit mode</a> 
 				</li>
 				<li class="last">
-					<a class="icon-window" href="">New window</a> 
+					<a class="icon-window" href="">Dual window</a> 
 				</li>
 	        </ul>
 	    </li>
@@ -23,10 +25,12 @@
 
 	<ul class="preview-selector double-label">
 	    <li>
-	        <a href="#" class="preview-size-selected icon-auto">Auto</a><!-- Selected -->
+	        <span class="preview-selected">
+	        	<a href="" class="icon-auto">Auto <span>Responsive</span></a>
+	        </span>
 	        <ul class="preview-size-menu">
-	            <li>
-					<a class="icon-auto active" href="">Auto <span>Responsive</span></a> 
+	            <li class="active">
+					<a class="icon-auto" href="">Auto <span>Responsive</span></a> 
 				</li>
 				<li>
 					<a class="icon-desktop" href="">Desktop <span>1024px width</span></a> 
@@ -48,8 +52,8 @@
 		    	<!-- <div class="first onoffswitch-link">Draft site</div>
 		    	<div class="onoffswitch-link">Published site</div> -->
 		    	<% loop Items %>
-		    	<span class="onoffswitch-link<% if isActive %> active<% end_if %>">
-		    	$HTML				
+		    	<span class="onoffswitch-link $FirstLast <% if isActive %> active<% end_if %>">
+		    		$HTML				
 				</span>
 				<% end_loop %>
 		    </span>

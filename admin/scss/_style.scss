@@ -69,7 +69,8 @@ body.cms {
  * -------------------------------------------- */
 .cms-container {
 	height: 100%;
-	background: $tab-panel-texture-background;
+	/*background: $tab-panel-texture-background;*/
+	background: $tab-panel-texture-color;
 }
 
 .cms-preview,
@@ -312,7 +313,8 @@ body.cms {
 	.ui-state-active {
 		@include box-shadow(none);
 		background: darken($color-widget-bg, 2%);
-		background: $tab-panel-texture-background;
+		background: $tab-panel-texture-color;
+		/*background: $tab-panel-texture-background;*/
 		border-top: none;
 		border: {
 			right-color: darken($color-tab, 15%); // same color as divider between header and body, needed for IE
@@ -415,7 +417,8 @@ body.cms {
 	z-index: 0;
 	border-top: 1px solid $color-light-separator;
 	border-top: 1px solid #FAFAFA;
-	@include box-shadow(#CCC 0 -1px 1px);
+	@include box-shadow(#CCC 0 -1px 1px, 1px 0 0 $tab-panel-texture-color);
+	height: 28px;
 }
 
 
@@ -608,8 +611,9 @@ body.cms {
  * panel
  */
 .cms-content-tools {
-	background-color: #F1F4F5;
-	background: $tab-panel-texture-background; // Pages bg panel look like same as pages view
+	/*background-color: #F1F4F5;*/
+	background: $tab-panel-texture-color;
+	/*background: $tab-panel-texture-background;*/ // Pages bg panel look like same as pages view
 	width: $grid-x * 24;
 	overflow-y: auto;	
 	overflow-x: hidden;
@@ -717,7 +721,7 @@ select.preview-dropdown {
 .cms-preview {
 	background: #FFF url(../images/preview.png) no-repeat center center;
 
-	.cms-preview-toggle {
+/*	.cms-preview-toggle {
 		width: 10px;
 		cursor: pointer;
 		
@@ -738,7 +742,7 @@ select.preview-dropdown {
 			@include border-top-right-radius(4px);
 			@include box-shadow(0 0 10px rgba(180, 180,180,0.4));
 		}
-	}
+	}*/
 	
 	&.is-collapsed {
 		.cms-preview-toggle {
@@ -780,14 +784,19 @@ select.preview-dropdown {
 					position: relative;
 					float: right;
 					margin: 1px 0 0;
+					.preview-selected span {
+						display: none;
+					}
 					a {
 						padding: 6px 6px 6px 30px;
 						width: 0px;
-						text-indent: -99px;
-						background-color: #FFF;
-						background-image: url(../images/preview_icons.png);
-						background-repeat: no-repeat;
+						text-indent: 299px;
 						overflow: hidden;
+						background: {
+							color: #FFF;
+							image: url(../images/preview_icons.png);
+							repeat: no-repeat;
+						}
 						&.icon-auto {
 							background-position: -3px -246px;
 						}
@@ -798,35 +807,40 @@ select.preview-dropdown {
 							background-position: -3px -33px;
 						}
 						&.icon-mobile {
-							background-position: -3px 7px;
+							background-position: -3px -1px;
 						}
 						&.icon-split {
 							background-position: -3px -214px;
 						}
 						&.icon-edit {
-							background-position: -3px -186px;
+							background-position: -3px -184px;
 						}
 						&.icon-preview {
-							background-position: -3px -156px;
+							background-position: -3px -154px;
 						}
 						&.icon-window {
-							background-position: -3px -126px;
+							background-position: -3px -124px;
 						}
 						&:hover {
-							background-color: #eee;
+							background-color: lighten($color-widget-bg,2%);
 							text-decoration: none;
 						}
 					}
 					li {
 						border: none;
 						margin: 0;
+						cursor: pointer;		/* Created only for testing */
 						a {
 							display: block;
 							line-height: 18px;
 							height: auto;
-							border-bottom: 1px solid #ddd;
+							border-bottom: 1px solid $color-light-separator;
 							width: 90px;
 							text-indent: 0;
+
+							pointer-events: none; 	/* Disabled only for testing */
+							cursor: pointer;		/* Created only for testing */
+
 							
 							&.icon-auto {
 								background-position: -3px -242px;
@@ -852,25 +866,29 @@ select.preview-dropdown {
 							&.icon-window {
 								background-position: -3px -122px;
 							}
-							&.active {
-								background-color: lighten(#CED7DC,10%);
-							}
+							
 						}
 						&.last a {
 							border-bottom: none;
 						}
+						&.active a {
+							background-color: $color-widget-bg;
+						}
 					}
-					a.preview-size-selected {
-						display: block;
-						background-color: transparent;
-						padding-right: 0;
+					.preview-selected {
+						a {
+							display: block;
+							height: 16px;
+							background-color: transparent;
+							padding-right: 0;
+						}
 					}
 					
 					.preview-size-menu {
 						display: none;
-						border-radius: 4px 4px 0 4px;
-						border: 1px solid #ccc;
-						background-color: #fff;
+						@include border-radius(4px 4px 0 4px);
+						border: 1px solid $color-light-separator;
+						background-color: #FFF;
 						overflow: hidden;
 						position: absolute;
 						right: 0px;
@@ -882,9 +900,9 @@ select.preview-dropdown {
 						display: block;
 					}
 				}
-				li:hover a.preview-size-selected, &.active a.preview-size-selected {
-					border-radius: 0 0 4px 4px;
-					background-color: #CED7DC;
+				li:hover .preview-selected a, &.active .preview-selected a {
+					background-color: darken($color-widget-bg,6%);
+					@include border-radius(0 0 4px 4px);
 				}
 			}
 
@@ -894,7 +912,7 @@ select.preview-dropdown {
 					line-height: 12px;
 					padding: 5px 6px 5px 30px;
 					span {
-						color: #999;
+						color: lighten($color-text,10%);
 						font-size: 10px;
 						display: block;
 					}
@@ -909,8 +927,9 @@ select.preview-dropdown {
 		    	float: right;
 		    	margin-top: 2px;
 		    	margin-right: 7px;
-		    	position: relative; width: 100px;
-		    	-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+		    	position: relative; 
+		    	width: 100px;
+		    	-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;
 		    }
 		    .onoffswitch-checkbox {
 		    	display: none;
@@ -919,11 +938,8 @@ select.preview-dropdown {
 		    	display: block; 
 		    	overflow: hidden; 
 		    	cursor: pointer;
-		    	border: 1px solid #287099; 
-		    	border-radius: 3px;
-		    	-moz-box-shadow:    inset 0 0 2px darken(#287099,20%);
-		   		-webkit-box-shadow: inset 0 0 2px darken(#287099,20%);
-		   		box-shadow:         inset 0 0 2px darken(#287099,20%);
+		    	border: 1px solid darken($color-menu-button, 15%);
+		    	@include border-radius(3px);
 		    }
 		    .onoffswitch-inner {
 		    	display:block;
@@ -933,29 +949,32 @@ select.preview-dropdown {
 		    	-o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
 
 			    .onoffswitch-link {
-			    	background-color: #F8F8F8; color: #666666;
 			    	text-align: right;
 			    	width: 50%; 
 			    	float: left; 
 			    	display: block;
+			    	padding: 0 6px 0 0; 
 			    	height: 24px; 
-				    padding: 0; 
 				    line-height: 24px;
-				    color: #FFFFFF;
-				    background-image: linear-gradient(#287099, #338DC1);
-				    padding-right: 8px;
+				    color: #FFF;
+				    background-color: $color-menu-button; 
+				    @include background-image(linear-gradient(
+						darken($color-menu-button, 10%),
+						$color-menu-button 
+					));
+					@include box-shadow(darken($color-menu-button, 15%) 0 0 2px inset);
 			    	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-			    	-moz-box-shadow:    inset 0 0 2px darken(#287099,10%);
-			   		-webkit-box-shadow: inset 0 0 2px darken(#287099,10%);
-			   		box-shadow:         inset 0 0 2px darken(#287099,10%);
-				    &.first {
-				    	padding-right: 0;
+				    
+				    &.first a, &:first-child {
 				    	text-align: left;
 				    	padding-left: 8px;
 				    	padding-right: 0;
 			    	}
 			    	a{
 			    		color:#fff;
+			    		&:hover {
+			    			text-decoration: none;
+			    		}
 			    	}
 		    	}
 			}
@@ -963,19 +982,20 @@ select.preview-dropdown {
 		    	display:block;
 			    width: 8px; 
 			    margin: 0px;
-			    background: #FFFFFF;
-			    border: 1px solid #C0C0C2; 
-			    border-radius: 3px;
 			    position: absolute; 
 			    top: 0; 
 			    bottom: 0; 
 			    right: 90px;
-			    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+			    border: 1px solid lighten($color-medium-separator,10%); 
+			    @include box-shadow(#FFF 0 0 2px inset);
+			    @include border-radius(3px);
+			    background: $color-widget-bg;
+			    @include background-image(linear-gradient(
+					rgba(0,0,0,0.2) 0%,
+					rgba(0,0,0,0) 100%
+				));
+				-moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
 			    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
-			    background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-			    background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-			    background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-			    background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
 			}
 		    .onoffswitch-checkbox:checked + .onoffswitch-label {
 		    	.onoffswitch-inner {
@@ -1085,7 +1105,8 @@ form.member-profile-form {
 	.cms-content {
 		@include box-shadow(1px 0 0 #BBB);
 		@include border-radius(0);
-		background: $tab-panel-texture-background;
+		/*background: $tab-panel-texture-background;*/
+		background: $tab-panel-texture-color;
 		width: 800px;
 		z-index: 40;
 	}
