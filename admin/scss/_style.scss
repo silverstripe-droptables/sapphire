@@ -33,18 +33,7 @@ body.cms {
 	a {
 		color: $color-text-blue-link;
 		text-decoration: none;
-	
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
-	}
-	
-	body .ui-widget {
-		font-family: $font-family;
-		font-size: $font-base-size;
-	}
-	
+	}	
 	strong {
 		font-weight: bold;
 	}
@@ -54,15 +43,17 @@ body.cms {
  * Helpers
  * -------------------------------------------- */
 
-.cms-helper-hide-actions {
-	.Actions {
-		display: none;
-	}
-}
-
 .hide {
 	display: none;
 }
+
+.cms-helper-hide-actions {
+	.Actions {
+		@extend .hide;
+	}
+}
+
+
 
 /** --------------------------------------------
  * Panels Styles
