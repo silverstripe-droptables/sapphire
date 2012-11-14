@@ -1,5 +1,5 @@
 <div class="cms-navigator">
-	<ul class="preview-selector">
+	<ul class="preview-selector select-mode">
 	    <li>
 	        <span class="preview-selected">
 	        	<a href="" class="icon-split">	
@@ -23,7 +23,7 @@
 	    </li>
 	</ul>
 
-	<ul class="preview-selector double-label">
+	<ul class="preview-selector double-label select-size">
 	    <li>
 	        <span class="preview-selected">
 	        	<a href="" class="icon-auto">Auto <span>Responsive</span></a>
@@ -45,36 +45,34 @@
 	    </li>
 	</ul>
 
-	<div class="onoffswitch cms-preview-states">
-	    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-	    <label class="onoffswitch-label" for="myonoffswitch">
-		    <span class="onoffswitch-inner">
-		    	<!-- <div class="first onoffswitch-link">Draft site</div>
-		    	<div class="onoffswitch-link">Published site</div> -->
+	<div class="cms-preview-states">
+	    <input type="checkbox" name="cms-preview" class="hide cms-preview" id="cms-preview-state" checked>
+	    <label for="cms-preview-state">
+		    <span class="switch-options">
 		    	<% loop Items %>
-		    	<span class="onoffswitch-link $FirstLast <% if isActive %> active<% end_if %>">
-		    		$HTML				
-				</span>
+		    	<a href="$Link" class="$FirstLast <% if isActive %> active<% end_if %>">
+		    			$Title		
+				</a>
 				<% end_loop %>
 		    </span>
-		    <span class="onoffswitch-switch"></span>
+		    <span class="switch"></span>
 	    </label>
     </div> 
 
-    <!-- To remove -->
+    <!-- To remove 
     <span class="field dropdown">
-		<select id="cms-preview-state-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
+		<select id="cms-preview-mode-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
 			<option value="split"><% _t('SilverStripeNavigator.SplitView', 'Split mode') %></option>
 			<option value="preview"><% _t('SilverStripeNavigator.Preview View', 'Preview mode') %></option>
 		</select>
 	</span>
+	-->
 
-	<!-- To remove -->
+	<!-- To remove 
     <ul class="cms-preview-states">
 		<% loop Items %>
 			<li class="<% if isActive %> active<% end_if %>">$HTML
-				<!-- <% if Watermark %><span class="cms-preview-watermark">$Watermark</span><% end_if %> not needed -->
 			</li>
 		<% end_loop %>
-	</ul>
+	</ul>-->
 </div>

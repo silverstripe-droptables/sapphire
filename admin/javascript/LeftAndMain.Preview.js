@@ -120,7 +120,13 @@
 			},
 			
 			_fixIframeLinks: function() {
-				var doc = this.find('iframe')[0].contentDocument;
+				var iframe = this.find('iframe')[0];
+				if(iframe){
+					var doc = iframe.contentDocument;
+				}else{
+					return;
+				}
+		
 				if(!doc) return;
 
 				// Block outside links from going anywhere
@@ -192,35 +198,15 @@
 		
 		$('.cms-switch-view a').entwine({
 			onclick: function(e) {
+				console.log("here");
 				e.preventDefault();
 				var preview = $('.cms-preview');
 				preview.loadUrl($(e.target).attr('href'));
 			}
-		});
+		});	
 		
-		// Can be removed once switch is in use
-		$('.cms-preview .cms-preview-states').entwine({
-			onmatch: function() {
-				this.find('a').addClass('disabled');
-				this.find('.active a').removeClass('disabled');
-				this._super();
-			},
-			onunmatch: function() {
-				this._super();
-			}
-		});
 
-		// Can be removed once switch is in use
-		$('.cms-preview .cms-preview-states a').entwine({
-			onclick: function(e) {
-				e.preventDefault();
-				this.parents('.cms-preview').loadUrl(this.attr('href'));
-				this.addClass('disabled');
-				this.parents('.cms-preview-states').find('a').not(this).removeClass('disabled');
-			}
-		});
-
-		$('#cms-preview-state-dropdown').entwine({
+		$('#cms-preview-mode-dropdown').entwine({
 			onchange: function(e) {
 				e.preventDefault();
 
