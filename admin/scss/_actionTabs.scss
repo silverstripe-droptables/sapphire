@@ -15,12 +15,16 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		position:relative;
 		float:left;
 
+
 		/*Style the "tabs" navigation for multiple tabs*/
 		ul.ui-tabs-nav{				
 			@include clearfix;			
 			padding:0;			
 			overflow:visible;
 			float:left;	
+			height: 28px;
+			border:$border;
+			@include border-radius(3px);
 			&:focus{
 				outline:none;
 				box-shadow:none;
@@ -32,46 +36,53 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					box-shadow:none;
 					-webkit-box-shadow: none;
 				}
+				width: 110px;
 				overflow:visible;
 				background:none;
 				@include background-image(linear-gradient(top, #fff, #D9D9D9));	
+				
+				border-radius: none;
 				@include border-radius(0);
-				border-top:$border;
-				border-bottom:$border !important; //jquery-ui style has important on it
-				border-right:1px solid #fff;
-				border-left:$border;
+				/*border-bottom:$border !important; *///jquery-ui style has important on it
+				border: none;
+				border-right:1px solid #eee;
+				border-left: $border;
 				margin:0;
 				&.ui-state-active{
 					background:#fff;
 					border-bottom:none !important; //jquery-ui style has important on it
-					&.first, &.last{
+					@include border-bottom-left-radius(0px);
+					@include border-bottom-right-radius(0px);
+					
+					a {
 						@include border-bottom-left-radius(0px);
 						@include border-bottom-right-radius(0px);
-					}
-					a.tab-nav-link{
-						padding-bottom:6px;
-						&:focus, span:focus{
-							outline:none;
-							box-shadow:none;
-							-webkit-box-shadow: none;
+
+						.tab-nav-link{
+							padding-bottom:6px;
+							&:focus, span:focus{
+								outline:none;
+								box-shadow:none;
+								-webkit-box-shadow: none;
+							}
 						}
 					}
 				}
 				&.first{
-					@include border-top-left-radius(4px);
-					@include border-bottom-left-radius(4px);
-					border-left:$border;
+					@include border-top-left-radius(3px);
+					@include border-bottom-left-radius(3px);
+					border-left:none;
 				}
 				&.last{					
-					@include border-top-right-radius(4px);
-					@include border-bottom-right-radius(4px);
-					border-right:$border;
+					@include border-top-right-radius(3px);
+					@include border-bottom-right-radius(3px);
+					border-right:none;
 				}
 				a.tab-nav-link{
 					color:$color-text;
 					font-weight:bold;				
 					padding: 5px 28px 5px 8px;	
-					line-height:20px;
+					line-height:18px;
 					display:block;
 					.ui-no-icon{
 						display:block;
@@ -81,19 +92,32 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						height:16px;
 					}
 					.title{
-						padding-left:4px;
+						margin-left: 2px;
 						display:inline-block;
+						line-height: 16px;
+					}
+					&.view-mode-batchactions-wrapper .title {
+						margin-left: 25px;
 					}
 				}
 			}
 		}
+		&.tabset-open {
+			ul.ui-tabs-nav, 
+			ul.ui-tabs-nav li.first, 
+			ul.ui-tabs-nav li.last {
+				@include border-bottom-right-radius(0);
+				@include border-bottom-left-radius(0);
+			}
+		}
+		
 		.batch-check{ /*position a checkbox within a tab*/
 			position:absolute;
 			float:left;
 			top:0;
-			margin:0px 5px 0px 10px;
-			line-height:30px;
-			height:30px;
+			margin: 7px 5px 5px 10px;
+			line-height:18px;
+			height:13px;
 			display:block;
 		}
 		.ui-icon{
@@ -123,18 +147,8 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						color: $color-text-blue-link;
 						@include text-shadow(#fff 0 1px 1px);
 						padding:0 0 0 10px;
-						line-height:30px;
-						min-width:176px;
-						&:after{
-							margin-left:10px;
-							content:"";
-							display:inline-block;
-							width: 0; 
-							height: 0; 
-							border-left: 4px solid transparent;
-							border-right: 4px solid transparent;							
-							border-bottom: 4px solid $color-text-blue-link;
-						}
+						line-height:24px;
+
 						&:hover, &:focus, &:active{
 							@include box-shadow(none);
 							outline:none;							
@@ -158,18 +172,22 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			background:#fff;
 			@include clearfix;
 			position:absolute;
-			top:32px;
+			top:30px;
 			border:$border;
 			border-top:none;
-			width:204px;
+			width:202px;
 			z-index:1;
 			padding:10px;
 			@include tightSpacing;
 			margin:0;
-			left:-1px;
+			/*left:-1px;*/
 			.chzn-container-single .chzn-single{
 				padding: 0 0 0 5px;
 				float:none;
+			}
+			&.first {
+				left: 0 !important;
+				width: 203px;
 			}
 		}
 		.last .ss-ui-action-tab{
@@ -185,27 +203,46 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	.south .Actions{
 		overflow:visible; //put this somewhere else/more generic
 		.rise-up.ss-ui-action-tabset{
+			ul.ui-tabs-nav {
+				width: 220px;
+				li {
+					a.ui-tabs-anchor {
+						font-weight: normal;
+						font-size: 13px;
+						line-height: 24px;
+						padding-right: 25px;
+						background: transparent url(../images/link_arrows.png) no-repeat right -11px;
+						&:hover {
+							background-position: right -49px;
+						}				
+					}
+					&.ui-state-active a.ui-tabs-anchor {
+						background-position: right 9px;
+						&:hover {
+							background-position: right -29px;
+						}
+					}
+				}
+			}
 			.ui-tabs-panel{
 				@include clearfix;
 				@include border-top-radius(3px);
 				@include border-bottom-radius(0);
-				@include box-shadow(0 -1px 2px 1px lighten(#cccccc,5%));
+				/*@include box-shadow(0 -1px 1px 0 lighten(#cccccc,5%));*/
 				@include tightSpacing;
-				background:#f0f3f4 url(../images/textures/bg_cms_main_content.png) repeat top left;
-				border:1px solid #FAFAFA;
-				border-left:none;
-				border-bottom-color:#f0f3f4;
+				background-color: $tab-panel-texture-color;
+				border:1px solid #ccc;
+				border-bottom:1px solid $tab-panel-texture-color;
 				clear:both;
 				display:block;
 				position:absolute;
 				top:-204px;
-				width:auto;
-				max-width:200px;
+				width:170px;
 				z-index:1;
 				padding:10px;				
 				margin:0;
 				margin-top:1px;
-				left:-1px;
+				left:-77px;
 				.chzn-container-single .chzn-single{
 					padding: 0 0 0 5px;
 					float:none;
@@ -213,7 +250,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				button.ss-ui-button{
 					background:none;
 					border:none;
-					display:inline;
+					display:block;
 					padding:0;
 					margin:0;
 					outline:none;
@@ -232,7 +269,16 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						@include box-shadow(none);
 						outline:none;
 					}
-
+				}
+				.cms-sitetree-information {
+					border-bottom: 1px solid $color-light-separator;
+					margin-bottom: 8px;
+					p.meta-info {
+						color: #999;
+						font-size: 11px;
+						line-height: 16px;
+						margin-bottom: 8px;
+					}	
 				}
 			}
 			.last .ui-tabs-panel.ss-ui-action-tab{
@@ -250,7 +296,8 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	.cms-tree-view-sidebar{
 		.ss-ui-action-tabset.ss-tabset.multi{
 			ul.ui-tabs-nav{
-				>li{					
+				>li{	
+					width: auto;				
 					a.tab-nav-link{
 						width:30px;
 						overflow:hidden;
@@ -266,10 +313,10 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			}
 		}
 		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
-			width:166px;
-			padding:10px 4px;
+			width:162px;
+			padding:10px 6px;
 			.field {
-				width:150px;				
+				max-width:160px;				
 			}
 			.ui-button-text-only .ui-button-text{
 				padding:.4em .8em;

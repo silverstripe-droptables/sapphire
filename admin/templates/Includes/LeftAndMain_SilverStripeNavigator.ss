@@ -45,6 +45,7 @@
 	    </li>
 	</ul>
 
+
 	<div class="cms-preview-states">
 	    <input type="checkbox" name="cms-preview" class="hide cms-preview" id="cms-preview-state" checked>
 	    <label for="cms-preview-state">

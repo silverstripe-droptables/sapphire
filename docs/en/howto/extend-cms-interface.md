@@ -134,6 +134,102 @@ and replace it with the following:
 		<% end_loop %>
 	</ul>
 
+## Extending the CMS actions
+
+CMS actions follow a principle similar to the CMS fields: they are built in the backend with the help of `FormFields` and `FormActions`, and the frontend is responsible for applying a consistent styling.
+
+The following conventions apply:
+
+* New actions can be added by redefining `getCMSActions`, or adding an extension with `updateCMSActions`.
+* It is required the actions are contained in a `FieldSet` (`getCMSActions` returns this already).
+* Standalone buttons are created by adding a top-level `FormAction` (no such button is added by default).
+* Button groups are created by adding a top-level `CompositeField` with `FormActions` in it.
+* A `MajorActions` button group is already provided as a default.
+* Drop ups with additional actions that appear as links are created via a `TabSet` and `Tabs` with `FormActions` inside.
+* A `Root.MoreOptions` tab is already provided as a default and contains some minor actions.
+* You can override the actions completely by providing your own `getAllCMSFields`.
+
+Here's a couple of examples for adding actions to a page type using the existing structure.
+
+	:::php
+	public function getCMSActions() {
+		$fields = parent::getCMSActions();
+
+		// Insert a button to the left of all other buttons.
+		$fields->unshift(
+			FormAction::create('translate', 'Translate')
+		);
+
+		// Add additional button to the existing button group.
+		$fields->fieldByName('MajorActions')->push(
+			$cleanupAction = FormAction::create('cleanup', 'Cleaned')
+		);
+
+		// Add another option into an existing "More options" drop-up.
+		$fields->addFieldToTab('Root.MoreOptions',
+			FormAction::create('archive', 'Archive')
+		);
+
+		// Optionally create a new drop-up menu with two actions available.
+		if ($this->workflowActive()) {
+			$fields->addFieldToTab('Root.Workflow',
+				FormAction::create('accept', 'Accept')
+			);
+			$fields->addFieldToTab('Root.Workflow',
+				FormAction::create('reject', 'Reject')->addExtraClass('ss-ui-action-destructive')
+			);
+		}
+
+		return $fields;
+	}
+
+Note: empty tabs will be automatically removed from the FieldList to prevent clutter.
+
+New actions need controller handlers to work, so here is an example of adding one using `LeftAndMainExtension`:
+
+	:::php
+	class CustomActionsExtension extends LeftAndMainExtension {
+
+		static $allowed_actions = array(
+			'cleanup'
+		);
+
+		/**
+		 * Clean up the Content field.
+		 */
+		public function cleanup($data, $form) {
+			$className = $this->owner->stat('tree_class');
+
+			// Plumbing to get the ID of the currently edited record.
+			$SQL_id = Convert::raw2sql($data['ID']);
+			if(substr($SQL_id,0,3) != 'new') {
+				$record = DataObject::get_by_id($className, $SQL_id);
+				if($record && !$record->canEdit()) return Security::permissionFailure($this);
+				if(!$record || !$record->ID) throw new SS_HTTPResponse_Exception("Bad record ID #$SQL_id", 404);
+			} else {
+				throw new SS_HTTPResponse_Exception("Cannot cleanup a new record.", 404);
+			}
+
+			// Do the cleanup.
+			$record->Content = str_replace('...', '…', $record->Content);
+			$record->write();
+			
+			$this->owner->response->addHeader(
+				'X-Status',
+				rawurlencode("The page has been cleaned up.")
+			);
+			
+			return $this->owner->getResponseNegotiator()->respond($this->owner->request);
+		}
+	}
+
+Finally, the extension needs to be applied to LeftAndMain via a config file:
+
+	:::php
+	Object::add_extension('LeftAndMain', 'CustomActionsExtension');
+
+To make the actions more user-friendly you can also use alternating buttons as detailed in the [CMS Alternating Button](../reference/cms-alternating-button) how-to.
+
 ## Summary
 
 In a few lines of code, we've customized the look and feel of the CMS.
@@ -144,3 +240,4 @@ blocks and concepts for more complex extensions as well.
 
  * [CMS Architecture](../reference/cms-architecture)
  * [Topics: Rich Text Editing](../topics/rich-text-editing)
+ * [CMS Alternating Button](../reference/cms-alternating-button)

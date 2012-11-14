@@ -34,7 +34,7 @@
 		 * Adjust the appearance to fit with the current settings.
 		 */
 		_refreshAlternate: function() {
-			if (this._trigger('beforerefreshalternate')===false) return;
+			this._trigger('beforerefreshalternate');
 
 			// Only switch to alternate if it has been enabled through options. 
 			if (!this.options.alternate.icon && !this.options.alternate.text) return;
