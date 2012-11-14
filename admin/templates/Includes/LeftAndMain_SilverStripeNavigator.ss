@@ -49,8 +49,6 @@
 	    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
 	    <label class="onoffswitch-label" for="myonoffswitch">
 		    <span class="onoffswitch-inner">
-		    	<!-- <div class="first onoffswitch-link">Draft site</div>
-		    	<div class="onoffswitch-link">Published site</div> -->
 		    	<% loop Items %>
 		    	<span class="onoffswitch-link $FirstLast <% if isActive %> active<% end_if %>">
 		    		$HTML				

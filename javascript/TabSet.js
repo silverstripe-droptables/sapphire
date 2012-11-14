@@ -11,7 +11,7 @@
 					'option', 
 					'collapsible',
 					true					
-				).tabs('select', false);
+				).tabs('option', 'active', false);
 				
 				//Check if tabs should open upwards, and adjust
 				this.riseUp();
@@ -33,8 +33,14 @@
 						this.tabs({
 							beforeActivate:function(event, ui){
 								var activePanel = ui.newPanel;
-								$(activePanel).attr("style","left : auto; right: auto");																	
-							}					
+								$(activePanel).attr("style","left : auto; right: auto");
+
+								if($(activePanel).length > 0){
+									$(activePanel).parent().addClass('tabset-open');	
+								}else{
+									$(activePanel).parent().removeClass('tabset-open');
+								}															
+							}			
 						});	
 					}else{		
 						/* If the tabs are in the full site tree view, do some 
@@ -47,10 +53,10 @@
 									$(activePanel).attr("style","left : auto; right: "+ 0 +"px");
 								}else{
 									if(activeTab.position()!=null){
-										$(activePanel).attr("style","left: "+activeTab.position().left+"px");									
+										$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
 									}
 								}															
-							}
+							}	
 						});
 					}
 				}
