@@ -203,6 +203,27 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	.south .Actions{
 		overflow:visible; //put this somewhere else/more generic
 		.rise-up.ss-ui-action-tabset{
+			ul.ui-tabs-nav {
+				width: 220px;
+				li {
+					a.ui-tabs-anchor {
+						font-weight: normal;
+						font-size: 13px;
+						line-height: 24px;
+						padding-right: 25px;
+						background: transparent url(../images/link_arrows.png) no-repeat right -11px;
+						&:hover {
+							background-position: right -49px;
+						}				
+					}
+					&.ui-state-active a.ui-tabs-anchor {
+						background-position: right 9px;
+						&:hover {
+							background-position: right -29px;
+						}
+					}
+				}
+			}
 			.ui-tabs-panel{
 				@include clearfix;
 				@include border-top-radius(3px);
@@ -216,12 +237,12 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				display:block;
 				position:absolute;
 				top:-204px;
-				width:220px;
+				width:170px;
 				z-index:1;
 				padding:10px;				
 				margin:0;
 				margin-top:1px;
-				left:-1px;
+				left:-77px;
 				.chzn-container-single .chzn-single{
 					padding: 0 0 0 5px;
 					float:none;
@@ -249,31 +270,20 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						outline:none;
 					}
 				}
+				.cms-sitetree-information {
+					border-bottom: 1px solid $color-light-separator;
+					margin-bottom: 8px;
+					p.meta-info {
+						color: #999;
+						font-size: 11px;
+						line-height: 16px;
+						margin-bottom: 8px;
+					}	
+				}
 			}
 			.last .ui-tabs-panel.ss-ui-action-tab{
 				right:-1px;
 				left:auto;
-			}
-		}
-		#MoreOptionsTabSet ul {
-			width: 220px;
-			li {
-				a.ui-tabs-anchor {
-					font-weight: normal;
-					font-size: 13px;
-					line-height: 24px;
-					padding-right: 30px;
-					background: transparent url(../images/link_arrows.png) no-repeat right -11px;
-					&:hover {
-						background-position: right -49px;
-					}				
-				}
-				&.ui-state-active a.ui-tabs-anchor {
-					background-position: right 9px;
-					&:hover {
-						background-position: right -29px;
-					}
-				}
 			}
 		}
 	}
