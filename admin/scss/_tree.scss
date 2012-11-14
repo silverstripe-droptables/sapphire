@@ -129,15 +129,12 @@
 				background: transparent !important;
 				width: 100%;
 			}
-			a{
+			a, a:hover{
 				@extend %no-margin-padding;
 				text-indent: -9999px !important;
 				width: 100%;
 				border-right-width: 0px !important;
 				border-left-width: 0px !important;
-				&:hover{
-					@extend a;
-				}
 			}
 			ins, 
 			span, 
