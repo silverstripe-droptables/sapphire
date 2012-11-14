@@ -28,14 +28,12 @@
 	padding: 8px;	
 	@include border-radius(0);
 		
-	& .ui-dialog-title {
+	.ui-dialog-title {
 		padding: 6px 0;
 		text-shadow: lighten($color-base, 10%) 1px 1px 0;
-	}
+	}	
 	
-	
-	
-	& a.ui-dialog-titlebar-close {
+	a.ui-dialog-titlebar-close {
 		position:  absolute;
 		top: -8px;
 		right: -15px;
@@ -44,16 +42,16 @@
 		z-index: 100000;
 	}
 	
-	& a.ui-state-hover {
+	a.ui-state-hover {
 		border-color: transparent;
 		background: transparent;
 		
-		& .ui-icon-closethick {
+		.ui-icon-closethick {
 			background: sprite($sprites32, dialog-close-over) no-repeat;
 		}
 	}
 	
-	& .ui-icon-closethick {
+	.ui-icon-closethick {
 		background: sprite($sprites32, dialog-close) no-repeat;
 		width: 30px;
 		height:  30px;
@@ -110,9 +108,6 @@
     border-width: 1px 0 0 0;
   }
   
-}
-
-.ui-menu {
   .ui-icon {
     position: relative;
     top: 0;

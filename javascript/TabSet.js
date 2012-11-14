@@ -17,7 +17,7 @@
 				this.riseUp();
 					
 				//Apply special behaviour to the cms actions row				
-				if(this.hasClass('cms-actions-row')){
+				if(this.hasClass('cms-actions-row')){				
 					
 					/* If actions panel is within the tree, apply active class 
 					to help animate open/close on hover
@@ -34,12 +34,11 @@
 							beforeActivate:function(event, ui){
 								var activePanel = ui.newPanel;
 								$(activePanel).attr("style","left : auto; right: auto");
-
+								$(this).closest('.ss-ui-action-tabset').removeClass('tabset-open').removeClass('tabset-open-last');
+								
 								if($(activePanel).length > 0){
 									$(activePanel).parent().addClass('tabset-open');	
-								}else{
-									$(activePanel).parent().removeClass('tabset-open');
-								}															
+								}														
 							}			
 						});	
 					}else{		
@@ -49,13 +48,19 @@
 							beforeActivate:function(event, ui){
 								var activePanel = ui.newPanel;
 								var activeTab = ui.newTab;
-								if($(activeTab).hasClass("last")){
-									$(activePanel).attr("style","left : auto; right: "+ 0 +"px");
-								}else{
-									if(activeTab.position()!=null){
+								$(this).closest('.ss-ui-action-tabset').removeClass('tabset-open').removeClass('tabset-open-last');
+								if($(activePanel).length > 0){
+									if($(activeTab).hasClass("last")){
+										$(activePanel).attr("style","left : auto; right: "+ 0 +"px");
+										$(activePanel).parent().addClass('tabset-open-last');//last needs to be styled differently when open	
+									}else{										
 										$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
-									}
-								}															
+										if($(activeTab).hasClass("first")){	
+											$(activePanel).parent().addClass('tabset-open');
+										}	
+									}	
+								}
+																							
 							}	
 						});
 					}
