@@ -13,8 +13,7 @@
 					true					
 				).tabs('option', 'active', false);
 				
-				//Check if tabs should open upwards, and adjust
-				this.riseUp();
+				
 					
 				//Apply special behaviour to the cms actions row				
 				if(this.hasClass('cms-actions-row')){				
@@ -64,7 +63,23 @@
 							}	
 						});
 					}
+				}else if(this.parents('.south')){
+					this.tabs({
+						beforeActivate:function(event, ui){
+							var activePanel = ui.newPanel;
+							var activeTab = ui.newTab;							
+							if($(activePanel).length > 0){
+								if($(activeTab).hasClass("last")){
+									$(activePanel).attr("style","left : auto; right: "+ 0 +"px");									
+								}else{										
+									$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
+								}	
+							}																						
+						}	
+					});	
 				}
+				//Check if tabs should open upwards, and adjust
+				this.riseUp();
 			},
 			onadd: function() {
 				// Can't name redraw() as it clashes with other CMS entwine classes
@@ -88,7 +103,7 @@
 
 					/* Apply position to tab */
 					this.tabs({
-						beforeActivate:function(event, ui){
+						activate:function(event, ui){
 							var activePanel = ui.newPanel;
 							var activeTab = ui.newTab;			
 							if(activeTab.position()!=null){
@@ -97,9 +112,10 @@
 								if(containerSouth){
 									var padding = activeTab.offset().top-containerSouth.offset().top;								
 									top = top-padding;	
-								}						
+								}	
+								var style =	$(activePanel).attr("style");				
 
-								$(activePanel).attr("style","top: "+top+"px");									
+								$(activePanel).attr("style", style+"top: "+top+"px;");									
 							}
 						}
 					});				
