@@ -48,12 +48,15 @@
 								$(this).closest('.ss-ui-action-tabset').removeClass('tabset-open').removeClass('tabset-open-last');
 								if($(activePanel).length > 0){
 									if($(activeTab).hasClass("last")){
-										$(activePanel).attr("style","left : auto; right: "+ 0 +"px");
+										$(activePanel).attr("style","left : auto; right: 0px");
 										$(activePanel).parent().addClass('tabset-open-last');//last needs to be styled differently when open	
 									}else{										
 										$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
 										if($(activeTab).hasClass("first")){	
+											$(activePanel).attr("style","left: 0px");
 											$(activePanel).parent().addClass('tabset-open');
+										}else{
+											$(activePanel).attr("style","left: "+activeTab.position().left+"px");
 										}	
 									}	
 								}
