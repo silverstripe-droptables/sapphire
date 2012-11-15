@@ -279,7 +279,9 @@ body.cms {
  * Primary styles which sit on top of screen, with different tab colors.
  * TODO Only use one "primary" selector and fix HTMLEditorField TabSet addExtraClass()
  */
-.ui-tabs.cms-tabset-primary .ui-tabs-nav, .ui-tabs .ui-tabs-nav.cms-tabset-nav-primary {
+.ui-tabs.cms-tabset-primary .ui-tabs-nav, 
+.ui-tabs .ui-tabs-nav.cms-tabset-nav-primary, 
+.ui-tabs .cms-content-header-tabs .ui-tabs-nav {
 	li {
 		margin-right: 0; // tabs are directly adjacent
 		margin-top: 0;
