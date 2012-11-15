@@ -41,7 +41,7 @@ $gf_grid_x:	16px;
 		& > div {
 			margin-bottom: $gf_grid_y*3;
 			&.addNewGridFieldButton{
-				margin-bottom:$gf_grid_y;
+				margin: 0 0 $gf_grid_y 0;
 				@include clearfix;
 			}
 		}
