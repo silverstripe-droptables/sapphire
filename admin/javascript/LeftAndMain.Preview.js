@@ -196,12 +196,18 @@
 			}
 		});
 		
-		$('.cms-switch-view a').entwine({
-			onclick: function(e) {
-				console.log("here");
-				e.preventDefault();
+		$('.switch-options a').entwine({
+			onclick: function(e) {			
 				var preview = $('.cms-preview');
-				preview.loadUrl($(e.target).attr('href'));
+				var loadSibling = $(this).siblings('a');
+				var checkbox = $(this).closest('.cms-preview-states').find('input');
+				if(checkbox.attr('checked') !== undefined){
+					checkbox.attr('checked', false);
+				}else{
+					checkbox.attr('checked', true);
+				}
+				preview.loadUrl($(loadSibling).attr('href'));
+				return false;
 			}
 		});	
 		
