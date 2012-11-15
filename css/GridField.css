@@ -6,7 +6,7 @@
 /** ----------------------------------------------- Grid Units (px)  We have a vertical rhythm that the grid is based off both x (=horizontal) and y (=vertical). All internal padding and margins are scaled to this and accounting for paragraphs ------------------------------------------------ */
 /** ----------------------------------------------- Application Logo (CMS Logo) Must be 24px x 24px ------------------------------------------------ */
 .cms .ss-gridfield > div { margin-bottom: 36px; }
-.cms .ss-gridfield > div.addNewGridFieldButton { margin-bottom: 12px; }
+.cms .ss-gridfield > div.addNewGridFieldButton { margin: 0 0 12px 0; }
 .cms .ss-gridfield > div.addNewGridFieldButton:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 *:first-child .cms .ss-gridfield > div.addNewGridFieldButton { zoom: 1; }
 .cms .ss-gridfield[data-selectable] tr.ui-selected, .cms .ss-gridfield[data-selectable] tr.ui-selecting { background: #FFFAD6 !important; }

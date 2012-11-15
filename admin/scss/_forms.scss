@@ -303,6 +303,10 @@ form.small .field, .field.small {
 	.Actions {
 		min-height: 30px;
 		overflow: auto;
+		padding: 8px 12px;
+	}
+	.south .Actions, .ui-tabs-panel .Actions,  .ui-tabs-panel iframe .Actions {
+		padding: 0;
 	}
 
 	input.loading, button.loading,
@@ -493,10 +497,11 @@ form.small .field, .field.small {
 }
 
 .ss-toggle {
-	margin-bottom: $grid-y;
+	margin: $grid-y 0;
 
 	.ui-accordion-header {
 		font-weight: bold;
+		font-size: 12px;
 
 		&.ui-state-default {
 			@include background-image(
@@ -504,18 +509,28 @@ form.small .field, .field.small {
 			);
 			text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 		}
+		.ui-accordion-header-icon {
+			margin-top: -9px;
+		}
 	}
 
 	.ui-accordion-content {
-		padding: $grid-y*2 0 $grid-y 0;
+		padding: $grid-y 0 $grid-y*1.5;
 
 		.field {
 			@include box-shadow(none);
-			padding-left: $grid-x*2;
-			padding-right: $grid-x*2;
+			padding-left: $grid-x*1.5;
+			padding-right: $grid-x*1.5;
 
 			&:last-child {
 				margin-bottom: 0;
+			}
+			.middleColumn {
+				margin-left: 0;
+			}
+			label {
+				float: none;
+				margin-left: 0;
 			}
 		}
 	}
