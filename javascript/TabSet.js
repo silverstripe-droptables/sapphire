@@ -12,8 +12,6 @@
 					'collapsible',
 					true					
 				).tabs('option', 'active', false);
-				
-				
 					
 				//Apply special behaviour to the cms actions row				
 				if(this.hasClass('cms-actions-row')){				
@@ -69,11 +67,7 @@
 							var activePanel = ui.newPanel;
 							var activeTab = ui.newTab;							
 							if($(activePanel).length > 0){
-								if($(activeTab).hasClass("last")){
-									$(activePanel).attr("style","left : auto; right: "+ 0 +"px");									
-								}else{										
-									$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
-								}	
+								$(activePanel).attr("style","left: "+activeTab.position().left+"px");								
 							}																						
 						}	
 					});	
