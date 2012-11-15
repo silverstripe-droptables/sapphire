@@ -288,6 +288,8 @@ body.cms {
 .ui-tabs.cms-tabset-primary .ui-tabs-nav, 
 .ui-tabs .ui-tabs-nav.cms-tabset-nav-primary, 
 .ui-tabs .cms-content-header-tabs .ui-tabs-nav {
+	border-left: 1px solid darken($color-tab, 15%);
+	
 	li {
 		margin-right: 0; // tabs are directly adjacent
 		a {
@@ -322,7 +324,7 @@ body.cms {
 		border-top: none;
 		border: {
 			right-color: darken($color-tab, 15%); // same color as divider between header and body, needed for IE
-			left-color: darken($color-tab, 15%);
+			left-color: $tab-panel-texture-color;
 		}
 		z-index:2;
 		
