@@ -24,25 +24,23 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			height: 28px;
 			border:$border;
 			@include border-radius(3px);
-			&:focus{
+			&:focus,&:active{
 				outline:none;
 				box-shadow:none;
 				-webkit-box-shadow: none;
 			}			
 			li{
-				&:focus{
+				&:focus, &:active{
 					outline:none;
 					box-shadow:none;
 					-webkit-box-shadow: none;
 				}
 				width: 110px;
 				overflow:visible;
-				background:none;
-				@include background-image(linear-gradient(top, #fff, #D9D9D9));	
-				
+				background:#eaeaea;
+				@include background-image(linear-gradient(top, #fff, #D9D9D9));					
 				border-radius: none;
-				@include border-radius(0);
-				/*border-bottom:$border !important; *///jquery-ui style has important on it
+				@include border-radius(0);				
 				border: none;
 				border-right:1px solid #eee;
 				border-left: $border;
@@ -51,19 +49,14 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					background:#fff;
 					border-bottom:none !important; //jquery-ui style has important on it
 					@include border-bottom-left-radius(0px);
-					@include border-bottom-right-radius(0px);
-					
+					@include border-bottom-right-radius(0px);					
 					a {
 						@include border-bottom-left-radius(0px);
-						@include border-bottom-right-radius(0px);
-
-						.tab-nav-link{
-							padding-bottom:6px;
-							&:focus, span:focus{
-								outline:none;
-								box-shadow:none;
-								-webkit-box-shadow: none;
-							}
+						@include border-bottom-right-radius(0px);	
+						&:focus, span:focus,&:active, span:active{
+							outline:none;
+							box-shadow:none;
+							-webkit-box-shadow: none;
 						}
 					}
 				}
@@ -90,13 +83,10 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						width:16px;
 						height:16px;
 					}
-					.title{
-						margin-left: 2px;
+					.title{						
+						margin-left: 25px;
 						display:inline-block;
 						line-height: 16px;
-					}
-					&.view-mode-batchactions-wrapper .title {
-						margin-left: 25px;
 					}
 				}
 			}
@@ -113,7 +103,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			}
 		}
 		
-		.batch-check{ /*position a checkbox within a tab*/
+		.batch-check, .ui-icon{ /*position a checkbox within a tab*/
 			position:absolute;
 			float:left;
 			top:0;
@@ -123,10 +113,9 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			display:block;
 		}
 		.ui-icon{
-			display:block;
-			float:left; 
-			margin-right:5px;
-		}	
+			height:17px;
+			margin: 5px 5px 5px 2px;
+		}
 		&.single{ 
 			ul.ui-tabs-nav{		
 				background:none;
@@ -171,10 +160,9 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		.ss-ui-action-tab.ui-tabs-panel{
 			display:block;
 			clear:both;
-			background:#fff;
-			@include clearfix;
+			background:#fff !important; //Because ie7 doesn't understanding what the 'C' in CSS stands for
 			position:absolute;
-			top:30px;
+			top:27px;
 			border:$border;
 			border-top:none;
 			width:202px;
@@ -182,13 +170,13 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			padding:10px;
 			@include tightSpacing;
 			margin:0;
-			/*left:-1px;*/
+			float:left;
 			.chzn-container-single .chzn-single{
 				padding: 0 0 0 5px;
 				float:none;
 			}
 			&.first {
-				left: 0 !important;
+				left: 0;
 				width: 203px;
 			}
 		}
@@ -239,12 +227,11 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				display:block;
 				position:absolute;
 				top:-204px;
-				width:190px;										/* same width as buttons within panel */
+				width:190px;	/* same width as buttons within panel */
 				z-index:1;
 				padding:10px;				
 				margin:0;
 				margin-top:1px;
-				/*left:-77px;*/
 				.chzn-container-single .chzn-single{
 					padding: 0 0 0 5px;
 					float:none;
