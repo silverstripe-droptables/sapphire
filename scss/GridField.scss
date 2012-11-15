@@ -251,9 +251,10 @@ $gf_grid_x:	16px;
 				}
 				a.view-link, a.edit-link {
 					display:inline-block;
+					float: left;
 					width:20px;
 					height:20px; //min height to fit the edit icon
-					text-indent:9999em;
+					text-indent:-9999em;
 					overflow: hidden;
 					vertical-align: middle;
 				}
@@ -340,7 +341,9 @@ $gf_grid_x:	16px;
 						min-width: $gf_grid_x*12.5;
 						padding-right:0;
 						&.filter-buttons{
-							min-width:0;
+							min-width:50px;
+							box-shadow: none;
+							border: none;
 							div{
 								width:auto;
 								display:inline;
