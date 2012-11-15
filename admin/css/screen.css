@@ -764,44 +764,7 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-menu-list li.current li.current { background: #2e7ead; border-top: 1px solid #2e7ead; border-top: none; }
 .cms-menu-list li.current li.current a { font-weight: bold; color: white; }
 .cms-menu-list li.current li.first a { border-top: none; }
-.cms-menu-list li ul.collapse { display: none; 			/* To specific - was overriding collapsed-flyout styles
-#Menu-CMSPagesController {
-				a {
-					background-image:none;
-					font-size: 11px;
-					padding: 0 10px 0 40px;
-					height: 32px;
-					line-height: 32px;
-				}
-			}
-			#Menu-CMSPageAddController {
-				a {
-					background-image:none;
-					font-size: 11px;
-					padding: 0 10px 0 40px;
-					height: 32px;
-					line-height: 32px;
-				}
-			}
-			#Menu-AssetAdmin {
-				a {
-					background-image:none;
-					font-size: 11px;
-					padding: 0 10px 0 40px;
-					height: 32px;
-					line-height: 32px;
-				}
-			}
-			#Menu-CMSFileAddController {
-				a {
-					background-image:none;
-					font-size: 11px;
-					padding: 0 10px 0 40px;
-					height: 32px;
-					line-height: 32px;
-				}
-			}
-*/ }
+.cms-menu-list li ul.collapse { display: none; }
 .cms-menu-list li ul.collapse li a { background-image: none; font-size: 11px; padding: 0 10px 0 40px; height: 32px; line-height: 32px; }
 .cms-menu-list li ul.collapsed-flyout { display: block; }
 .cms-menu-list li ul.collapsed-flyout li a { font-size: 11px; padding: 0 10px 0 16px; height: 32px; line-height: 32px; }
@@ -925,7 +888,7 @@ visible. Added and removed with js in TabSet.js  */ }
 .cms .ss-ui-action-tabset .ss-ui-action-tab.ui-tabs-panel.first { left: 0 !important; width: 203px; }
 .cms .ss-ui-action-tabset .last .ss-ui-action-tab { right: -1px; left: auto; }
 .cms .south .Actions { overflow: visible; }
-.cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav { width: 220px; margin: 0; }
+.cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav { margin: 0; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor { font-weight: normal; font-size: 13px; line-height: 24px; padding-right: 25px; background: transparent url(../images/link_arrows.png) no-repeat right -11px; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor:hover, .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav #vakata-contextmenu li.vakata-hover > a.ui-tabs-anchor, .cms #vakata-contextmenu .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.vakata-hover > a.ui-tabs-anchor, .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav .TreeDropdownField .treedropdownfield-panel #vakata-contextmenu li.vakata-hover > a.ui-tabs-anchor, .TreeDropdownField .treedropdownfield-panel #vakata-contextmenu .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.vakata-hover > a.ui-tabs-anchor { background-position: right -49px; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.ui-state-active a.ui-tabs-anchor { background-position: right 9px; }

@@ -205,8 +205,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	.south .Actions{
 		overflow:visible; //put this somewhere else/more generic
 		.rise-up.ss-ui-action-tabset{
-			ul.ui-tabs-nav {
-				width: 220px;
+			ul.ui-tabs-nav {				
 				margin: 0;
 				li {
 					a.ui-tabs-anchor {
