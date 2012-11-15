@@ -146,7 +146,7 @@ The following conventions apply:
 * Button groups are created by adding a top-level `CompositeField` with `FormActions` in it.
 * A `MajorActions` button group is already provided as a default.
 * Drop ups with additional actions that appear as links are created via a `TabSet` and `Tabs` with `FormActions` inside.
-* A `Root.MoreOptions` tab is already provided as a default and contains some minor actions.
+* A `ActionMenus.MoreOptions` tab is already provided as a default and contains some minor actions.
 * You can override the actions completely by providing your own `getAllCMSFields`.
 
 Here's a couple of examples for adding actions to a page type using the existing structure.
@@ -166,16 +166,16 @@ Here's a couple of examples for adding actions to a page type using the existing
 		);
 
 		// Add another option into an existing "More options" drop-up.
-		$fields->addFieldToTab('Root.MoreOptions',
+		$fields->addFieldToTab('ActionMenus.MoreOptions',
 			FormAction::create('archive', 'Archive')
 		);
 
 		// Optionally create a new drop-up menu with two actions available.
 		if ($this->workflowActive()) {
-			$fields->addFieldToTab('Root.Workflow',
+			$fields->addFieldToTab('ActionMenus.Workflow',
 				FormAction::create('accept', 'Accept')
 			);
-			$fields->addFieldToTab('Root.Workflow',
+			$fields->addFieldToTab('ActionMenus.Workflow',
 				FormAction::create('reject', 'Reject')->addExtraClass('ss-ui-action-destructive')
 			);
 		}
