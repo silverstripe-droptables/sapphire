@@ -73,20 +73,22 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				a.tab-nav-link{
 					color:$color-text;
 					font-weight:bold;				
-					padding: 5px 28px 5px 8px;	
-					line-height:18px;
-					display:block;
-					.ui-no-icon{
-						display:block;
+					line-height:16px;
+					display:inline-block;
+					padding: 5px 10px;
+					.ui-no-icon {
+						display:inline-block;
 						float:left;
-						margin-right:5px;
+						padding: 0 2px;
 						width:16px;
 						height:16px;
 					}
 					.title{						
-						margin-left: 25px;
 						display:inline-block;
-						line-height: 16px;
+						line-height: 18px;
+					}
+					&.view-mode-batchactions-wrapper .title {
+						margin-left: 22px;
 					}
 				}
 			}
@@ -103,18 +105,15 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			}
 		}
 		
-		.batch-check, .ui-icon{ /*position a checkbox within a tab*/
-			position:absolute;
+		.batch-check, .ui-icon { /* position a checkbox & icon within a tab */
+			display: inline-block;
 			float:left;
-			top:0;
-			margin: 7px 5px 5px 10px;
-			line-height:18px;
-			height:13px;
-			display:block;
+			margin-left: -2px;
+			padding-right: 6px;
 		}
-		.ui-icon{
-			height:17px;
-			margin: 5px 5px 5px 2px;
+		.batch-check {
+			margin: 6px 0px 5px 9px;
+			position: absolute;
 		}
 		&.single{ 
 			ul.ui-tabs-nav{		
@@ -162,7 +161,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			clear:both;
 			background:#fff !important; //Because ie7 doesn't understanding what the 'C' in CSS stands for
 			position:absolute;
-			top:27px;
+			top:30px;
 			border:$border;
 			border-top:none;
 			width:202px;
@@ -178,6 +177,12 @@ $border: 1px solid darken(#D9D9D9, 15%);
 			&.first {
 				left: 0;
 				width: 203px;
+			}
+			.ui-icon {
+				padding-right: 0;
+			}
+			.tab-nav-link, .ss-ui-button {
+				font-size: 12px;
 			}
 		}
 		.last .ss-ui-action-tab{
@@ -237,10 +242,9 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					float:none;
 				}
 				button.ss-ui-button{
-					background:none;
-					border:none;
-					display:block;
-					padding: 0 10px;
+					background: none;
+					border: none;
+					display: block;
 					margin:0;
 					outline:none;
 					color: $color-text-blue-link;
@@ -289,6 +293,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	to the first tab within the template, so there should always be one title 
 	visible. Added and removed with js in TabSet.js  */
 	.cms-tree-view-sidebar{
+		min-width: 176px; 					/* for when the scrollbar is present & find dropdown open */
 		.ss-ui-action-tabset.ss-tabset.multi{
 			ul.ui-tabs-nav{
 				>li{	
@@ -315,17 +320,17 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				}
 			}
 		}
-		.ui-tabs .ui-tabs-panel.ss-ui-action-tab{
+		.ui-tabs .ui-tabs-panel.ss-ui-action-tab {
 			width:162px;
 			padding:10px 6px;
 			.field {
 				max-width:160px;				
 			}
-			.ui-button-text-only .ui-button-text{
-				padding:.4em .8em;
-			}			
+			.ui-icon {
+				padding-right: 0;
+			}		
 		}
-		.last .ui-tabs-panel.ss-ui-action-tab{
+		.last .ui-tabs-panel.ss-ui-action-tab {
 			right:0;
 			left:auto;
 		}

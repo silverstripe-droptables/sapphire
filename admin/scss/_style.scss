@@ -238,40 +238,38 @@ body.cms {
 			margin: 12px;
 			padding: 0 0 12px;
 			.ss-gridfield { 						/* Files area & inside second level tabs */
-				padding: 0; 						/* should be zero ideally */
+				padding: 0; 
 				margin: 0 0 12px;
 			}
 		}
 		.ui-tabs-nav {
 			margin: 10px 12px 0;
-			padding: 0;
+			padding: 0 8px 0 0;						/* second set of tabs */
 		}
 		#tree_actions .ui-tabs-nav{
-			margin: -3px 0 0;
+			margin: 0;
 		}
 	}
 
-	.cms-panel-padded .ui-tabs-panel {
-		margin: 0;
-		padding: 12px 12px 12px;	// Removes double paddle around main pages page, does not effect other areas of the site
-
-		.ui-tabs-panel {
-			// Reset nested tabs to default styling
-			padding: $grid-x 0 0 0;
+	.cms-panel-padded {
+		h3 {
+			margin-left: 12px;						/* reports headers, probably too specific */
 		}
+		.ui-tabs-panel {
+			margin: 0;
+			padding: 12px 12px 12px;
+
+			.ui-tabs-panel {
+				padding: $grid-x 0 0 0;
+			}
+		}
+	}
+	.ui-tabs .ui-tabs-panel {						/* second level tabs */
+		padding-top: 8px;
 	}
 
 	&.ss-tabset-tabshidden .ui-tabs-panel {
 		border-top: none;
-	}
-
-	// Reset to default styles
-	.ss-ui-button {
-		line-height: $grid-x*2;
-
-		.ui-button-text {
-			line-height: 14px;
-		}
 	}
 }
  
@@ -316,7 +314,6 @@ body.cms {
 		@include box-shadow(none);
 		background: darken($color-widget-bg, 2%);
 		background: $tab-panel-texture-color;
-		/*background: $tab-panel-texture-background;*/
 		border-top: none;
 		border: {
 			right-color: darken($color-tab, 15%); // same color as divider between header and body, needed for IE
@@ -522,7 +519,7 @@ p.message {
 	}	
 }
 #PageType {
-		ul {
+	ul {
 		padding-left: 20px;
 		li {
 			float: none;
@@ -587,8 +584,8 @@ p.message {
 .cms-content-toolbar {
 	min-height: 29px;
 	display: block;
-	margin: 0 0 15px 0;
-	padding-bottom: 9px;
+	margin: 0 0 8px 0;
+	padding-bottom: 8px;
 	
 	@include doubleborder(bottom, $color-light-separator, lighten($color-light-separator, 50%));
 	@include legacy-pie-clearfix();
@@ -616,7 +613,8 @@ p.message {
 	overflow-y: auto;	
 	overflow-x: hidden;
 	z-index: 70;
-	@include box-shadow($color-shadow-black 0 2px 3px);
+	border-right: 1px solid #C0C0C2;
+	/*@include box-shadow($color-shadow-black 0 2px 3px);*/
 	float: left;
 	position: relative;
 
@@ -931,12 +929,17 @@ form.member-profile-form {
 			}
 		}
 	}
-	&.cms-content-tools .cms-panel-toggle {
-		&.south {
-			border-top: 1px solid #FFF;
-			bottom: 0;
-			position: absolute;
-			width: 100%;
+	&.cms-content-tools {
+		.Actions {
+			padding: 0;
+		}
+		.cms-panel-toggle {
+			&.south {
+				border-top: 1px solid #FFF;
+				bottom: 0;
+				position: absolute;
+				width: 100%;
+			}
 		}
 	}	
 	&.collapsed {
@@ -1408,13 +1411,9 @@ form.small {
  		display:none; //hides find button - redundant functionality
  	}
  	p button#action_export {
-		margin-top:$grid-y*2;
 		span.btn-icon-download-csv {
 			height:17px; //exact height of icon
 		}
-		.ui-button-text {
-			padding-left:26px; //to accomodate wider export icon
-		} 
  	}
 }
 
