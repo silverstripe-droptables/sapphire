@@ -171,6 +171,12 @@ form .fieldgroup {
     display: block;
     margin: 0 0 8px;
     padding: 0 0 7px;
+    .fieldgroup {
+    	border-bottom: none;
+    	box-shadow: none;
+    	padding-bottom: 0;
+    	margin-bottom: 0;
+    }
 }
 
 form.small .field, .field.small {
@@ -548,6 +554,9 @@ form.small .field, .field.small {
 				float: none;
 				margin-left: 0;
 			}
+			.help {
+				margin-left: 0;
+			}
 		}
 	}
 }
@@ -586,12 +595,14 @@ input.radio {
  *  */
 .optionset {
 	padding-bottom: 8px;
+	padding-top: 8px;
 	
 	li {
 		float: left;
 		display: block;
 		width: $grid-x * 27;
 		padding-bottom: $grid-x;
+		padding-top: 0;
 		line-height: $grid-y * 2;
 		list-style: none;
 
@@ -607,6 +618,9 @@ input.radio {
 			padding-left: $grid-y;
 		}
 
+	}
+	&.field {
+		padding-top: 0;
 	}
 	
 }

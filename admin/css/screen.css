@@ -179,6 +179,7 @@ form.stacked .field label, .field.stacked label { display: block; float: none; p
 form.stacked .field .middleColumn, .field.stacked .middleColumn { margin-left: 0px; clear: left; }
 
 form .fieldgroup { border-bottom: 1px solid rgba(201, 205, 206, 0.8); box-shadow: 0 1px 0 rgba(244, 245, 245, 0.8); display: block; margin: 0 0 8px; padding: 0 0 7px; }
+form .fieldgroup .fieldgroup { border-bottom: none; box-shadow: none; padding-bottom: 0; margin-bottom: 0; }
 
 form.small .field label.left, .field.small label.left { width: 112px; }
 form.small .field .middleColumn, .field.small .middleColumn { margin-left: 120px; }
@@ -242,6 +243,7 @@ form.small .field input.text, form.small .field textarea, form.small .field sele
 .ss-toggle .ui-accordion-content .field:last-child { margin-bottom: 0; }
 .ss-toggle .ui-accordion-content .field .middleColumn { margin-left: 0; }
 .ss-toggle .ui-accordion-content .field label { float: none; margin-left: 0; }
+.ss-toggle .ui-accordion-content .field .help { margin-left: 0; }
 
 /**  Checkbox Field */
 .field.checkbox { padding-left: 184px; margin-bottom: 8px; }
@@ -256,10 +258,11 @@ input.checkbox { margin-left: 0; }
 input.radio { margin-left: 0; }
 
 /**  Optionsets and Checkboxsets */
-.optionset { padding-bottom: 8px; }
-.optionset li { float: left; display: block; width: 216px; padding-bottom: 8px; line-height: 16px; list-style: none; }
+.optionset { padding-bottom: 8px; padding-top: 8px; }
+.optionset li { float: left; display: block; width: 216px; padding-bottom: 8px; padding-top: 0; line-height: 16px; list-style: none; }
 .optionset li input { display: inline-block; padding-right: 0; margin-right: 0; }
 .optionset li label { display: inline; cursor: pointer; padding-left: 8px; }
+.optionset.field { padding-top: 0; }
 
 /**  HTML Text  */
 .htmleditor textarea { visibility: hidden; }
@@ -453,9 +456,21 @@ p.message { margin-bottom: 12px; }
 /* Necessary because when chosen is initialised the selects are not part of cms-preview and so the sizes are wrong. */
 select.preview-dropdown { display: inline; width: auto; padding-right: 20px; }
 
-.cms-preview { background: white url(../images/preview.png) no-repeat center center; }
+.cms-preview { background: white url(../images/preview.png) no-repeat center center; height: 100%; width: 100%; }
 .cms-preview.is-collapsed .cms-preview-toggle a { left: -15px; }
-.cms-preview iframe { width: 100%; height: 100%; }
+.cms-preview .preview-scroll { height: 100%; width: 100%; overflow: auto; }
+.cms-preview .preview-scroll .preview-device-outer { height: 100%; width: 100%; }
+.cms-preview .preview-scroll .preview-device-outer .preview-device-inner { height: 100%; width: 100%; }
+.cms-preview .preview-scroll .preview-device-outer .preview-device-inner iframe { height: 100%; width: 100%; }
+.cms-preview.mobile { height: 100%; width: 100%; }
+.cms-preview.mobile .preview-scroll .preview-device-outer { /* mobile */ width: 332px; /* add 12px for desktop scrollbar */ height: 500px; min-height: 500px; background-color: #333; border-radius: 20px; margin: 30px auto 90px; padding: 24px 8px 90px; /*background: transparent url(../images/preview/device_bg.png) no-repeat left 5px;*/ }
+.cms-preview.mobile .preview-scroll .preview-device-outer .preview-device-inner { width: 332px; height: 100%; }
+.cms-preview.tablet { height: 100%; width: 100%; }
+.cms-preview.tablet .preview-scroll .preview-device-outer { /* mobile */ width: 780px; /* add 12px for desktop scrollbar */ height: 1024px; background-color: #333; border-radius: 70px; padding: 70px; margin: 0 auto; }
+.cms-preview.tablet .preview-scroll .preview-device-outer .preview-device-inner { width: 768px; height: 100%; }
+.cms-preview.desktop { height: 100%; width: 100%; }
+.cms-preview.desktop .preview-scroll .preview-device-outer { height: 100%; width: 1024px; }
+.cms-preview.desktop .preview-scroll .preview-device-outer .preview-device-inner { height: 100%; width: 100%; }
 
 /** -------------------------------------------- Member Profile -------------------------------------------- */
 form.member-profile-form { padding: 0 16px 0 0; }
@@ -616,7 +631,7 @@ form.import-form label.left { width: 250px; }
 	}
 }*/
 /** -------------------------------------------- Page Settings Controller -------------------------------------------- */
-.cms-container .CMSMain.CMSPageSettingsController .tab#Root_Settings .optionset li { white-space: nowrap; padding-top: 8px; }
+.cms-container .CMSMain.CMSPageSettingsController .tab#Root_Settings .optionset li { white-space: nowrap; }
 .cms-container .CMSMain.CMSPageSettingsController .tab#Root_Settings .optionset li label { padding-left: 2px; }
 .cms-container .CMSMain.CMSPageSettingsController .tab#Root_Settings .fieldgroup .fieldgroup-field { width: 216px; padding-left: 0; }
 .cms-container .CMSMain.CMSPageSettingsController .tab#Root_Settings .TreeDropdownField .treedropdownfield-toggle-panel-link { border-left: none; background: none; background-image: none; }

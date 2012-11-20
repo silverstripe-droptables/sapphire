@@ -245,8 +245,6 @@
 		}); 
 
 
-		
-
 		$('.cms-edit-form').entwine({
 			/**
 			 * Choose applicable preview link based on form data,
@@ -262,6 +260,22 @@
 				});
 				return urls ? urls[0] : false;
 			}
+		});
+
+
+		// Recalculate the preview space to allow for horizontal scrollbar and the preview actions panel
+		var toolbarSize = 53; 							// Height of the preview actions panel
+		$('.preview-scroll').entwine({
+			redraw: function() {
+				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
+				var previewHeight = (this.height() - toolbarSize);
+				this.height(previewHeight);
+			}, 
+			onmatch: function() {
+				this.redraw();
+			}
+			// Todo: Need to recalculate on resize of browser
+
 		});
 
 	});
