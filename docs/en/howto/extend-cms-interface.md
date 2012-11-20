@@ -136,18 +136,20 @@ and replace it with the following:
 
 ## Extending the CMS actions
 
-CMS actions follow a principle similar to CMS fields: they are built in the backend with the help of `FormFields` and `FormActions`, and the frontend is responsible for applying a consistent styling.
+CMS actions follow a principle similar to the CMS fields: they are built in the backend with the help of `FormFields` and `FormActions`, and the frontend is responsible for applying a consistent styling.
 
-The frontend makes the following assumptions:
+The following conventions apply:
 
-* It expects the area to be contained in a `FieldSet` (`getCMSActions` returns this already).
+* New actions can be added by redefining `getCMSActions`, or adding an extension with `updateCMSActions`.
+* It is required the actions are contained in a `FieldSet` (`getCMSActions` returns this already).
 * Standalone buttons are created by adding a top-level `FormAction` (no such button is added by default).
 * Button groups are created by adding a top-level `CompositeField` with `FormActions` in it.
-* A `MajorActions` button group is already provided.
+* A `MajorActions` button group is already provided as a default.
 * Drop ups with additional actions that appear as links are created via a `TabSet` and `Tabs` with `FormActions` inside.
-* A `Root.MoreOptions` tab is already provided and contains some minor actions.
+* A `Root.MoreOptions` tab is already provided as a default and contains some minor actions.
+* You can override the actions completely by providing your own `getAllCMSFields`.
 
-Here's a couple of examples for adding actions to a page type using the existing structure:
+Here's a couple of examples for adding actions to a page type using the existing structure.
 
 	:::php
 	public function getCMSActions() {
@@ -181,9 +183,9 @@ Here's a couple of examples for adding actions to a page type using the existing
 		return $fields;
 	}
 
-Empty tabs will be automatically removed by the CMS to prevent clutter.
+Note: empty tabs will be automatically removed from the FieldList to prevent clutter.
 
-New actions need controller handlers to work properly, here is an example of adding one using `LeftAndMainExtension`:
+New actions need controller handlers to work, so here is an example of adding one using `LeftAndMainExtension`:
 
 	:::php
 	class CustomActionsExtension extends LeftAndMainExtension {
@@ -221,7 +223,7 @@ New actions need controller handlers to work properly, here is an example of add
 		}
 	}
 
-The extension needs to be applied to LeftAndMain via a config file:
+Finally, the extension needs to be applied to LeftAndMain via a config file:
 
 	:::php
 	Object::add_extension('LeftAndMain', 'CustomActionsExtension');
