@@ -201,8 +201,7 @@ body.cms {
 		.ui-state-active {
 			padding-bottom:1px;
 			border:1px solid $color-button-generic-border;
-			// needs a background image to overlay the divider line
-			background: url("../images/textures/bg_cms_main_content.png") repeat left top #F0F3F4;
+			background-color: $tab-panel-texture-color;
 
 			a {
 				color: $color-text;
@@ -238,19 +237,20 @@ body.cms {
 
 	.cms-edit-form {
 		padding: $grid-x $grid-y*2 0 $grid-y*2;
-
+		
 		.ui-tabs-panel {
-			padding-left: 0;
-			padding-right: 0;
+			margin: 8px 12px;
+			padding: 16px 0 20px;
 		}
-
 		.ui-tabs-nav {
-			padding-right: 0;
+			margin: 10px 12px 0;
+			padding: 0;
 		}
 	}
 
 	.cms-panel-padded .ui-tabs-panel {
-		padding: 0;	// Removes double paddle around main pages page, does not effect other areas of the site
+		margin: 0;
+		padding: 8px 12px 20px;	// Removes double paddle around main pages page, does not effect other areas of the site
 
 		.ui-tabs-panel {
 			// Reset nested tabs to default styling
@@ -1295,7 +1295,7 @@ form.member-profile-form {
 
 .cms {
 	.cms-panel-padded {
-		padding: $grid-y $grid-x*2;
+		padding:0;
 		margin:0;
 	}
 }
