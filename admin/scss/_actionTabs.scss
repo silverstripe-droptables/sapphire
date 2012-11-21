@@ -205,6 +205,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 		.rise-up.ss-ui-action-tabset{
 			ul.ui-tabs-nav {
 				width: 220px;
+				margin: 0;
 				li {
 					a.ui-tabs-anchor {
 						font-weight: normal;
@@ -237,12 +238,12 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				display:block;
 				position:absolute;
 				top:-204px;
-				width:170px;
+				width:190px;										/* same width as buttons within panel */
 				z-index:1;
 				padding:10px;				
 				margin:0;
 				margin-top:1px;
-				left:-77px;
+				/*left:-77px;*/
 				.chzn-container-single .chzn-single{
 					padding: 0 0 0 5px;
 					float:none;
@@ -251,12 +252,17 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					background:none;
 					border:none;
 					display:block;
-					padding:0;
+					padding: 0 10px;
 					margin:0;
 					outline:none;
 					color: $color-text-blue-link;
 					font-weight:normal;
-					@include text-shadow(#fff 0 1px 1px);
+					width: 210px; 									/* same as width of surrounding panel */
+					text-align: left;
+					@include border-radius(0);
+					text-shadow: none;
+					margin-left:-10px;
+
 					&.ss-ui-action-destructive{
 						color: darken($color-error,25%);
 					}
@@ -265,7 +271,8 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						padding-right:0;
 					}
 					&:hover, &:focus, &:active{
-						text-decoration:underline;
+						/*text-decoration:underline;*/
+						background-color: darken($tab-panel-texture-color,4%);
 						@include box-shadow(none);
 						outline:none;
 					}
