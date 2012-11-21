@@ -171,6 +171,12 @@ form .fieldgroup {
     display: block;
     margin: 0 0 8px;
     padding: 0 0 7px;
+    .fieldgroup {
+    	border-bottom: none;
+    	box-shadow: none;
+    	padding-bottom: 0;
+    	margin-bottom: 0;
+    }
 }
 
 form.small .field, .field.small {

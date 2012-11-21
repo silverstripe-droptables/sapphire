@@ -167,6 +167,7 @@ form.stacked .field label, .field.stacked label { display: block; float: none; p
 form.stacked .field .middleColumn, .field.stacked .middleColumn { margin-left: 0px; clear: left; }
 
 form .fieldgroup { border-bottom: 1px solid rgba(201, 205, 206, 0.8); box-shadow: 0 1px 0 rgba(244, 245, 245, 0.8); display: block; margin: 0 0 8px; padding: 0 0 7px; }
+form .fieldgroup .fieldgroup { border-bottom: none; box-shadow: none; padding-bottom: 0; margin-bottom: 0; }
 
 form.small .field label.left, .field.small label.left { width: 112px; }
 form.small .field .middleColumn, .field.small .middleColumn { margin-left: 120px; }
@@ -294,6 +295,8 @@ body.cms { overflow: hidden; }
 .cms-content-header .cms-content-header-info { float: left; line-height: 34px; }
 .cms-content-header .ss-ui-button { line-height: 24px; }
 .cms-content-header .ss-ui-button .ui-button-text { line-height: 1.4; }
+
+#Form_EditForm.CMSMain { padding: 0; }
 
 /** -------------------------------------------- Tabs -------------------------------------------- */
 .ui-tabs { padding: 0; background: none; }
