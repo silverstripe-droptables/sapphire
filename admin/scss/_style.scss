@@ -264,10 +264,10 @@ body.cms {
 
 	// Reset to default styles
 	.ss-ui-button {
-		line-height: $grid-x*3;
+		line-height: $grid-x*2;
 
 		.ui-button-text {
-			line-height: 1.4;
+			line-height: 14px;
 		}
 	}
 }
@@ -410,7 +410,8 @@ body.cms {
 	z-index: 0;
 	border-top: 1px solid $color-light-separator;
 	border-top: 1px solid #FAFAFA;
-	@include box-shadow(#CCC 0 -1px 1px);
+	@include box-shadow(1px 0 0 $tab-panel-texture-color, #CCC 0 -1px 1px);
+	height: 28px;
 }
 
 /** --------------------------------------------
@@ -579,7 +580,7 @@ body.cms {
 	min-height:35px;
 	display: block;
 	margin: 0 0 15px 0;
-	padding-bottom:7px;
+	padding-bottom: 9px;
 	
 	@include doubleborder(bottom, $color-light-separator, lighten($color-light-separator, 50%));
 	@include legacy-pie-clearfix();
@@ -1026,6 +1027,9 @@ form.member-profile-form {
 	&.cms-content-tools .cms-panel-toggle {
 		&.south {
 			border-top: 1px solid #FFF;
+			bottom: 0;
+			position: absolute;
+			width: 100%;
 		}
 	}
 	
