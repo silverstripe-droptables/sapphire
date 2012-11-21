@@ -197,6 +197,7 @@ $border: 1px solid darken(#D9D9D9, 15%);
 	************************/
 	.south .Actions{
 		overflow:visible; //put this somewhere else/more generic
+
 		.rise-up.ss-ui-action-tabset{
 			ul.ui-tabs-nav {				
 				margin: 0;
@@ -206,15 +207,28 @@ $border: 1px solid darken(#D9D9D9, 15%);
 						font-size: 13px;
 						line-height: 24px;
 						padding-right: 25px;
-						background: transparent url(../images/link_arrows.png) no-repeat right -11px;
-						&:hover {
-							background-position: right -49px;
-						}				
+						&:after {
+							background: sprite($sprites32, arrow_down_lighter) no-repeat;
+							width: 16px;
+							height: 16px;
+							content: "";
+							display: inline-block;
+							margin-left: 6px;
+							border-bottom: 0;
+							
+						}
+						&:hover:after {
+							border-bottom: 0;
+							background: sprite($sprites32, arrow_down_darker) no-repeat;
+						}
+									
 					}
 					&.ui-state-active a.ui-tabs-anchor {
-						background-position: right 9px;
-						&:hover {
-							background-position: right -29px;
+						&:after {
+							background: sprite($sprites32, arrow_up_lighter) no-repeat;
+						}
+						&:hover:after {
+							background: sprite($sprites32, arrow_up_darker) no-repeat;
 						}
 					}
 				}
@@ -223,7 +237,6 @@ $border: 1px solid darken(#D9D9D9, 15%);
 				@include clearfix;
 				@include border-top-radius(3px);
 				@include border-bottom-radius(0);
-				/*@include box-shadow(0 -1px 1px 0 lighten(#cccccc,5%));*/
 				@include tightSpacing;
 				background-color: $tab-panel-texture-color;
 				border:1px solid #ccc;

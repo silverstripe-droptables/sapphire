@@ -33,34 +33,40 @@ ul.preview-selector {
 			width: 0px;
 			text-indent: 299px;
 			overflow: hidden;
-			background: {
-				color: #FFF;
-				image: url(../images/preview_icons.png);
-				repeat: no-repeat;
-			}
+			background-color: #FFF;
+
+			/* Move all icons 2px up from original sprite position to center */
 			&.icon-auto {
-				background-position: -3px -246px;
+				background: sprite($sprites32, preview_auto) no-repeat;	
+				background-position: 0px -345px;
 			}
 			&.icon-desktop {
-				background-position: -3px -62px;
+				background: sprite($sprites32, preview_desktop) no-repeat;
+				background-position: 0px -303px;
 			}
 			&.icon-tablet {
-				background-position: -3px -33px;
+				background: sprite($sprites32, preview_tablet) no-repeat;
+				background-position: 0px -487px;
 			}
 			&.icon-mobile {
-				background-position: -3px -1px;
+				background: sprite($sprites32, preview_mobile) no-repeat;
+				background-position: 0px -529px;
 			}
 			&.icon-split {
-				background-position: -3px -214px;
+				background: sprite($sprites32, preview_split) no-repeat;
+				background-position: 0px -429px;
 			}
 			&.icon-edit {
-				background-position: -3px -184px;
+				background: sprite($sprites32, preview_edit) no-repeat;
+				background-position: 0px -487px;
 			}
 			&.icon-preview {
-				background-position: -3px -154px;
+				background: sprite($sprites32, preview_preview) no-repeat;
+				background-position: 0px -261px;
 			}
 			&.icon-window {
-				background-position: -3px -124px;
+				background: sprite($sprites32, preview_dual_window) no-repeat;
+				background-position: 0px -217px;
 			}
 			&:hover {
 				background-color: lighten($color-widget-bg,2%);
@@ -79,29 +85,38 @@ ul.preview-selector {
 				width: 90px;
 				text-indent: 0;						
 				
+				/* Move all icons down from original sprite position to center */
 				&.icon-auto {
-					background-position: -3px -242px;
+					background: sprite($sprites32, preview_auto) no-repeat;
+					background-position: -1px -341px;
 				}
 				&.icon-desktop {
-					background-position: -3px -58px;
+					background: sprite($sprites32, preview_desktop) no-repeat;
+					background-position: -1px -300px;
 				}
 				&.icon-tablet {
-					background-position: -3px -29px;
+					background: sprite($sprites32, preview_tablet) no-repeat;
+					/*background-position: -1px -485px;*/
 				}
 				&.icon-mobile {
-					background-position: -3px 3px;
+					background: sprite($sprites32, preview_mobile) no-repeat;
+					background-position: -1px -526px;
 				}
 				&.icon-split {
-					background-position: -3px -211px;
+					background: sprite($sprites32, preview_split) no-repeat;
+					background-position: -1px -426px;
 				}
 				&.icon-edit {
-					background-position: -3px -182px;
+					background: sprite($sprites32, preview_edit) no-repeat;
+					/*background-position: -1px -485px;*/
 				}
 				&.icon-preview {
-					background-position: -3px -152px;
+					background: sprite($sprites32, preview_preview) no-repeat;
+					/*background-position: -1px -259px;*/
 				}
 				&.icon-window {
-					background-position: -3px -122px;
+					background: sprite($sprites32, preview_dual_window) no-repeat;
+					background-position: -1px -217px;
 				}
 				
 			}
