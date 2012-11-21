@@ -45,7 +45,7 @@
 		ins {
 			display: inline-block;
 			text-decoration: none;
-			width: 18px;
+			width: 9px;
 			height: 18px;
 			margin: 0 0 0 0;
 			padding: 0;
@@ -68,17 +68,35 @@
 				text-decoration: none;
 				cursor: pointer;
 				text-shadow: none;
+				> {
+					ins {
+						opacity:1;
+						visibility:visible;
+						@include duration(0.5s);
+						&:hover {
+							cursor: move;
+						}
+					}
+				}
 			}
 			> {
 				ins {
-					height: 16px;
-					width: 16px;
+					height: 19px;
+					width: 10px;
+					//background-position:
+					opacity:0;
+					visibility:hidden;
+					@include duration(0.5s);					
 					&.jstree-checkbox{
 						height:19px; //Larger to help avoid accidental page loads when trying to click checkboxes
+       					width:16px;
+       					opacity:1;
+       					visibility:visible;  
+       					@include duration(0s);     					
        				}
 				}
 				.jstree-icon {
-					margin-right: 3px;
+					//margin-right: 3px;
 				}
 			}
 		}
@@ -111,15 +129,12 @@
 				background: transparent !important;
 				width: 100%;
 			}
-			a{
+			a, a:hover{
 				@extend %no-margin-padding;
 				text-indent: -9999px !important;
 				width: 100%;
 				border-right-width: 0px !important;
 				border-left-width: 0px !important;
-				&:hover{
-					@extend a;
-				}
 			}
 			ins, 
 			span, 
@@ -421,7 +436,7 @@
 					background-color: $color-cms-batchactions-menu-selected-background;
 				}
 			} 
-		}	
+		}			
 		a, a:link {
 			color:  $color-text-blue-link;
 			padding: 3px 6px 3px 3px;
@@ -538,13 +553,13 @@ a .jstree-pageicon {
 	&.multiple {
 		li > a {
 			// Hide draggable icon when multiselect is enabled
-			 > .jstree-icon {
+			> ins.jstree-icon {
 				display: none;
-				// But show the checkbox
-				 &.jstree-checkbox {
-					display: inline-block;
-				}
-			}			
+			}
+			// But show the checkbox
+			 ins.jstree-checkbox {
+				display: inline-block;
+			}						
 		}
 
 		li#record-0 {

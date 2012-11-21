@@ -47,7 +47,7 @@
 				this._super();
 			},
 
-			'from .cms-content-batchactions :input[name=view-mode-batchactions]': {
+			'from .cms-actions-row :input[name=view-mode-batchactions]': {
 				onclick: function(e){
 					var checkbox = $(e.target), dropdown = this.find(':input[name=Action]'), tree = this.getTree();
 
@@ -68,7 +68,7 @@
 			 * Updates the select box state according to the current view mode.
 			 */
 			_updateStateFromViewMode: function() {
-				var viewMode = $('.cms-content-batchactions :input[name=view-mode-batchactions]');
+				var viewMode = $('.cms-actions-row :input[name=view-mode-batchactions]');
 				var batchactions = $('.cms-content-batchactions');
 				var dropdown = this.find(':input[name=Action]');
 

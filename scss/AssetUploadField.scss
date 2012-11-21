@@ -267,7 +267,7 @@ body.cms.ss-uploadfield-edit-iframe, .composite.ss-assetuploadfield .details fie
 				height:30px;
 				font-size:14px;
 				&.ui-state-focus{
-					@include single-box-shadow(none);
+					//@include single-box-shadow(none);
 				}	
 			}
 		}

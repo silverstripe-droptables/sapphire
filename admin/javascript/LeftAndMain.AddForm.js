@@ -164,5 +164,30 @@
 				this.find(':input[name=ParentID]').val(selectedNode ? selectedNode.data('id') : 0);
 			}
 		});
+
+		/***
+		*	Update the extra-details area from the data description
+		*	Get data-description attribute of currently live select option
+		*	Fill label.extra-details with the data-dexscription
+		*	onchange -> update
+		**/
+		$('.cms-edit-form.cms-add-form select.pageoptionset').entwine({
+			onadd: function(){
+				var that = this;				
+				this.redraw();
+				this.on('change', function(e){
+					that.redraw();
+				});
+			},
+			redraw: function(){
+				var selected = this.find(':selected');
+				var description = selected.attr('data-description');
+				if(description != undefined){
+					this.parent().find('.extra-details').addClass('fill').text(description);
+				}else{
+					this.parent().find('.extra-details').removeClass('fill').text('');
+				}
+			}
+		});
 	});
 }(jQuery));

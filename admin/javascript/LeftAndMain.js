@@ -947,7 +947,20 @@ jQuery.noConflict();
 						} else {
 							actions.show();
 						}
-					}
+					},
+					create: function(event, ui){
+						var panel = ui.panel.find('.cms-content-toolbar');
+						if(panel.length > 0){
+							$('#tree_actions').detach().appendTo(panel);
+						}
+					},
+					beforeActivate:function(event, ui){	
+						var panel = ui.newPanel.find('.cms-content-toolbar');
+						if(panel.length > 0){
+							$('#tree_actions').detach().appendTo(panel);
+						}						
+					}			
+							
 				});
 			},
 		

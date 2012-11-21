@@ -17,7 +17,6 @@
 	border: 0;
 }
 
-
 .ui-widget-header {			
 	background-color: darken($color-widget-bg, 20%);
 	padding: 8px 8px 6px 8px;	
@@ -29,14 +28,12 @@
 	padding: 8px;	
 	@include border-radius(0);
 		
-	& .ui-dialog-title {
+	.ui-dialog-title {
 		padding: 6px 0;
 		text-shadow: lighten($color-base, 10%) 1px 1px 0;
-	}
+	}	
 	
-	
-	
-	& a.ui-dialog-titlebar-close {
+	a.ui-dialog-titlebar-close {
 		position:  absolute;
 		top: -8px;
 		right: -15px;
@@ -90,3 +87,35 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
+
+.ui-menu {
+  .ui-menu {
+    margin-top: -3px;
+    position: absolute;
+  }
+  .ui-menu-item {
+    margin: 0;
+    padding: 0;
+    zoom: 1;
+    width: 100%;
+  }
+  .ui-menu-divider {
+    margin: 5px -2px 5px -2px;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    border-width: 1px 0 0 0;
+  }
+  
+  .ui-icon {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .ui-menu-icon {
+    position: static;
+    float: right;
+  }
+}
+

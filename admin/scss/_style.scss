@@ -33,18 +33,7 @@ body.cms {
 	a {
 		color: $color-text-blue-link;
 		text-decoration: none;
-	
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
-	}
-	
-	body .ui-widget {
-		font-family: $font-family;
-		font-size: $font-base-size;
-	}
-	
+	}	
 	strong {
 		font-weight: bold;
 	}
@@ -578,7 +567,8 @@ body.cms {
 .cms-content-toolbar {
 	min-height:35px;
 	display: block;
-	margin: 0 0 15px 0;
+	margin: 0 0 8px 0;
+	padding-bottom: 8px;
 	
 	@include doubleborder(bottom, $color-light-separator, lighten($color-light-separator, 50%));
 	@include legacy-pie-clearfix();
@@ -594,48 +584,8 @@ body.cms {
 		}
 	}
 
-/* smaller treedropdown */
-	.chzn-container-single .chzn-single  {
-		height: 26px;
-		line-height: 26px;
-		padding-left:25px;
-		color: darken($color-dark-grey, 15%);
-		@include background-image(
-			linear-gradient($color-button-generic, darken($color-button-generic, 10%))
-		);
-		font: {
-			size:13px;
-			weight:bold;
-		}
-		text-shadow:darken($color-text-shadow, 10%) 0 -1px 1px;
-		box-shadow:none;
-		&:hover {
-			@include box-shadow(0 0 5px darken($color-button-generic, 20%));
-			@include background-image(
-				linear-gradient(lighten($color-button-generic, 2%), darken($color-button-generic, 8%))
-			);
-		}
 
-		&:active {
-			@include box-shadow(inset 0 1px 3px darken($color-button-generic, 60%));
-		}
- 		
- 		span {
- 			padding-top:1px;
- 		}
-
-		div {
-			background:url(../images/btn-icon/settings.png) 5px 4px no-repeat;
-			border-left:none;
-			width:100%;
-		}
-
-		div b {
-			background: url(../images/sprites-32x32/menu-arrow-deselected-down.png) no-repeat 9px 11px;
-			float:right;
-			width:24px;
-		}	
-	}
+	
 }
 
 
@@ -651,7 +601,8 @@ body.cms {
 	overflow-y: auto;	
 	overflow-x: hidden;
 	z-index: 70;
-	@include box-shadow($color-shadow-black 0 2px 3px);
+	border-right: 1px solid #C0C0C2;
+	/*@include box-shadow($color-shadow-black 0 2px 3px);*/
 	float: left;
 	position: relative;
 
@@ -691,69 +642,7 @@ body.cms {
 			@include hide-text-overflow();
 		}
 	}
-
-	h3,h4,h5 {
-		font-weight: bold;
-		line-height: $grid-y * 2;
-	}
-	h3 {
-		font-size: $font-base-size + 1;
-	}
-
-	h4 {
-		font-size: $font-base-size;
-		margin:5px 0;
-	}
-	
-	.ui-widget-content {
-		background: none;
-	}
-	
-	.field {
-		/* 
-		 * Fields are more compressed in the sidebar compared to the
-		 * main content editing window so the below alters the internal
-		 * spacing of the fields so we can move that spacing to between
-		 * the form fields rather than padding
-		 */
-		label {
-			float: none;
-			width: auto;
-			font-size: 11px;
-			padding: 0 $grid-x 4px 0;
-		}
-		
-		.middleColumn {
-			margin: 0;
-		}
-		
-		input.text,
-		select,
-		textarea {
-			padding: 5px;
-			font-size: 11px;
-		}
-		
-		&.checkbox {
-			padding: 0 8px 0;
-			
-			input { 
-				margin: 2px 0; 
-			}
-		}
-	}
-
-	.fieldgroup {
-		.fieldgroup-field {
-			padding: 0;
-			
-			.field {
-				margin: 0;
-				padding: 0;
-			}
-		}
-	}
-	
+	@include tightSpacing;	
 	table {
 		margin: 8px -4px;
 		thead {
@@ -794,76 +683,7 @@ body.cms {
 	}
 }
 
-/** 
- * CMS Batch actions
- */
 
-.cms-content-batchactions {
-	float: left;
-	position:  relative;
-	display: block;
-	margin-left: 8px;
-
-	.view-mode-batchactions-wrapper {
-		float: left;
-		padding: 4px 6px;
-		border: 1px solid #aaa;
-		margin-bottom: 8px;
-		@include background-image(linear-gradient(top, #fff, #D9D9D9));
-		border-top-left-radius: 4px;
-		border-bottom-left-radius: 4px;	
-
-		label {
-			display: none;
-		}
-
-		fieldset, .Actions {
-			display: inline-block;
-		}
-	}
-
-		&.inactive .view-mode-batchactions-wrapper {
-			border-radius: 4px;		
-
-			label {
-				display: inline;
-			}
-		}
-	
-	form > * {
-		display: block;
-		float: left;
-	}
-	
-	form.cms-batch-actions {
-		float:  left;
-	}
-
-	&.inactive form {
-		display: none;
-	}
-
-	.chzn-container-single .chzn-single {
-		margin-left: -1px;
-		border-radius: 0;
-		@include background-image(linear-gradient(top, #fff, #D9D9D9));
-	}
-
-	.cms-batch-actions .Actions .ss-ui-button {
-		margin-left: -1px;
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-
-		&.ui-state-disabled {
-			opacity: 1;
-			color: #ccc;
-		}
-	}
-}
-
-#Form_BatchActionsForm select {
-	width: 200px;
-}
 
 /** --------------------------------------------
  * Preview
@@ -1193,9 +1013,17 @@ form.member-profile-form {
 			}
 		}
 	}
-	&.cms-content-tools .cms-panel-toggle {
-		&.south {
-			border-top: 1px solid #FFF;
+	&.cms-content-tools {
+		.Actions {
+			padding: 0;
+		}
+		.cms-panel-toggle {
+			&.south {
+				border-top: 1px solid #FFF;
+				bottom: 0;
+				position: absolute;
+				width: 100%;
+			}
 		}
 	}
 	

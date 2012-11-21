@@ -1211,26 +1211,30 @@ class LeftAndMain extends Controller implements PermissionProvider {
 	 */
 	public function BatchActionsForm() {
 		$actions = $this->batchactions()->batchActionList();
-		$actionsMap = array('-1' => _t('LeftAndMain.DropdownBatchActionsDefault', 'Actions'));
+
 		foreach($actions as $action) $actionsMap[$action->Link] = $action->Title;
+		
+		$batchActionsFields =new FieldList(
+			new HiddenField('csvIDs')
+		);
+
+		foreach($actionsMap as $batchAction => $batchActionTitle){			
+			$batchActionsFields->push(
+				$button = FormAction::create($batchActionTitle, $batchActionTitle)
+			);	
+			$button->setUseButtonTag(true);			
+		}			
 		
 		$form = new Form(
 			$this,
 			'BatchActionsForm',
-			new FieldList(
-				new HiddenField('csvIDs'),
-				DropdownField::create(
-					'Action',
-					false,
-					$actionsMap
-				)->setAttribute('autocomplete', 'off')
-			),
+			$batchActionsFields,
 			new FieldList(
 				// TODO i18n
 				new FormAction('submit', _t('Form.SubmitBtnLabel', "Go"))
 			)
 		);
-		$form->addExtraClass('cms-batch-actions nostyle');
+		$form->addExtraClass('cms-batch-actions nostyle button-no-style');
 		$form->unsetValidator();
 		
 		return $form;
