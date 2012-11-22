@@ -435,6 +435,7 @@ body.cms {
 	border-top: 1px solid #FAFAFA;
 	@include box-shadow(1px 0 0 $tab-panel-texture-color, #CCC 0 -1px 1px);
 	height: 28px;
+	background-color: $tab-panel-texture-color;
 }
 
 

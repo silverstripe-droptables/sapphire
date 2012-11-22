@@ -413,7 +413,7 @@ body.cms { overflow: hidden; }
 .ss-loading-screen .loading-animation { display: none; position: absolute; left: 49%; top: 75%; }
 
 /** -------------------------------------------- Actions -------------------------------------------- */
-.cms-content-actions, .cms-preview-controls { margin: 0; padding: 12px 16px; z-index: 0; border-top: 1px solid rgba(201, 205, 206, 0.8); border-top: 1px solid #FAFAFA; -webkit-box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; -moz-box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; height: 28px; }
+.cms-content-actions, .cms-preview-controls { margin: 0; padding: 12px 16px; z-index: 0; border-top: 1px solid rgba(201, 205, 206, 0.8); border-top: 1px solid #FAFAFA; -webkit-box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; -moz-box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; box-shadow: 1px 0 0 #eceff1, #cccccc 0 -1px 1px; height: 28px; background-color: #eceff1; }
 
 /** -------------------------------------------- Messages -------------------------------------------- */
 .message { display: block; clear: both; margin: 8px 0; padding: 10px 12px; font-weight: normal; border: 1px #ccc solid; background: #fff; background: rgba(255, 255, 255, 0.5); text-shadow: none; -webkit-border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -ms-border-radius: 3px 3px 3px 3px; -o-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px; }
