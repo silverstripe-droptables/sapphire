@@ -2,7 +2,8 @@
     <input type="checkbox" name="cms-preview" class="hide cms-preview" id="cms-preview-state" checked>
     <label for="cms-preview-state">
 	    <span class="switch-options">
-	    	<% loop Items %>
+	    	<% loop Items %>	
+	    	$Items.count    	
 	    	<a href="$Link" class="$FirstLast <% if isActive %> active<% end_if %>">
 	    		$Title		
 			</a>

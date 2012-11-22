@@ -13,15 +13,23 @@
 				<li>
 					<a class="icon-preview" href="">Preview mode</a> 
 				</li>
-				<li>
+				<li class="last">
 					<a class="icon-edit" href="">Edit mode</a> 
 				</li>
-				<li class="last">
+				<!-- <li class="last">
 					<a class="icon-window" href="">Dual window</a> 
-				</li>
+				</li> /-->
 	        </ul>
 	    </li>
 	</ul>
+
+    <!-- To remove -->
+    <span class="field dropdown">
+		<select id="cms-preview-mode-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
+			<option value="split"><% _t('SilverStripeNavigator.SplitView', 'Split mode') %></option>
+			<option value="preview"><% _t('SilverStripeNavigator.Preview View', 'Preview mode') %></option>
+		</select>
+	</span>
 
 	<ul class="preview-selector double-label select-size">
 	    <li>
@@ -48,21 +56,7 @@
 
 	<% include Switch %>
 
-	
-    <!-- To remove 
-    <span class="field dropdown">
-		<select id="cms-preview-mode-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
-			<option value="split"><% _t('SilverStripeNavigator.SplitView', 'Split mode') %></option>
-			<option value="preview"><% _t('SilverStripeNavigator.Preview View', 'Preview mode') %></option>
-		</select>
-	</span>
-	-->
 
-	<!-- To remove 
-    <ul class="cms-preview-states">
-		<% loop Items %>
-			<li class="<% if isActive %> active<% end_if %>">$HTML
-			</li>
-		<% end_loop %>
-	</ul>-->
+	
+
 </div>

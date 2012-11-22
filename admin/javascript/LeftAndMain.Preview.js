@@ -233,7 +233,13 @@
 		$('.preview-selector .preview-selected').entwine({
 			onclick: function(e) {
 				e.preventDefault();
-				this.parents('.preview-selector').toggleClass('active');
+				var height = $(this).parents('.preview-selector').outerHeight();
+				height=-140;
+				this.parents('.preview-selector').toggleClass('active')
+				this.css('top:'+height+'px');
+				console.log(height);
+				
+				
 			}
 		});
 		$(".preview-selector .preview-size-menu li").entwine({
