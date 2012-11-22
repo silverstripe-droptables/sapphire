@@ -205,8 +205,10 @@ $border: 1px solid darken(#D9D9D9, 15%);
 					a.ui-tabs-anchor {
 						font-weight: normal;
 						font-size: 13px;
-						line-height: 24px;
+						line-height: 27px;
 						padding-right: 25px;
+						border-radius: none;
+
 						&:after {
 							background: sprite($sprites32, arrow_down_lighter) no-repeat;
 							width: 16px;

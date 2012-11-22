@@ -203,6 +203,7 @@ form.small .field input.text, form.small .field textarea, form.small .field sele
 .field.remove-splitter { border-bottom: none; box-shadow: none; }
 
 /**  Buttons */
+.cms { /* Overide default icon & text styles as the order of the icon and text are mixed up */ }
 .cms .Actions > *, .cms .cms-actions-row > * { display: block; float: left; margin-right: 8px; }
 .cms .Actions > *:last-child, .cms .cms-actions-row > *:last-child { margin-right: 0; }
 .cms .Actions { overflow: auto; padding: 8px 12px; }
@@ -228,6 +229,8 @@ form.small .field input.text, form.small .field textarea, form.small .field sele
 .cms .ss-ui-buttonset .ui-button { margin-left: -1px; }
 .cms .ss-ui-buttonset { margin-left: 1px; }
 .cms .ss-ui-loading-icon { background: url(../../images/network-save.gif) no-repeat; display: block; width: 16px; height: 16px; }
+.cms .south .Actions .ss-ui-button.ss-ui-action-constructive .ui-button-text-alternate { margin-left: 19px; }
+.cms .south .Actions .ss-ui-button.ss-ui-action-constructive .ui-icon { position: absolute; left: 7px; top: 5px; }
 
 /**  Grouped form fields */
 .fieldgroup .fieldgroup-field { float: left; display: block; padding: 8px 0 0 8px; }
@@ -918,7 +921,7 @@ visible. Added and removed with js in TabSet.js  */ }
 .cms .ss-ui-action-tabset .last .ss-ui-action-tab { right: -1px; left: auto; }
 .cms .south .Actions { overflow: visible; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav { margin: 0; }
-.cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor { font-weight: normal; font-size: 13px; line-height: 24px; padding-right: 25px; }
+.cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor { font-weight: normal; font-size: 13px; line-height: 27px; padding-right: 25px; border-radius: none; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor:after { background: url('../images/sprites-32x32-saf3f201aa6.png') 0 -1309px no-repeat; width: 16px; height: 16px; content: ""; display: inline-block; margin-left: 6px; border-bottom: 0; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li a.ui-tabs-anchor:hover:after, .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav #vakata-contextmenu li.vakata-hover > a.ui-tabs-anchor:after, .cms #vakata-contextmenu .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.vakata-hover > a.ui-tabs-anchor:after, .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav .TreeDropdownField .treedropdownfield-panel #vakata-contextmenu li.vakata-hover > a.ui-tabs-anchor:after, .TreeDropdownField .treedropdownfield-panel #vakata-contextmenu .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.vakata-hover > a.ui-tabs-anchor:after { border-bottom: 0; background: url('../images/sprites-32x32-saf3f201aa6.png') 0 -1283px no-repeat; }
 .cms .south .Actions .rise-up.ss-ui-action-tabset ul.ui-tabs-nav li.ui-state-active a.ui-tabs-anchor:after { background: url('../images/sprites-32x32-saf3f201aa6.png') 0 -1335px no-repeat; }
