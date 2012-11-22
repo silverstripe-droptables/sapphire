@@ -10,7 +10,7 @@
 		 * The admin UI itself is collapsible, leaving most screen space to this panel.
 		 *
 		 * Relies on the server responses to indicate if a preview URL is available for the 
-		 * currently loaded admin interface. If no preview is available, the panel is "blocked" 
+		 * currently loaded admin interface. If no preview is available, the panel is "blocked"
 		 * automatically.
 		 * 
 		 * Internal links within the preview iframe trigger a refresh of the admin panel as well,
@@ -40,11 +40,9 @@
 
 					// Load edit view for new page, but only if the preview is activated at the moment.
 					// This avoids e.g. force-redirections of the edit view on RedirectorPage instances.
-					if(!self.is('.is-collapsed')) self.loadCurrentPage();
+					self.loadCurrentPage();
 				});
 				
-				if(this.hasClass('is-expanded')) this.expand();
-				else this.collapse();
 				this.data('cms-preview-initialized', true);
 				
 				// Preview might not be available in all admin interfaces - block/disable when necessary
@@ -53,21 +51,18 @@
 				$('.cms-preview-toggle-link')[this.canPreview() ? 'show' : 'hide']();
 
 				self._fixIframeLinks();
-		
+				this.updatePreview();
+
 				this._super();
 			},
+
 			loadUrl: function(url) {
 				this.find('iframe').attr('src', url);
 			},
 
-			updateAfterXhr: function(){
-				$('.cms-preview-toggle-link')[this.canPreview() ? 'show' : 'hide']();
-
-				// Only load when panel is visible (see details in iframe load event handler).
-				if(this.is('.is-collapsed')) return;
-
-				// var url = ui.xmlhttp.getResponseHeader('x-frontend-url');
+			updatePreview: function() {
 				var url = $('.cms-edit-form').choosePreviewLink();
+
 				if(url) {
 					this.loadUrl(url);
 					this.unblock();
@@ -76,21 +71,17 @@
 				}
 			},
 
+			updateAfterXhr: function(){
+				$('.cms-preview-toggle-link')[this.canPreview() ? 'show' : 'hide']();
+				this.updatePreview();
+			},
+
 			'from .cms-container': {
 				onaftersubmitform: function(){
 					this.updateAfterXhr();
 				},
 				onafterstatechange: function(){
 					this.updateAfterXhr();
-				}
-			},
-
-			// Toggle preview when new menu entry is selected.
-			// Only do this when preview is actually shown,
-			// to avoid auto-expanding the menu in normal CMS mode
-			'from .cms-menu-list li': {
-				onselect: function(){
-					if(!this.hasClass('is-collapsed')) this.collapse();
 				}
 			},
 
@@ -129,7 +120,13 @@
 			},
 			
 			_fixIframeLinks: function() {
-				var doc = this.find('iframe')[0].contentDocument;
+				var iframe = this.find('iframe')[0];
+				if(iframe){
+					var doc = iframe.contentDocument;
+				}else{
+					return;
+				}
+		
 				if(!doc) return;
 
 				// Block outside links from going anywhere
@@ -150,40 +147,7 @@
 				var naviMsg = doc.getElementById('SilverStripeNavigatorMessage');
 				if(naviMsg) naviMsg.style.display = 'none';
 			},
-			
-			expand: function(inclMenu) {
-				var self = this, containerEl = this.getLayoutContainer(), contentEl = containerEl.find('.cms-content');
-				this.show();
-				this.removeClass('east').addClass('center').removeClass('is-collapsed');
-				// this.css('overflow', 'auto');
-				contentEl.removeClass('center').hide();
-				this.find('iframe').show();
-				this.find('.cms-preview-toggle a').html('&raquo;');
-				this.find('.cms-preview-controls').show();
-				
-				if(this.data('cms-preview-initialized')) {
-					containerEl.find('.cms-menu').collapsePanel();
-				}
-				
-				containerEl.redraw();
-			},
-			
-			collapse: function() {
-				var self = this, containerEl = this.getLayoutContainer(), contentEl = containerEl.find('.cms-content');
-				this.addClass('east').removeClass('center').addClass('is-collapsed').width(10);
-				// this.css('overflow', 'hidden');
-				contentEl.addClass('center').show().css('visibility', 'visible');
-				this.find('iframe').hide();
-				this.find('.cms-preview-toggle a').html('&laquo;');
-				this.find('.cms-preview-controls').hide();
 
-				if(this.data('cms-preview-initialized')) {
-					containerEl.find('.cms-menu').expandPanel();
-				}
-				
-				containerEl.redraw();
-			},
-			
 			block: function() {
 				this.addClass('blocked');
 			},
@@ -196,13 +160,8 @@
 				return this.parents('.cms-container');
 			},
 			
-			toggle: function(bool) {
-				this[this.hasClass('is-collapsed') ? 'expand' : 'collapse']();
-			},
 			redraw: function() {
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
-				
-				this.layout({resize: false});
 			}
 		});
 		
@@ -237,73 +196,113 @@
 			}
 		});
 		
-		$('.cms-preview .cms-preview-toggle').entwine({
-			onclick: function(e) {
-				e.preventDefault();
-				this.parents('.cms-preview').toggle();
-			}
-		});
-		
-		$('.cms-switch-view a').entwine({
-			onclick: function(e) {
-				e.preventDefault();
+		$('.switch-options a').entwine({
+			onclick: function(e) {			
 				var preview = $('.cms-preview');
-				preview.toggle(true);
-				preview.loadUrl($(e.target).attr('href'));
+				var loadSibling = $(this).siblings('a');
+				var checkbox = $(this).closest('.cms-preview-states').find('input');
+				if(checkbox.attr('checked') !== undefined){
+					checkbox.attr('checked', false);
+				}else{
+					checkbox.attr('checked', true);
+				}
+				preview.loadUrl($(loadSibling).attr('href'));
+				return false;
 			}
-		});
+		});	
 		
-		$('.cms-menu li').entwine({
-			onclick: function(e) {
-				// Prevent reloading of interface when opening the edit panel
-				if(this.hasClass('Menu-CMSMain')) {
-					var preview = $('.cms-preview');
-					preview.toggle(true);
-					e.preventDefault();
+
+		$('#cms-preview-mode-dropdown').entwine({
+			onchange: function(e) {
+				e.preventDefault();
+
+				var container = $('.cms-container');
+				var state = $(this).val();
+
+				if (state == 'split') {
+					container.showContent();
+				} else {
+					container.hideContent();
 				}
+
+				this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
 
-		$('.cms-preview .cms-preview-states').entwine({
-			onmatch: function() {
-				this.find('a').addClass('disabled');
-				this.find('.active a').removeClass('disabled');
-				this.find('.cms-preview-watermark').show();
-				this.find('.active .cms-preview-watermark').hide();
-				this._super();
+
+		// Preview selectors (screen size, screen mode)
+
+		/*
+		*	Add a class to the chzn select trigger based on the currently 
+		*	selected option. Update as this changes
+		*/
+		$('.preview-selector select.preview-dropdown').entwine({			
+			addIcon: function(){			
+				var selected = this.find(':selected');				
+				var iconClass = selected.attr('data-icon');	
+								
+				var target = this.parent().find('.chzn-container a.chzn-single');
+				var oldIcon = target.attr('data-icon');
+				if(oldIcon != undefined){
+					target.removeClass(oldIcon);
+				}
+				target.addClass(iconClass);
+				target.attr('data-icon', iconClass);				
+			}
+		});
+
+		/*
+		* When chzn initiated run select redraw
+		* Apply description text if applicable
+		*/
+		$('.preview-selector a.chzn-single').entwine({
+			onadd: function() {						
+				this.closest('.preview-selector').find('select').addIcon();				
 			},
-			onunmatch: function() {
-				this._super();
+			onclick: function(){				
+				var parent = this.closest('.preview-selector');
+				if(parent.hasClass('open')){
+					parent.removeClass('open');
+				}else{
+					parent.addClass('open');
+				}				
 			}
 		});
 
-		$('.cms-preview .cms-preview-states a').entwine({
-			onclick: function(e) {
-				e.preventDefault();
-				this.parents('.cms-preview').loadUrl(this.attr('href'));
-				this.addClass('disabled');
-				this.parents('.cms-preview-states').find('a').not(this).removeClass('disabled');
-				//This hides all watermarks
-				this.parents('.cms-preview-states').find('.cms-preview-watermark').hide();
-				//Show the watermark for the current state
-				this.siblings('.cms-preview-watermark').show();
-			}
-		});
-
-		$('.cms-preview-toggle-link').entwine({
-			onclick: function(e) {
-				e.preventDefault();
+		$('.preview-selector .chzn-drop ul').entwine({
+			onadd: function() {
+				this.redraw();
+			},
+			redraw: function(){
+				var that = this;
+				var options = this.closest('.preview-selector').find('select option');
+				var chznOptions = this.find('li');
+							
+				$.each(options, function(index, option){
+					var description = $(option).attr('data-description');								
+					if(description != undefined && !$(chznOptions[index]).hasClass('description')){
+						$(chznOptions[index]).append('<span>' + description + '</span>');
+						$(chznOptions[index]).addClass('description'); 
+					}
+				});
 				
-				var preview = $('.cms-preview'),
-					url = $('.cms-edit-form').choosePreviewLink();
-					
-				if(url) {
-						preview.loadUrl(url);
-						preview.unblock();
-						preview.toggle();
-				}
 			}
 		});
+
+
+
+
+		$(".preview-selector .preview-size-menu li").entwine({
+			onclick: function(e) {
+				var text = $(this).html();
+				this.parents('.preview-selector').removeClass('active').find('.preview-selected').html(text);
+				this.siblings().removeClass('active');
+				this.addClass('active');
+			}
+		}); 
+
+
+		
 
 		$('.cms-edit-form').entwine({
 			/**
@@ -320,6 +319,22 @@
 				});
 				return urls ? urls[0] : false;
 			}
+		});
+
+
+		// Recalculate the preview space to allow for horizontal scrollbar and the preview actions panel
+		var toolbarSize = 53; 							// Height of the preview actions panel
+		$('.preview-scroll').entwine({
+			redraw: function() {
+				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
+				var previewHeight = (this.height() - toolbarSize);
+				this.height(previewHeight);
+			}, 
+			onmatch: function() {
+				this.redraw();
+			}
+			// Todo: Need to recalculate on resize of browser
+
 		});
 
 	});

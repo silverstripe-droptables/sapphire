@@ -9,12 +9,19 @@
 <body class="loading cms" lang="$Locale.RFC1766" data-frameworkpath="$ModulePath(framework)">
 	<% include CMSLoadingScreen %>
 	
-	<div class="cms-container center" data-layout-type="border">
+	<div class="cms-container center" data-layout-type="custom">
 		$Menu
 		$Content
 
 		<div class="cms-preview east <% if IsPreviewExpanded %>is-expanded<% else %>is-collapsed<% end_if %>" data-layout-type="border">
-			<iframe src="about:blank" class="center" name="cms-preview-iframe"></iframe>
+			<div class="preview-note"><span><!-- --></span><% _t('CMSPageHistoryController_versions.ss.PREVIEW','Website preview') %></div>
+			<div class="preview-scroll">
+				<div class="preview-device-outer">
+					<div class="preview-device-inner">
+						<iframe src="about:blank" class="center" name="cms-preview-iframe"></iframe>
+					</div>
+				</div>
+			</div>
 			<div class="cms-preview-controls south"></div>
 		</div>
 	</div>

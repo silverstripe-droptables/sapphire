@@ -1,0 +1,252 @@
+
+/* -------------------------- */
+.south{
+
+	/*Styling of the backgroundcontrols sit on*/
+	&.cms-preview-controls {
+		z-index: 1;
+		background: $color-widget-bg;	
+		min-height: 28px;
+		padding: $grid-y*1.5 $grid-y*1.5;
+	}
+
+	/* Styling for icons in controls*/
+	.icon-view, .cms-navigator .dropdown a.chzn-single{
+		white-space: nowrap;
+		&:before {
+			display:inline-block;
+			float:left;
+			content: '';
+			width: 23px;
+			height:17px;
+			overflow: hidden;
+		} 
+	}
+	.icon-auto:before {
+		background: sprite($sprites32, preview_auto) no-repeat;	
+	}
+	.icon-desktop:before {
+		background: sprite($sprites32, preview_desktop) no-repeat;
+	}
+	.icon-tablet:before {
+		background: sprite($sprites32, preview_tablet) no-repeat;
+	}
+	.icon-mobile:before {
+		background: sprite($sprites32, preview_mobile) no-repeat;
+	}
+	.icon-split:before {
+		background: sprite($sprites32, preview_split) no-repeat;
+	}
+	.icon-edit:before {
+		background: sprite($sprites32, preview_edit) no-repeat;
+	}
+	.icon-preview:before {
+		background: sprite($sprites32, preview_preview) no-repeat;
+	}
+	.icon-window:before {
+		background: sprite($sprites32, preview_dual_window) no-repeat;
+	}
+	.cms-navigator{
+		width: 100%;
+
+		.dropdown a.chzn-single{
+			text-indent:-200px;
+		}
+		/* Preview selectors. Overrides default chosen styles and applies its own */
+		.preview-selector{
+			float:right;
+			border-bottom:none;
+			position:relative;
+			@include box-shadow(none);
+			margin: 3px 0 0 4px;
+			padding: 0;
+
+			a.chzn-single {
+				width: 20px;
+				padding: 6px 5px;
+				height: 18px;
+				margin: -3px 0 0;
+				background:none;
+				border:none;
+				@include box-shadow(none);
+				@include border-radius(3px);
+
+				&:hover, &.chzn-single-with-drop  {
+					background-color: darken($color-widget-bg,6%);
+				}
+				&.chzn-single-with-drop {
+					@include border-radius(0 0 3px 3px);
+				}
+				div {
+					display: none;
+				}
+			}
+
+			.chzn-drop{
+				left: auto !important; //over-ride chosen inline styles
+				right: 0;
+				position: absolute;
+				@include border-radius(3px 3px 0 3px);
+				display: none;
+
+				.chzn-results {
+					width: 135px;
+				}
+			}
+			
+
+			.chzn-container.chzn-with-rise {
+				width:auto !important; //over-ride chosen inline styles
+
+				.chzn-drop {	
+					padding: 0;
+					border-bottom: 1px solid #aaa;
+					margin-top: -5px;
+					width: auto !important; //over-ride chosen inline width (doesn't take image into account)
+					
+					.chzn-search {
+						display: none;
+					}
+
+					ul{
+						padding:0;
+						margin:0;
+
+						li{
+							font-size: 12px;
+							line-height: 16px;
+							padding: 7px 16px 7px 6px;
+							color: $color-text-blue-link;
+							border-bottom: 1px solid $color-light-separator;
+							&:before{
+								margin-right: 2px;
+							}
+							&.description {
+								padding-top: 5px;
+								padding-bottom: 5px;
+								&:before{
+									margin-top: 5px;
+								}
+							}
+							&.highlighted, &:hover {
+								color:$color-text-blue-link;
+								background: lighten($color-widget-bg,2%);
+								text-decoration: none;
+							}
+							&.first {
+								@include border-radius(4px 4px 0px 0px);
+							}
+							&.last {
+								@include border-radius(0px 0px 4px 4px);
+								border-bottom:none;
+							}
+							/* Description styling */
+							span { 
+								display:block;
+								color: lighten($color-text-dark, 30%);
+								font-size:0.85em;
+								line-height:1.1em;
+								padding-left:23px;
+							}
+							.icon-view {
+								margin-right: 4px;
+							}
+						}			
+					}
+				}
+				
+			}
+
+			&.open .chzn-drop /*, &:hover .chzn-drop*/  { /* would be good to show on hover */
+				display: block;
+			}
+		} 
+	}
+	
+	/***********************
+	* On Off Switch
+	************************/
+	.cms-preview-states {
+		float: right;
+		margin-top: 3px;
+		margin-right: 7px;
+		position: relative; 
+		width: 100px;
+		label {
+	    	display: block; 
+	    	overflow: hidden; 
+	    	cursor: pointer;
+	    	/*border: 1px solid darken($color-menu-button, 15%);*/
+	    	/*border: 1px solid #666;*/
+	    	@include border-radius(3px);
+		}
+		input:checked + label {
+			.switch-options {
+		    	margin-left: 0;
+		    }
+		    .switch {
+		    	right: 0px;
+		    }
+		}
+		input.cms-preview{
+			display:none;
+		}	
+		.switch-options{
+			display:block;
+			width: 200%; 
+			margin-left: -100%;
+			@include transition(margin 0.3s ease-in 0s);
+		    a {			    
+				text-align: right;
+		    	width: 50%; 
+		    	float: left; 
+		    	display: block;
+		    	padding: 0 8px 0 0; 
+		    	height: 24px; 
+			    line-height: 24px;
+			    color: #FFF;
+			    background-color: #93BE42;
+		    	@include background-image(linear-gradient(
+					#2b9c32,
+					#64ab36
+				));
+
+			    
+				@include box-shadow(darken($color-menu-button, 15%) 0 0 2px inset);
+		    	@include box-sizing(border-box);   
+				&:hover {
+					text-decoration: none;
+				}
+				&.first, &:first-child {
+			    	text-align: left;
+			    	padding-left: 8px;
+			    	padding-right: 0;
+			    	background-color: $color-menu-button; 
+				    @include background-image(linear-gradient(
+						darken($color-menu-button, 10%),
+						$color-menu-button 
+					));
+		    	}
+		  
+			}
+		}
+		.switch {
+			display:block;
+		    width: 8px; 
+		    margin: 0px;
+		    position: absolute; 
+		    top: 0; 
+		    bottom: 0; 
+		    right: 90px;
+		    border: 1px solid lighten($color-medium-separator,10%); 
+		    @include box-shadow(#FFF 0 0 2px inset);
+		    @include border-radius(3px);
+		    background: $color-widget-bg;
+		    @include background-image(linear-gradient(
+				rgba(0,0,0,0.2) 0%,
+				rgba(0,0,0,0) 100%
+			));
+			@include transition(all 0.3s ease-in 0s); 
+		}
+	}
+}

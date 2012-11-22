@@ -4,6 +4,7 @@ jQuery.noConflict();
  * File: LeftAndMain.js
  */
 (function($) {
+
 	// setup jquery.entwine
 	$.entwine.warningLevel = $.entwine.WARN_LEVEL_BESTPRACTISE;
 	$.entwine('ss', function($) {
@@ -102,6 +103,18 @@ jQuery.noConflict();
 			StateChangeCount: 0,
 			
 			/**
+			 * Options for the threeColumnCompressor layout algorithm.
+			 *
+			 * See LeftAndMain.Layout.js for description of these options.
+			 */
+			LayoutOptions: {
+				minMenuWidth: 40,
+				maxMenuWidth: 150,
+				minContentWidth: 820,
+				minPreviewWidth: 400
+			},
+
+			/**
 			 * Constructor: onmatch
 			 */
 			onadd: function() {
@@ -119,7 +132,7 @@ jQuery.noConflict();
 					this._super();
 					return;
 				}
-				
+
 				// Initialize layouts
 				this.redraw();
 
@@ -144,19 +157,77 @@ jQuery.noConflict();
 				onaftersubmitform: function(){ this.redraw(); }
 			},
 
+			/**
+			 * Ensure the user can see the requested section - restore the content.
+			 */
+			'from .cms-menu-list li a': {
+				onclick: function() {
+					this.showContent();
+				}
+			},
+
+			/**
+			 * Change the width parameters of the threeColumnCompressor layout, and trigger layouting.
+			 * The spec accepts: "minMenuWidth", "maxMenuWidth", "minContentWidth" and "minPreviewWidth".
+			 */
+			resizeLayout: function(newSpec) {
+				var spec = this.getLayoutOptions();
+
+				if (typeof newSpec.minMenuWidth!=='undefined') {
+					spec.minMenuWidth = newSpec.minMenuWidth;
+				}
+				if (typeof newSpec.maxMenuWidth!=='undefined') {
+					spec.maxMenuWidth = newSpec.maxMenuWidth;
+				}
+				if (typeof newSpec.minContentWidth!=='undefined') {
+					spec.minContentWidth = newSpec.minContentWidth;
+				}
+				if (typeof newSpec.minPreviewWidth!=='undefined') {
+					spec.minPreviewWidth = newSpec.minPreviewWidth;
+				}
+
+				this.redraw();
+			},
+
+			/**
+			 * Collapse the content panel - preview will take the whole non-menu width.
+			 */
+			hideContent: function() {
+				this.children('.cms-content').addClass('is-collapsed');
+				this.redraw();
+			},
+
+			/**
+			 * Expand the content panel - threeColumnLayout will determine how to display.
+			 */
+			showContent: function() {
+				this.children('.cms-content').removeClass('is-collapsed');
+				this.redraw();
+			},
+
 			redraw: function() {
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
 
-				// Move from inner to outer layouts. Some of the elements might not exist.
-				// Not all edit forms are layouted, so qualify by their data value.
+				// Reset the algorithm.
+				this.data('jlayout', jLayout.threeColumnCompressor(
+					{
+						menu: this.children('.cms-menu'),
+						content: this.children('.cms-content'),
+						preview: this.children('.cms-preview')
+					},
+					this.getLayoutOptions()
+				));
+				
+				// Trigger layout algorithm once at the top. This also lays out children - we move from outside to
+				// inside, resizing to fit the parent.
+				this.layout();
 
-				this.layout({resize: false});
-				this.find('.cms-panel-layout').redraw(); 
-				this.find('.cms-content-fields[data-layout-type]').redraw(); 
-				this.find('.cms-edit-form[data-layout-type]').redraw(); 
+				// Redraw on all the children that need it
+				this.find('.cms-panel-layout').redraw();
+				this.find('.cms-content-fields[data-layout-type]').redraw();
+				this.find('.cms-edit-form[data-layout-type]').redraw();
 				this.find('.cms-preview').redraw();
 				this.find('.cms-content').redraw();
-				this.layout({resize: false});
 			},
 
 			/**
@@ -419,6 +490,8 @@ jQuery.noConflict();
 					// Set loading state and store element state
 					var origStyle = contentEl.attr('style');
 					var origVisible = contentEl.is(':visible');
+					var origParent = contentEl.parent();
+					var origParentLayoutApplied = (typeof origParent.data('jlayout')!=='undefined');
 					var layoutClasses = ['east', 'west', 'center', 'north', 'south'];
 					var elemClasses = contentEl.attr('class');
 					var origLayoutClasses = [];
@@ -445,6 +518,13 @@ jQuery.noConflict();
 
 					// Unset loading and restore element state (to avoid breaking existing panel visibility, e.g. with preview expanded)
 					if(origVisible) newContentEl.css('visibility', 'visible');
+
+					// Force jlayout to rebuild internal hierarchy to point to the new elements.
+					// This is only necessary for elements that are at least 3 levels deep. 2nd level elements will
+					// be taken care of when we lay out the top level element (.cms-container).
+					if (!origParent.is('.cms-container') && origParentLayoutApplied) {
+						origParent.layout();
+					}
 				});
 
 				// Re-init tabs (in case the form tag itself is a tabset)
@@ -785,8 +865,6 @@ jQuery.noConflict();
 		$(".cms-panel-layout").entwine({
 			redraw: function() {
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
-
-				this.layout({resize: false});
 			}
 		});
 	
