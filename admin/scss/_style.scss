@@ -134,7 +134,7 @@ body.cms {
 }
 
 #Form_EditForm.CMSMain {
-	padding: 0; /* fixs the double padding around the edit panel - move to framework? */
+	padding: 0;
 }
 
 /** --------------------------------------------
@@ -311,7 +311,6 @@ body.cms {
 		@include box-shadow(none);
 		background: darken($color-widget-bg, 2%);
 		background: $tab-panel-texture-color;
-		/*background: $tab-panel-texture-background;*/
 		border-top: none;
 		border: {
 			right-color: darken($color-tab, 15%); // same color as divider between header and body, needed for IE
@@ -882,7 +881,10 @@ select.preview-dropdown {
 }
 
 .cms-preview {
-	background: #FFF url(../images/preview.png) no-repeat center center;
+	background: $tab-panel-texture-color url(../images/preview.png) no-repeat center center;
+	height: 100%;
+	width: 100%;
+
 	&.is-collapsed {
 		.cms-preview-toggle {
 			a {
@@ -890,10 +892,80 @@ select.preview-dropdown {
 			}
 		}
 	}	
-	iframe {
-		width: 100%;
+	.preview-scroll {
 		height: 100%;
-	}   	
+		width: 100%;
+		overflow: auto;
+
+		.preview-device-outer {
+			height: 100%;
+			width: 100%;
+
+			.preview-device-inner {
+				height: 100%;
+				width: 100%;
+
+				iframe {
+					height: 100%;
+					width: 100%;
+					overflow-y: auto;
+				}
+			}
+		}
+	}
+	&.mobile, &.mobileLandscape, &.tablet, &.tabletLandscape {
+		.preview-scroll {
+			background-color: $tab-panel-texture-color; 		/* hide website preview icon */
+			.preview-device-outer {
+				padding: 16px;
+				/*background-color: darken($tab-panel-texture-color,3%);*/
+				background-color: #414141;
+			}
+		}
+	}
+	&.mobile {
+		.preview-scroll .preview-device-outer {
+			width: 335px; 										/* add 15px for desktop scrollbar */
+			height: 568px;
+			margin: 30px auto 30px;
+
+			.preview-device-inner {
+				width: 335px;
+			}
+		}
+	}
+	&.mobileLandscape .preview-scroll .preview-device-outer {
+		width: 583px;											/* add 15px for desktop scrollbar */
+		height: 320px;
+		margin: 12% auto;
+
+		.preview-device-inner {
+			width: 583px;
+		}
+	}
+	&.tablet .preview-scroll .preview-device-outer { 
+		width: 783px;											/* add 15px for desktop scrollbar */
+		height: 1024px;
+		padding-top: 0;
+		margin: 0 auto;
+
+		.preview-device-inner {
+			width: 783px;
+		}
+	}
+	&.tabletLandscape .preview-scroll .preview-device-outer {
+		width: 1039px;											/* add 15px for desktop scrollbar */
+		height: 768px;
+		padding-top: 0;
+		margin: 0 auto;
+
+		.preview-device-inner {
+			width: 1039px;
+		}
+	}
+	&.desktop .preview-scroll .preview-device-outer {
+		width: 1024px;
+	}
 }
 
 
