@@ -1,4 +1,6 @@
 <div class="cms-navigator">
+
+ <!-- To remove 
 	<ul class="preview-selector select-mode">
 	    <li>
 	        <span class="preview-selected">
@@ -22,6 +24,19 @@
 	        </ul>
 	    </li>
 	</ul>
+-->
+
+	
+   
+    <span class="field dropdown">
+		<select id="cms-preview-mode-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
+			<option class="icon-split icon-view" value="split"><% _t('SilverStripeNavigator.SplitView', 'Split mode') %></option>
+			<option class="icon-preview icon-view" value="preview"><% _t('SilverStripeNavigator.PreviewView', 'Preview mode') %></option>
+			<option class="icon-edit icon-view" value="edit"><% _t('SilverStripeNavigator.EditView', 'Edit mode') %></option>
+			<option class="icon-window icon-view" value="window"><% _t('SilverStripeNavigator.DuelWindowView', 'Duel Window') %></option>
+		</select>
+	</span>
+	
 
     <!-- To remove -->
     <span class="field dropdown">
@@ -55,8 +70,5 @@
 
 
 	<% include Switch %>
-
-
-	
 
 </div>
