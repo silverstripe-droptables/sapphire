@@ -254,21 +254,28 @@ body.cms {
 		}
 		.ui-tabs-nav {
 			margin: 10px 12px 0;
-			padding: 0;
+			padding: 0 8px 0 0;						/* second set of tabs */
 		}
 		#tree_actions .ui-tabs-nav{
-			margin: -3px 0 0;
+			margin: 0;
 		}
 	}
 
-	.cms-panel-padded .ui-tabs-panel {
-		margin: 0;
-		padding: 12px 12px 12px;	// Removes double paddle around main pages page, does not effect other areas of the site
-
-		.ui-tabs-panel {
-			// Reset nested tabs to default styling
-			padding: $grid-x 0 0 0;
+	.cms-panel-padded {
+		h3 {
+			margin-left: 12px;						/* reports headers, probably too specific */
 		}
+		.ui-tabs-panel {
+			margin: 0;
+			padding: 12px 12px 12px;
+
+			.ui-tabs-panel {
+				padding: $grid-x 0 0 0;
+			}
+		}
+	}
+	.ui-tabs .ui-tabs-panel {						/* second level tabs */
+		padding-top: 8px;
 	}
 
 	&.ss-tabset-tabshidden .ui-tabs-panel {
