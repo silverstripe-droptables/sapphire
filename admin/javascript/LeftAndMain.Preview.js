@@ -258,6 +258,9 @@
 		$('.preview-selector a.chzn-single').entwine({
 			onadd: function() {						
 				this.closest('.preview-selector').find('select').addIcon();				
+			},
+			onclick: function(){
+				this.closest('.preview-selector').toggleClass('open');
 			}
 		});
 

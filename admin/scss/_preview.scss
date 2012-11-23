@@ -73,13 +73,17 @@
 					display:none;
 				}
 			}
+			&.open{
+				.chzn-drop{
+					position:absolute;
+					left: auto !important; //over-ride chosen inline styles
+					right: 0;
+				}
+			}
 			.chzn-container.chzn-with-rise{
 				width:auto !important; //over-ride chosen inline styles
 
-				.chzn-drop{
-					position:absolute;
-					//left: auto !important; //over-ride chosen inline styles
-					//right: 0;
+				.chzn-drop{	
 					@include border-radius(4px);
 					padding:0;
 					border-bottom: 1px solid #aaa;
