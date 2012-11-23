@@ -1173,6 +1173,8 @@ form.member-profile-form {
 		@include box-shadow(0 0 1px rgba(107, 120, 123, 0.5));
 		&.south {
 			border-top: 1px solid $color-light-separator;
+			position: absolute;
+			bottom: 0;
 		}
 		a { 
 			display: block;
