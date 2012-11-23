@@ -133,7 +133,7 @@ body.cms {
 	}
 }
 
-#Form_EditForm.CMSMain {
+.cms-edit-form.CMSMain {
 	padding: 0;
 }
 
@@ -1202,23 +1202,13 @@ form.member-profile-form {
 	}	
 	&.collapsed {
 		cursor: pointer;
-		%display-none{
+		.cms-panel-header *, 
+		.cms-panel-content,
+		.cms-panel-toggle a.toggle-collapse{
 			display:none;
 		}
-		.cms-panel-header * {
-			@extend %display-none;
-		}
-		
-		.cms-panel-content {
-			@extend %display-none;
-		}
-
 		.cms-panel-toggle a.toggle-expand {
 			display: block;
-		}
-
-		.cms-panel-toggle a.toggle-collapse {
-			@extend %display-none;
 		}
 
 	}

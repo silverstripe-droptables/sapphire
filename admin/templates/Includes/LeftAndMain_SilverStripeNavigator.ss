@@ -50,6 +50,6 @@
 	</span>
 
 
-	<% include Switch %>
+	<% include PreviewSwitch %>
 
 </div>
