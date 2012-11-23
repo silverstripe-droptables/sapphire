@@ -8,7 +8,8 @@
 		min-height: 28px;
 		padding: $grid-y*1.5 $grid-y*1.5;
 	}
-	/* Preview selectors, overrides default chosen styles and applies its own */
+
+	/* Styling for icons in controls*/
 	.icon-view, .cms-navigator .dropdown a.chzn-single{
 		white-space: nowrap;
 		&:before {
@@ -16,12 +17,9 @@
 			float:left;
 			content: '';
 			width: 23px;
-			height:15px;
+			height:17px;
 			overflow: hidden;
 		} 
-	}
-	.cms-navigator .dropdown a.chzn-single{
-		text-indent:-200px;
 	}
 	.icon-auto:before {
 		background: sprite($sprites32, preview_auto) no-repeat;	
@@ -49,9 +47,15 @@
 	}
 	.cms-navigator{
 		width: 100%;
+
+		.dropdown a.chzn-single{
+			text-indent:-200px;
+		}
+		/* Preview selectors. Overrides default chosen styles and applies its own */
 		.preview-selector{
 			float:right;
 			border-bottom:none;
+			position:relative;
 			@include box-shadow(none);
 			a.chzn-single{
 				width:20px;
@@ -70,7 +74,12 @@
 				}
 			}
 			.chzn-container.chzn-with-rise{
+				width:auto !important; //over-ride chosen inline styles
+
 				.chzn-drop{
+					position:absolute;
+					//left: auto !important; //over-ride chosen inline styles
+					//right: 0;
 					@include border-radius(4px);
 					padding:0;
 					border-bottom: 1px solid #aaa;
@@ -84,9 +93,17 @@
 						margin:0;
 						li{
 							font-size:12px;
+							line-height:1em;
 							padding:8px;
 							color:$color-text-blue-link;
 							border-bottom: 1px solid $color-light-separator;
+							&.description{
+								padding:5px 8px 7px;
+								&:before{
+									margin-top:4px;
+								}
+							}
+
 							&.highlighted, &:hover{
 								color:$color-text-blue-link;
 								background: lighten($color-widget-bg,2%);
@@ -99,10 +116,13 @@
 								@include border-radius(0px 0px 4px 4px);
 								border-bottom:none;
 							}
-							span{
+							/* Description styling */
+							span{ 
 								display:block;
-								color: $color-text-dark;
-
+								color: lighten($color-text-dark, 30%);
+								font-size:0.85em;
+								line-height:1em;
+								padding-left:23px;
 							}
 						}			
 					}
