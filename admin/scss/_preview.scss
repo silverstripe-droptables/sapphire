@@ -2,17 +2,12 @@
 .south{
 
 	/*Styling of the backgroundcontrols sit on*/
-	.cms-preview-controls {
+	&.cms-preview-controls {
 		z-index: 1;
 		background: $color-widget-bg;	
 		min-height: 28px;
 		padding: $grid-y*1.5 $grid-y*1.5;
 	}
-
-	.cms-navigator {
-		width: 100%;
-	}
-
 	/* Preview selectors, overrides default chosen styles and applies its own */
 	.icon-view, .cms-navigator .dropdown a.chzn-single{
 		white-space: nowrap;
@@ -53,7 +48,9 @@
 		background: sprite($sprites32, preview_dual_window) no-repeat;
 	}
 	.cms-navigator{
+		width: 100%;
 		.preview-selector{
+			float:right;
 			border-bottom:none;
 			@include box-shadow(none);
 			a.chzn-single{
