@@ -225,23 +225,65 @@
 					content.addClass('is-collapsed');
 				}
 				content.parent().redraw();
+				this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
 
 
 		// Preview selectors (screen size, screen mode)
-		$('.preview-selector .preview-selected').entwine({
-			onclick: function(e) {
-				e.preventDefault();
-				var height = $(this).parents('.preview-selector').outerHeight();
-				height=-140;
-				this.parents('.preview-selector').toggleClass('active')
-				this.css('top:'+height+'px');
-				console.log(height);
-				
+
+		/*
+		*	Add a class to the chzn select trigger based on the currently 
+		*	selected option. Update as this changes
+		*/
+		$('.preview-selector select.preview-dropdown').entwine({			
+			addIcon: function(){			
+				var selected = this.find(':selected');				
+				var iconClass = selected.attr('data-icon');	
+								
+				var target = this.parent().find('.chzn-container a.chzn-single');
+				var oldIcon = target.attr('data-icon');
+				if(oldIcon != undefined){
+					target.removeClass(oldIcon);
+				}
+				target.addClass(iconClass);
+				target.attr('data-icon', iconClass);				
+			}
+		});
+
+		/*
+		* When chzn initiated run select redraw
+		* Apply description text if applicable
+		*/
+		$('.preview-selector a.chzn-single').entwine({
+			onadd: function() {						
+				this.closest('.preview-selector').find('select').addIcon();				
+			}
+		});
+
+		$('.preview-selector .chzn-drop ul').entwine({
+			onadd: function() {
+				this.redraw();
+			},
+			redraw: function(){
+				var that = this;
+				var options = this.closest('.preview-selector').find('select option');
+				var chznOptions = this.find('li');
+							
+				$.each(options, function(index, option){
+					var description = $(option).attr('data-description');								
+					if(description != undefined && !$(chznOptions[index]).hasClass('description')){
+						$(chznOptions[index]).append('<span>' + description + '</span>');
+						$(chznOptions[index]).addClass('description'); 
+					}
+				});
 				
 			}
 		});
+
+
+
+
 		$(".preview-selector .preview-size-menu li").entwine({
 			onclick: function(e) {
 				var text = $(this).html();
