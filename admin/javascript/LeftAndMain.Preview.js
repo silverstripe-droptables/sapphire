@@ -259,8 +259,13 @@
 			onadd: function() {						
 				this.closest('.preview-selector').find('select').addIcon();				
 			},
-			onclick: function(){
-				this.closest('.preview-selector').toggleClass('open');
+			onclick: function(){				
+				var parent = this.closest('.preview-selector');
+				if(parent.hasClass('open')){
+					parent.removeClass('open');
+				}else{
+					parent.addClass('open');
+				}				
 			}
 		});
 
