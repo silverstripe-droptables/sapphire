@@ -137,6 +137,7 @@ body.cms {
 	padding: 0;
 }
 
+
 /** --------------------------------------------
  * Tabs
  * -------------------------------------------- */
@@ -152,6 +153,9 @@ body.cms {
 	.ui-tabs-panel {
 		padding: $grid-x 0;
 		background: transparent; // default it's white
+		&.cms-edit-form {
+			padding: 0;
+		}
 	}
 
 	.ui-widget-header {
@@ -237,7 +241,7 @@ body.cms {
 		}
 	}
 
-	.cms-edit-form, .cms-content-fields { /*not sure if .cms-content-fields effects other areas*/
+	.cms-edit-form, .cms-content-fields { 
 		.cms-panel-padded { /* Has padded area inside it */
 			padding: 0;
 			margin: 0;	
@@ -618,7 +622,7 @@ p.message {
 		}
 	}
 
-/* smaller treedropdown */
+	/* smaller treedropdown */
 	.chzn-container-single .chzn-single  {
 		height: 26px;
 		line-height: 26px;
@@ -659,6 +663,10 @@ p.message {
 			float:right;
 			width:24px;
 		}	
+	}
+	
+	.ss-ui-button {
+		margin-bottom: $grid-y;
 	}
 }
 
