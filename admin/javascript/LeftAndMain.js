@@ -155,7 +155,8 @@ jQuery.noConflict();
 					preview: this.children('.cms-preview')}
 				));
 				
-				// Do the layout - this also lays out children. We move from outside to inside, resizing to fit the parent
+				// Trigger layout algorithm once at the top. This also lays out children - we move from outside to
+				// inside, resizing to fit the parent.
 				this.layout();
 
 				// Redraw on all the children that need it
@@ -426,7 +427,6 @@ jQuery.noConflict();
 					// Set loading state and store element state
 					var origStyle = contentEl.attr('style');
 					var origVisible = contentEl.is(':visible');
-					var origLayoutApplied = (typeof contentEl.data('jlayout')!=='undefined');
 					var origParent = contentEl.parent();
 					var origParentLayoutApplied = (typeof origParent.data('jlayout')!=='undefined');
 					var layoutClasses = ['east', 'west', 'center', 'north', 'south'];
@@ -456,15 +456,11 @@ jQuery.noConflict();
 					// Unset loading and restore element state (to avoid breaking existing panel visibility, e.g. with preview expanded)
 					if(origVisible) newContentEl.css('visibility', 'visible');
 
-					// Rebuild internal jlayout structures to point to the new elements.
-					if (origParentLayoutApplied) {
-						// Apply to parent to restore the hierarchy. Otherwise when the top-level layout() is called 
-						// jlayout will not be able to reach the new children and the layout will break.
+					// Force jlayout to rebuild internal hierarchy to point to the new elements.
+					// This is only necessary for elements that are at least 3 levels deep. 2nd level elements will
+					// be taken care of when we lay out the top level element (.cms-container).
+					if (!origParent.is('.cms-container') && origParentLayoutApplied) {
 						origParent.layout();
-					}
-					else if (origLayoutApplied) {
-						// This is the root layout element.
-						newContentEl.layout();
 					}
 				});
 
