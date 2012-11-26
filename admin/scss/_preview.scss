@@ -1,3 +1,4 @@
+
 /* -------------------------- */
 .south{
 
@@ -167,7 +168,7 @@
 	************************/
 	.cms-preview-states {
 		float: right;
-		margin-top: 2px;
+		margin-top: 3px;
 		margin-right: 7px;
 		position: relative; 
 		width: 100px;
@@ -175,7 +176,8 @@
 	    	display: block; 
 	    	overflow: hidden; 
 	    	cursor: pointer;
-	    	border: 1px solid darken($color-menu-button, 15%);
+	    	/*border: 1px solid darken($color-menu-button, 15%);*/
+	    	/*border: 1px solid #666;*/
 	    	@include border-radius(3px);
 		}
 		input:checked + label {
@@ -199,15 +201,17 @@
 		    	width: 50%; 
 		    	float: left; 
 		    	display: block;
-		    	padding: 0 6px 0 0; 
+		    	padding: 0 8px 0 0; 
 		    	height: 24px; 
 			    line-height: 24px;
 			    color: #FFF;
-			    background-color: $color-menu-button; 
-			    @include background-image(linear-gradient(
-					darken($color-menu-button, 10%),
-					$color-menu-button 
+			    background-color: #93BE42;
+		    	@include background-image(linear-gradient(
+					#2b9c32,
+					#64ab36
 				));
+
+			    
 				@include box-shadow(darken($color-menu-button, 15%) 0 0 2px inset);
 		    	@include box-sizing(border-box);   
 				&:hover {
@@ -217,6 +221,11 @@
 			    	text-align: left;
 			    	padding-left: 8px;
 			    	padding-right: 0;
+			    	background-color: $color-menu-button; 
+				    @include background-image(linear-gradient(
+						darken($color-menu-button, 10%),
+						$color-menu-button 
+					));
 		    	}
 		  
 			}

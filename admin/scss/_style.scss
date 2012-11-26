@@ -913,7 +913,7 @@ select.preview-dropdown {
 }
 
 .cms-preview {
-	background: $tab-panel-texture-color url(../images/preview.png) no-repeat center center;
+	background-color: $tab-panel-texture-color;
 	height: 100%;
 	width: 100%;
 
@@ -924,10 +924,36 @@ select.preview-dropdown {
 			}
 		}
 	}	
+
+	.preview-note {
+		font-weight: 18px;
+		display: block;
+		position: absolute;
+		text-align: center;
+		width: 300px;
+		height: 82px;
+		left: 50%;
+		top: 50%;
+		margin-top: -50px; 				
+		margin-left: -150px;				/* half of width */
+		color: #CDD7DC;
+		font-weight: bold;
+		font-size: 22px;
+		text-shadow: 0 1px 0 #fff;
+		span {
+			background: sprite($sprites64, preview) no-repeat;
+			width: 50px;
+			height: 41px;
+			margin: 0 auto 20px;
+			display: block;
+		}
+	}
+
 	.preview-scroll {
 		height: 100%;
 		width: 100%;
 		overflow: auto;
+		position: relative;
 
 		.preview-device-outer {
 			height: 100%;
