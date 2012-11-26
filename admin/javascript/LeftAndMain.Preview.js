@@ -271,19 +271,19 @@
 		});
 
 		$('.preview-selector .chzn-drop ul').entwine({
-			onadd: function() {
+			onmatch: function() {
 				this.redraw();
 			},
 			redraw: function(){
 				var that = this;
-				var options = this.closest('.preview-selector').find('select option');
-				var chznOptions = this.find('li');
+				var options = this.closest('.preview-selector').find('select option');		
 							
 				$.each(options, function(index, option){
+					var target = $(that).find("li:eq("+index+")");
 					var description = $(option).attr('data-description');								
-					if(description != undefined && !$(chznOptions[index]).hasClass('description')){
-						$(chznOptions[index]).append('<span>' + description + '</span>');
-						$(chznOptions[index]).addClass('description'); 
+					if(description != undefined && !$(target).hasClass('description')){					
+						$(target).append('<span>' + description + '</span>');
+						$(target).addClass('description'); 
 					}
 				});
 				
