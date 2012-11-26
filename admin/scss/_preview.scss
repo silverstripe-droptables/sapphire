@@ -71,7 +71,7 @@
 				@include box-shadow(none);
 				@include border-radius(3px);
 
-				&:hover, &.chzn-single-with-drop  {
+				&:hover, &:focus, &.chzn-single-with-drop  {
 					background-color: darken($color-widget-bg,6%);
 				}
 				&.chzn-single-with-drop {
@@ -128,7 +128,7 @@
 									margin-top: 5px;
 								}
 							}
-							&.highlighted, &:hover {
+							&.highlighted, &:hover, &:focus {
 								color:$color-text-blue-link;
 								background: lighten($color-widget-bg,2%);
 								text-decoration: none;
@@ -176,8 +176,6 @@
 	    	display: block; 
 	    	overflow: hidden; 
 	    	cursor: pointer;
-	    	/*border: 1px solid darken($color-menu-button, 15%);*/
-	    	/*border: 1px solid #666;*/
 	    	@include border-radius(3px);
 		}
 		input:checked + label {
