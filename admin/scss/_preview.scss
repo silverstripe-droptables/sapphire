@@ -57,80 +57,107 @@
 			border-bottom:none;
 			position:relative;
 			@include box-shadow(none);
-			a.chzn-single{
-				width:20px;
-				padding:5px 5px 0;
-				height:22px;
-				margin:0;
+			margin: 3px 0 0 4px;
+			padding: 0;
+
+			a.chzn-single {
+				width: 20px;
+				padding: 6px 5px;
+				height: 18px;
+				margin: -3px 0 0;
 				background:none;
 				border:none;
 				@include box-shadow(none);
-				@include border-radius(4px);
-				&:hover,&.chzn-single-with-drop{
+				@include border-radius(3px);
+
+				&:hover, &.chzn-single-with-drop  {
 					background-color: darken($color-widget-bg,6%);
 				}
-				div{
-					display:none;
+				&.chzn-single-with-drop {
+					@include border-radius(0 0 3px 3px);
+				}
+				div {
+					display: none;
 				}
 			}
-			&.open{
-				.chzn-drop{
-					position:absolute;
-					left: auto !important; //over-ride chosen inline styles
-					right: 0;
+
+			.chzn-drop{
+				left: auto !important; //over-ride chosen inline styles
+				right: 0;
+				position: absolute;
+				@include border-radius(3px 3px 0 3px);
+				display: none;
+
+				.chzn-results {
+					width: 135px;
 				}
 			}
-			.chzn-container.chzn-with-rise{
+			
+
+			.chzn-container.chzn-with-rise {
 				width:auto !important; //over-ride chosen inline styles
 
-				.chzn-drop{	
-					@include border-radius(4px);
-					padding:0;
+				.chzn-drop {	
+					padding: 0;
 					border-bottom: 1px solid #aaa;
-					margin-top:-5px;
-					width:auto !important; //over-ride chosen inline width (doesn't take image into account)
-					.chzn-search{
-						display:none;
+					margin-top: -5px;
+					width: auto !important; //over-ride chosen inline width (doesn't take image into account)
+					
+					.chzn-search {
+						display: none;
 					}
+
 					ul{
 						padding:0;
 						margin:0;
+
 						li{
-							font-size:12px;
-							line-height:1em;
-							padding:8px;
-							color:$color-text-blue-link;
+							font-size: 12px;
+							line-height: 16px;
+							padding: 7px 16px 7px 6px;
+							color: $color-text-blue-link;
 							border-bottom: 1px solid $color-light-separator;
-							&.description{
-								padding:5px 8px 7px;
+							&:before{
+								margin-right: 2px;
+							}
+							&.description {
+								padding-top: 5px;
+								padding-bottom: 5px;
 								&:before{
-									margin-top:4px;
+									margin-top: 5px;
 								}
 							}
-
-							&.highlighted, &:hover{
+							&.highlighted, &:hover {
 								color:$color-text-blue-link;
 								background: lighten($color-widget-bg,2%);
 								text-decoration: none;
 							}
-							&.first{
+							&.first {
 								@include border-radius(4px 4px 0px 0px);
 							}
-							&.last{
+							&.last {
 								@include border-radius(0px 0px 4px 4px);
 								border-bottom:none;
 							}
 							/* Description styling */
-							span{ 
+							span { 
 								display:block;
 								color: lighten($color-text-dark, 30%);
 								font-size:0.85em;
-								line-height:1em;
+								line-height:1.1em;
 								padding-left:23px;
+							}
+							.icon-view {
+								margin-right: 4px;
 							}
 						}			
 					}
 				}
+				
+			}
+
+			&.open .chzn-drop /*, &:hover .chzn-drop*/  { /* would be good to show on hover */
+				display: block;
 			}
 		} 
 	}
