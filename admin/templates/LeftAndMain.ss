@@ -22,7 +22,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="cms-preview-controls south"></div>
+			<div class="cms-content-controls cms-preview-controls south"></div>
 		</div>
 	</div>
 	
