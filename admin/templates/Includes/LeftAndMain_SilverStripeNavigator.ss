@@ -9,29 +9,6 @@
 		</select>
 	</span>
 	
-<!--
-	<ul class="preview-selector double-label select-size">
-	    <li>
-	        <span class="preview-selected">
-	        	<a href="" class="icon-auto">Auto <span>Responsive</span></a>
-	        </span>
-	        <ul class="preview-size-menu">
-	            <li class="active">
-					<a class="icon-auto" href="">Auto <span>Responsive</span></a> 
-				</li>
-				<li>
-					<a class="icon-desktop" href="">Desktop <span>1024px width</span></a> 
-				</li>
-				<li>
-					<a class="icon-tablet" href="">Tablet <span>800px width</span></a> 
-				</li>
-				<li class="last">
-					<a class="icon-mobile" href="">Mobile <span>400px width</span></a> 
-				</li>
-	        </ul>
-	    </li>
-	</ul> -->
-
     <span class="preview-selector field dropdown">
 		<select id="cms-preview-mode-dropdown" class="preview-dropdown dropdown nolabel" autocomplete="off" name="Action">
 			<option data-icon="icon-auto" data-description="<% _t('SilverStripeNavigator.Responsive', 'Responsive') %>" class="icon-auto icon-view first" value="split">
@@ -49,7 +26,6 @@
 		</select>
 	</span>
 
-
 	<div class="cms-preview-states">
 	    <input type="checkbox" name="cms-preview" class="hide cms-preview" id="cms-preview-state" checked>
 	    <label for="cms-preview-state">
@@ -64,6 +40,5 @@
 		    <span class="switch"></span>
 	    </label>
 	</div> 
-
 
 </div>
