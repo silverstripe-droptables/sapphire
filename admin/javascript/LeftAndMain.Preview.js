@@ -217,14 +217,15 @@
 			onchange: function(e) {
 				e.preventDefault();
 
-				var content = $('.cms-content');
+				var container = $('.cms-container');
 				var state = $(this).val();
+
 				if (state == 'split') {
-					content.removeClass('is-collapsed');
+					container.showContent();
 				} else {
-					content.addClass('is-collapsed');
+					container.hideContent();
 				}
-				content.parent().redraw();
+
 				this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
