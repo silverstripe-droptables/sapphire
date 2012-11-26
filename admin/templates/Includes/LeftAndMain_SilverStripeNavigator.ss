@@ -5,7 +5,7 @@
 			<option data-icon="icon-split" class="icon-split icon-view first" value="split"><% _t('SilverStripeNavigator.SplitView', 'Split mode') %></option>
 			<option data-icon="icon-preview" class="icon-preview icon-view" value="preview"><% _t('SilverStripeNavigator.PreviewView', 'Preview mode') %></option>
 			<option data-icon="icon-edit" class="icon-edit icon-view" value="edit"><% _t('SilverStripeNavigator.EditView', 'Edit mode') %></option>
-			<option data-icon="icon-window" class="icon-window icon-view last" value="window"><% _t('SilverStripeNavigator.DuelWindowView', 'Duel Window') %></option>
+			<option data-icon="icon-window" class="icon-window icon-view last" value="window"><% _t('SilverStripeNavigator.DualWindowView', 'Dual Window') %></option>
 		</select>
 	</span>
 	
