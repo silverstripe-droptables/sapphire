@@ -637,10 +637,21 @@ input.radio {
 }
 
 
-/***********************
+/***************************************************************
 * On/Off Switch. 
 * Supports switching between two values (eg Draft/Published)
-************************/
+* Example html set-up:
+* <div class="switch-states">
+*	    <input type="checkbox" class="state" id="switch" checked>
+*	    <label for="switch">
+*		    <span class="switch-options">*		    	   	
+*		    	<a href="" class="first active">On</a>
+*				<a href="" class="last">Off</a>				
+*		    </span>
+*		    <span class="switch"></span>
+*	    </label>
+*</div> 
+****************************************************************/
 .switch-states {
 	label { /* Single label includes both switch options*/
     	display: block; 
