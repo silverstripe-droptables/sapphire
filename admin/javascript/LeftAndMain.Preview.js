@@ -213,6 +213,7 @@
 		});	
 		
 
+		
 		$('#cms-preview-mode-dropdown').entwine({
 			onchange: function(e) {
 				e.preventDefault();
@@ -230,8 +231,6 @@
 			}
 		});
 
-
-		// Preview selectors (screen size, screen mode)
 
 		/*
 		*	Add a class to the chzn select trigger based on the currently 
@@ -270,6 +269,11 @@
 			}
 		});
 
+		/* 
+		* Means of having extra styled data in chzn 'preview-selector' selects 
+		* When chzn ul is ready, grab data-description from original select. 
+		* If it exists, append to option and add description class to list item
+		*/
 		$('.preview-selector .chzn-drop ul').entwine({
 			onmatch: function() {
 				this.redraw();
@@ -288,22 +292,7 @@
 				});
 				
 			}
-		});
-
-
-
-
-		$(".preview-selector .preview-size-menu li").entwine({
-			onclick: function(e) {
-				var text = $(this).html();
-				this.parents('.preview-selector').removeClass('active').find('.preview-selected').html(text);
-				this.siblings().removeClass('active');
-				this.addClass('active');
-			}
-		}); 
-
-
-		
+		});	
 
 		$('.cms-edit-form').entwine({
 			/**

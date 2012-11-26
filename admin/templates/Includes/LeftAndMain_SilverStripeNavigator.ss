@@ -26,8 +26,9 @@
 		</select>
 	</span>
 
-	<div class="cms-preview-states">
-	    <input type="checkbox" name="cms-preview" class="hide cms-preview" id="cms-preview-state" checked>
+
+	<div class="cms-preview-states switch-states">
+	    <input type="checkbox" name="cms-preview" class="state cms-preview" id="cms-preview-state" checked>
 	    <label for="cms-preview-state">
 		    <span class="switch-options">
 		    	<% loop Items %>	
