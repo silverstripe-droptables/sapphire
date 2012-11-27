@@ -917,7 +917,7 @@ select.preview-dropdown {
 	height: 100%;
 	width: 100%;
 
-	&.is-collapsed {
+	&.collapsed {
 		.cms-preview-toggle {
 			a {
 				left: -15px; // point left

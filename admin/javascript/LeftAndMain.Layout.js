@@ -22,13 +22,18 @@
 	 * Spec also requires the following size parameters:
 	 * - `minMenuWidth`: expanded menu size
 	 * - `maxMenuWidth`: collapsed menu size
-	 * - `minContentWidth`: minimum size for the content display as long as the preview is visible.
-	 * - `minPreviewWidth`: preview will not be displayed below this size.
+	 * - `minContentWidth`: minimum size for the content display as long as the preview is visible
+	 * - `minPreviewWidth`: preview will not be displayed below this size
+	 * - `contentVisible`: whether the content column should be shown at all
+	 * - `previewVisible`: whether the preview column should be shown at all
+	 * - `menuExpanded`: whether menu should use the maxMenuWidth or minMenuWidth
 	 *
-	 * The algorithm tries to assign half of non-menu space to preview and the other half to content. If there is not
-	 * enough space for either content or preview, it tries to allocate the minimum acceptable space to that column, and
-	 * the rest to the other one. If the minimum requirements are still not met, it falls back to showing content
-	 * only.
+	 * The algorithm first checks which columns are to be visible and which hidden.
+	 *
+	 * In the case where both preview and content should be show, it first tries to assign half of non-menu space to
+	 * preview and the other half to content. Then if there is not enough space for either content or preview, it tries
+	 * to allocate the minimum acceptable space to that column, and the rest to the other one. If the minimum
+	 * requirements are still not met, it falls back to showing content only.
 	 *
 	 * @param spec A structure defining columns and parameters as per above.
 	 */
@@ -42,9 +47,12 @@
 		if (typeof options.minMenuWidth==='undefined' ||
 			typeof options.maxMenuWidth==='undefined' ||
 			typeof options.minContentWidth==='undefined' ||
-			typeof options.minPreviewWidth==='undefined') {
+			typeof options.minPreviewWidth==='undefined' ||
+			typeof options.contentVisible==='undefined' ||
+			typeof options.previewVisible==='undefined' ||
+			typeof options.menuExpanded==='undefined') {
 			throw 'Spec is invalid. Please provide "minMenuWidth", "maxMenuWidth", '
-				+ '"minContentWidth" and "minPreviewWidth".';
+				+ '"minContentWidth", "minPreviewWidth", "contentVisible", "previewVisible" and "menuExpanded".';
 		}
 
 		// Instance of the algorithm being produced.
@@ -62,9 +70,6 @@
 		 * Refer to https://github.com/bramstein/jlayout#layout-algorithms for the interface spec.
 		 */
 		obj.layout = function (container) {
-			var contentHidden = (content.item.is('.is-collapsed'));
-			var previewHidden = false;
-
 			var size = container.bounds(),
 				insets = container.insets(),
 				top = insets.top,
@@ -77,18 +82,24 @@
 				previewWidth = 0;
 
 			// Set the preferred menu width.
-			if ($('#cms-menu.cms-panel').hasClass('collapsed')) {
-				menuWidth = this.options.minMenuWidth;
-			} else {
+			if (this.options.menuExpanded) {
 				menuWidth = this.options.maxMenuWidth;
+				spec.menu.removeClass('collapsed');
+			} else {
+				menuWidth = this.options.minMenuWidth;
+				spec.menu.addClass('collapsed');
 			}
 
-			if (contentHidden) {
+			if (this.options.previewVisible && !this.options.contentVisible) {
 				// All non-menu space allocated to preview.
 				contentWidth = 0;
 				previewWidth = right - left - menuWidth;
+			} else if (!this.options.previewVisible && this.options.contentVisible) {
+				// All non-menu space allocated to content.
+				contentWidth = right - left - menuWidth;
+				previewWidth = 0;
 			} else {
-				// Try 50-50 distribution
+				// Split view - first try 50-50 distribution.
 				contentWidth = (right - left - menuWidth) / 2;
 				previewWidth = right - left - (menuWidth + contentWidth);
 
@@ -104,23 +115,36 @@
 				// If still violating one of the (other) minima, remove the preview and allocate everything to content.
 				if (contentWidth < this.options.minContentWidth || previewWidth < this.options.minPreviewWidth) {
 					contentWidth = right - left - menuWidth;
-					// Preview will be hidden by putting it behind the content panel.
-					previewWidth = contentWidth;
-					previewHidden = true;
+					previewWidth = 0;
 				}
+			}
+
+			// Apply classes for elements that might not be visible at all.
+			if (contentWidth===0) {
+				spec.content.addClass('collapsed');
+			} else {
+				spec.content.removeClass('collapsed');
+			}
+			if (previewWidth===0) {
+				spec.preview.addClass('collapsed');
+			} else {
+				spec.preview.removeClass('collapsed');
 			}
 
 			// Apply the widths to columns, and call subordinate layouts to arrange the children.
 			menu.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': menuWidth});
 			menu.doLayout();
+
 			left += menuWidth;
 
 			content.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': contentWidth});
-			content.item.css({display: contentHidden ? 'none' : 'block'});
+			content.item.css({display: contentWidth===0 ? 'none' : 'block'});
 			content.doLayout();
-			if (!previewHidden) left += contentWidth;
+
+			left += contentWidth;
 
 			preview.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': previewWidth});
+			preview.item.css({display: previewWidth===0 ? 'none' : 'block'});
 			preview.doLayout();
 
 			return container;

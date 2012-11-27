@@ -111,7 +111,10 @@ jQuery.noConflict();
 				minMenuWidth: 40,
 				maxMenuWidth: 150,
 				minContentWidth: 820,
-				minPreviewWidth: 400
+				minPreviewWidth: 400,
+				contentVisible: true,
+				previewVisible: true,
+				menuExpanded: true
 			},
 
 			/**
@@ -162,46 +165,50 @@ jQuery.noConflict();
 			 */
 			'from .cms-menu-list li a': {
 				onclick: function() {
-					this.showContent();
+					this.splitViewMode();
 				}
 			},
 
 			/**
-			 * Change the width parameters of the threeColumnCompressor layout, and trigger layouting.
-			 * The spec accepts: "minMenuWidth", "maxMenuWidth", "minContentWidth" and "minPreviewWidth".
+			 * Change the options of the threeColumnCompressor layout, and trigger layouting. You can provide any or
+			 * all options. The remaining options will not be changed.
 			 */
-			resizeLayout: function(newSpec) {
+			updateLayoutOptions: function(newSpec) {
 				var spec = this.getLayoutOptions();
-
-				if (typeof newSpec.minMenuWidth!=='undefined') {
-					spec.minMenuWidth = newSpec.minMenuWidth;
-				}
-				if (typeof newSpec.maxMenuWidth!=='undefined') {
-					spec.maxMenuWidth = newSpec.maxMenuWidth;
-				}
-				if (typeof newSpec.minContentWidth!=='undefined') {
-					spec.minContentWidth = newSpec.minContentWidth;
-				}
-				if (typeof newSpec.minPreviewWidth!=='undefined') {
-					spec.minPreviewWidth = newSpec.minPreviewWidth;
-				}
-
+				$.extend(spec, newSpec);
 				this.redraw();
 			},
 
 			/**
-			 * Collapse the content panel - preview will take the whole non-menu width.
+			 * Enable the split view - with content on the left and preview on the right.
 			 */
-			hideContent: function() {
-				this.children('.cms-content').addClass('is-collapsed');
+			splitViewMode: function() {
+				this.updateLayoutOptions({
+					previewVisible: true,
+					contentVisible: true
+				});
 				this.redraw();
 			},
 
 			/**
-			 * Expand the content panel - threeColumnLayout will determine how to display.
+			 * Content only.
 			 */
-			showContent: function() {
-				this.children('.cms-content').removeClass('is-collapsed');
+			contentViewMode: function() {
+				this.updateLayoutOptions({
+					previewVisible: false,
+					contentVisible: true
+				});
+				this.redraw();
+			},
+
+			/**
+			 * Preview only.
+			 */
+			previewMode: function() {
+				this.updateLayoutOptions({
+					previewVisible: true,
+					contentVisible: false
+				});
 				this.redraw();
 			},
 
