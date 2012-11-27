@@ -21,7 +21,7 @@ The easiest way to update the layout of the CMS is to call `redraw` on the top-l
 
 This causes the framework to:
 
-* reset the `threeColumnCompressor` algorithm with the current layout options (that can be set via 
+* reset the _threeColumnCompressor_ algorithm with the current layout options (that can be set via 
 `updateLayoutOptions`)
 * trigger `layout` which cascades into all children resizing and positioning subordinate elements (this is internal
 to the layout manager)
@@ -65,46 +65,55 @@ For detailed discussion on available algorithms refer to
 Our [Howto: Extend the CMS Interface](../howto/extend-cms-interface) has a practical example on how to add a bottom
 panel to the CMS UI. 
 
-### Column layout
+### Methods
 
-We use the `threeColumnCompressor` to lay out the main three columns of the CMS (menu, content, preview). The following
-methods are available on the `.cms-container` entwine.
+The following methods are available as an interface to underlying _threeColumnCompressor_ algorithm on the 
+`.cms-container` entwine:
 
-* `getLayoutOptions`: get currently used threeColumnCompressor options.
-* `updateLayoutOptions`: change specified options and trigger the layouting:
-
-	:::js
-	$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true, menuExpanded: true});
-
-* `splitViewMode`: enable side by side editing.
-* `contentViewMode`: only menu and content areas are shown.
-* `previewMode`: only menu and preview areas are shown.
+* _getLayoutOptions_: get currently used _threeColumnCompressor_ options.
+* _updateLayoutOptions_: change specified options and trigger the layouting: 
+`$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true, menuExpanded: true});`
+* _splitViewMode_: enable side by side editing.
+* _contentViewMode_: only menu and content areas are shown.
+* _previewMode_: only menu and preview areas are shown.
 
 ### CSS classes
 
-Setting `contentVisible` or `previewVisible` to `false` will add a `hidden` class to the relevant column.
+Setting _contentVisible_ or _previewVisible_ options to `false` will add a `hidden` class to the relevant column.
 
-Setting `menuExpanded` to `false` will add a `collapsed` class to the column.
+Setting _menuExpanded_ option to `false` will add a `collapsed` class to the column.
 
 ## ThreeColumnCompressor
 
 You might have noticed that the top-level `.cms-container` has the `data-layout-type` set to `custom`. We use an inhouse
-`threeColumnCompressor` algorithm for the layout of the menu, content and preview columns of the CMS. The annotated code
+_threeColumnCompressor_ algorithm for the layout of the menu, content and preview columns of the CMS. The annotated code
 for this algorithm can be found in `LeftAndMain.Layout.js`.
 
 Since the layout-type for the element is set to `custom` and will be ignored by the layout manager, we apply the 
-`threeColumnCompressor` explicitly `LeftAndMain::redraw`. This way we also get a chance to provide options expected
+_threeColumnCompressor_ explicitly `LeftAndMain::redraw`. This way we also get a chance to provide options expected
 by the algorithm, that are initially taken from the `LeftAndMain::LayoutOptions` entwine variable.
 
-### ThreeColumnCompressor options
+### Factory method
 
- * `minMenuWidth`: expanded menu size
- * `maxMenuWidth`: collapsed menu size
- * `minContentWidth`: minimum size for the content display as long as the preview is visible
- * `minPreviewWidth`: preview will not be displayed below this size
- * `contentVisible`: whether the content column should be shown at all
- * `previewVisible`: whether the preview column should be shown at all
- * `menuExpanded`: whether menu should use the maxMenuWidth or minMenuWidth
+Use provided factory method to generate algorithm instances.
+
+	:::js
+	jLayout.threeColumnCompressor(<column-spec-object>, <options-object>);
+
+The parameters are as follows:
+
+* **column-spec-object**: object providing the _menu_, _content_ and _preview_ elements (all fields mandatory)
+* **options-object**: object providing the configuration (all fields mandatory, see options below)
+
+### Available options
+
+* _minMenuWidth_: expanded menu size
+* _maxMenuWidth_: collapsed menu size
+* _minContentWidth_: minimum size for the content display as long as the preview is visible
+* _minPreviewWidth_: preview will not be displayed below this size
+* _contentVisible_: whether the content column should be shown at all
+* _previewVisible_: whether the preview column should be shown at all
+* _menuExpanded_: whether menu should use the maxMenuWidth or minMenuWidth
 
 ## Related
 
