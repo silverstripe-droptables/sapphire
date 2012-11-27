@@ -222,9 +222,11 @@
 				var state = $(this).val();
 
 				if (state == 'split') {
-					container.showContent();
+					container.splitViewMode();
+				} else if (state == 'edit') {
+					container.contentViewMode();
 				} else {
-					container.hideContent();
+					container.previewMode();
 				}
 
 				this.addIcon(); //run generic addIcon, on select.preview-dropdown
