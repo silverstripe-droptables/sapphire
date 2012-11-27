@@ -121,14 +121,14 @@
 
 			// Apply classes for elements that might not be visible at all.
 			if (contentWidth===0) {
-				spec.content.addClass('collapsed');
+				spec.content.addClass('column-hidden');
 			} else {
-				spec.content.removeClass('collapsed');
+				spec.content.removeClass('column-hidden');
 			}
 			if (previewWidth===0) {
-				spec.preview.addClass('collapsed');
+				spec.preview.addClass('column-hidden');
 			} else {
-				spec.preview.removeClass('collapsed');
+				spec.preview.removeClass('column-hidden');
 			}
 
 			// Apply the widths to columns, and call subordinate layouts to arrange the children.
@@ -138,13 +138,11 @@
 			left += menuWidth;
 
 			content.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': contentWidth});
-			content.item.css({display: contentWidth===0 ? 'none' : 'block'});
 			content.doLayout();
 
 			left += contentWidth;
 
 			preview.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': previewWidth});
-			preview.item.css({display: previewWidth===0 ? 'none' : 'block'});
 			preview.doLayout();
 
 			return container;

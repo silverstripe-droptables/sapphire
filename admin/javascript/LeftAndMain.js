@@ -161,7 +161,7 @@ jQuery.noConflict();
 			},
 
 			/**
-			 * Ensure the user can see the requested section - restore the content.
+			 * Ensure the user can see the requested section - restore the default view.
 			 */
 			'from .cms-menu-list li a': {
 				onclick: function() {
