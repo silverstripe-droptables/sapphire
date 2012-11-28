@@ -10,8 +10,8 @@ declarations (mostly dimensions and positioning) via JavaScript.
 We've established a convention for a `redraw` method on each panel and UI component that need to update their content as
 a result of changes to their position, size or visibility. This method would usually be invoked by the parent container. 
 
-The layout manager does not dynamically track changes to panel sizes - we have to trigger layouting manually each time
-we need update to happen (for example from `window::onresize` event, or panel toggling). It then cascades through the
+The layout manager does not dynamically track changes to panel sizes - we have to trigger laying out manually each time
+we need an update to happen (for example from `window::onresize` event, or panel toggling). It then cascades through the
 children setting sizes and positions, which in turn requires redrawing of some of the elements.
 
 The easiest way to update the layout of the CMS is to call `redraw` on the top-level `.cms-container` element.
@@ -49,7 +49,7 @@ Call `redraw` on `.cms-container` to re-layout the CMS.
 ### data-layout-type attribute
 
 Layout manager will automatically apply algorithms to the children of `.cms-container` by inspecting the
-`data-layout-type` attribute. Let's take the content toolbar as an example of a 2-nd level layout application:
+`data-layout-type` attribute. Let's take the content toolbar as an example of a second-level layout application:
 
 	:::html
 	<div class="cms-content-tools west cms-panel cms-panel-layout" 
@@ -71,7 +71,7 @@ The following methods are available as an interface to underlying _threeColumnCo
 `.cms-container` entwine:
 
 * _getLayoutOptions_: get currently used _threeColumnCompressor_ options.
-* _updateLayoutOptions_: change specified options and trigger the layouting: 
+* _updateLayoutOptions_: change specified options and trigger the laying out: 
 `$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true});`
 * _splitViewMode_: enable side by side editing.
 * _contentViewMode_: only menu and content areas are shown.
@@ -89,7 +89,7 @@ for this algorithm can be found in `LeftAndMain.Layout.js`.
 
 Since the layout-type for the element is set to `custom` and will be ignored by the layout manager, we apply the 
 _threeColumnCompressor_ explicitly `LeftAndMain::redraw`. This way we also get a chance to provide options expected
-by the algorithm, that are initially taken from the `LeftAndMain::LayoutOptions` entwine variable.
+by the algorithm that are initially taken from the `LeftAndMain::LayoutOptions` entwine variable.
 
 ### Factory method
 
