@@ -227,7 +227,7 @@
 					container.previewMode();
 				}
 
-			//	this.addIcon(); //run generic addIcon, on select.preview-dropdown
+				this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
 
@@ -316,6 +316,10 @@
 		$('.preview-selector a.chzn-single').entwine({
 			onmatch: function() {								
 				this.closest('.preview-selector').find('select').addIcon();	
+				this._super();
+			},
+			onunmatch: function() {
+				this._super();
 			}
 		});
 
