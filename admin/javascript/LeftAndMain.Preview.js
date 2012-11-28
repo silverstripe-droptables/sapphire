@@ -261,7 +261,7 @@
 		});
 
 		/**
-		 * Initialise the CMS preview-mode selector depending on the preview visibility.
+		 * Show/hide the CMS's preview-mode selector depending on the preview visibility.
 		 */
 		$('#preview-mode-dropdown-in-content').entwine({
 			onmatch: function() {
@@ -283,19 +283,13 @@
 		*	selected option. Update as this changes
 		*/
 		$('.preview-selector select.preview-dropdown').entwine({
-			onmatch:function(){
-				var that = this;
-
-				this.chosen().bind("liszt:showing_dropdown", function(){	
-					$(this).siblings().find('.chzn-drop').addClass('open').alignRight();							
-					
-				});
-				this.chosen().bind("liszt:hiding_dropdown", function(){
-					$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
-				});				
-			},			
+			'onliszt:showing_dropdown': function() {
+				$(this).siblings().find('.chzn-drop').addClass('open').alignRight();							
+			},
+			'onliszt:hiding_dropdown': function() {
+				$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
+			},
 			addIcon: function(){	
-					
 				var selected = this.find(':selected');				
 				var iconClass = selected.attr('data-icon');	
 								
@@ -355,8 +349,12 @@
 		(https://github.com/harvesthq/chosen/issues/399)
 
 		$('.preview-selector .chzn-drop ul').entwine({
-			onmatch: function() {z
+			onmatch: function() {
 				this.extraData();
+				this._super();
+			},
+			onunmatch: function() {
+				this._super();
 			},
 			extraData: function(){
 				var that = this;
@@ -402,6 +400,10 @@
 			}, 
 			onmatch: function() {
 				this.redraw();
+				this._super();
+			},
+			onunmatch: function() {
+				this._super();
 			}
 			// Todo: Need to recalculate on resize of browser
 
