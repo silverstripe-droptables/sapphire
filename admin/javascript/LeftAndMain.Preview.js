@@ -227,7 +227,13 @@
 					container.previewMode();
 				}
 
-				this.addIcon(); //run generic addIcon, on select.preview-dropdown
+				this.addIcon();
+
+				// Synchronise other preview-mode selectors to display the same state.
+				$('.preview-mode-selector select').not(this)
+					.val(this.val())
+					.trigger('liszt:updated')
+					.addIcon();
 			}
 		});
 
@@ -242,12 +248,12 @@
 					.removeClass('auto desktop tablet mobile')
 					.addClass(size);
 
-				this.addIcon(); //run generic addIcon, on select.preview-dropdown
+				this.addIcon();
 			}
 		});
 
 		/**
-		 * Adjust the CMS's preview-mode selector visibility according to changes of preview window.
+		 * React to state view mode changes by showing/hiding the preview-mode selector.
 		 */
 		$('.cms-preview.column-hidden').entwine({
 			onmatch: function() {
@@ -261,7 +267,7 @@
 		});
 
 		/**
-		 * Show/hide the CMS's preview-mode selector depending on the preview visibility.
+		 * Initialise the CMS's preview-mode selector.
 		 */
 		$('#preview-mode-dropdown-in-content').entwine({
 			onmatch: function() {
@@ -284,10 +290,10 @@
 		*/
 		$('.preview-selector select.preview-dropdown').entwine({
 			'onliszt:showing_dropdown': function() {
-				$(this).siblings().find('.chzn-drop').addClass('open').alignRight();							
+				this.siblings().find('.chzn-drop').addClass('open').alignRight();
 			},
 			'onliszt:hiding_dropdown': function() {
-				$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
+				this.siblings().find('.chzn-drop').removeClass('open').removeRightAlign();
 			},
 			addIcon: function(){	
 				var selected = this.find(':selected');				
