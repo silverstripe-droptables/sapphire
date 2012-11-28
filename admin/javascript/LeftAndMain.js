@@ -493,10 +493,9 @@ jQuery.noConflict();
 					
 					// Set loading state and store element state
 					var origStyle = contentEl.attr('style');
-					var origVisible = contentEl.is(':visible');
 					var origParent = contentEl.parent();
 					var origParentLayoutApplied = (typeof origParent.data('jlayout')!=='undefined');
-					var layoutClasses = ['east', 'west', 'center', 'north', 'south'];
+					var layoutClasses = ['east', 'west', 'center', 'north', 'south', 'column-hidden'];
 					var elemClasses = contentEl.attr('class');
 					var origLayoutClasses = [];
 					if(elemClasses) {
@@ -510,7 +509,6 @@ jQuery.noConflict();
 						.removeClass(layoutClasses.join(' '))
 						.addClass(origLayoutClasses.join(' '));
 					if(origStyle) newContentEl.attr('style', origStyle);
-					newContentEl.css('visibility', 'hidden');
 
 					// Allow injection of inline styles, as they're not allowed in the document body.
 					// Not handling this through jQuery.ondemand to avoid parsing the DOM twice.
@@ -519,9 +517,6 @@ jQuery.noConflict();
 
 					// Replace panel completely (we need to override the "layout" attribute, so can't replace the child instead)
 					contentEl.replaceWith(newContentEl);
-
-					// Unset loading and restore element state (to avoid breaking existing panel visibility, e.g. with preview expanded)
-					if(origVisible) newContentEl.css('visibility', 'visible');
 
 					// Force jlayout to rebuild internal hierarchy to point to the new elements.
 					// This is only necessary for elements that are at least 3 levels deep. 2nd level elements will
