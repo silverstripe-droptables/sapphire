@@ -213,7 +213,7 @@
 		});	
 		
 
-		
+
 		$('#cms-preview-mode-dropdown').entwine({
 			onchange: function(e) {
 				e.preventDefault();
@@ -229,7 +229,7 @@
 					container.previewMode();
 				}
 
-				this.addIcon(); //run generic addIcon, on select.preview-dropdown
+			//	this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
 
@@ -238,7 +238,17 @@
 		*	Add a class to the chzn select trigger based on the currently 
 		*	selected option. Update as this changes
 		*/
-		$('.preview-selector select.preview-dropdown').entwine({			
+		$('.preview-selector select.preview-dropdown').entwine({
+			onmatch:function(){
+				var that = this;
+
+				this.chosen().bind("liszt:showing_dropdown", function(){	
+					$(this).siblings().find('.chzn-drop').addClass('open').alignRight();							
+				});
+				this.chosen().bind("liszt:hiding_dropdown", function(){
+					$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
+				});				
+			},			
 			addIcon: function(){			
 				var selected = this.find(':selected');				
 				var iconClass = selected.attr('data-icon');	
@@ -254,21 +264,30 @@
 		});
 
 		/*
-		* When chzn initiated run select redraw
+		* When chzn initiated run select addIcon
 		* Apply description text if applicable
 		*/
 		$('.preview-selector a.chzn-single').entwine({
-			onadd: function() {						
-				this.closest('.preview-selector').find('select').addIcon();				
-			},
-			onclick: function(){				
-				var parent = this.closest('.preview-selector');
-				if(parent.hasClass('open')){
-					parent.removeClass('open');
-				}else{
-					parent.addClass('open');
-				}				
+			onmatch: function() {					
+				this.closest('.preview-selector').find('select').addIcon();	
 			}
+		});
+
+
+		$('.preview-selector .chzn-drop').entwine({
+			alignRight: function(){					
+				var that = this;
+				$(this).hide();
+				/* Delay so styles applied after chosen applies css */
+				setTimeout(function(){ 
+					$(that).css({left:'auto', right:0});
+					$(that).show();	
+				},10);							
+			},
+			removeRightAlign:function(){
+				$(this).css({right:'auto'});
+			}
+
 		});
 
 		/* 
@@ -282,14 +301,15 @@
 			},
 			redraw: function(){
 				var that = this;
-				var options = this.closest('.preview-selector').find('select option');		
-							
+				var options = this.closest('.preview-selector').find('select option');	
+						
 				$.each(options, function(index, option){
 					var target = $(that).find("li:eq("+index+")");
 					var description = $(option).attr('data-description');								
 					if(description != undefined && !$(target).hasClass('description')){					
 						$(target).append('<span>' + description + '</span>');
-						$(target).addClass('description'); 
+						$(target).addClass('description');
+						
 					}
 				});
 				

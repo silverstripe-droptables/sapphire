@@ -2,7 +2,7 @@
 /* -------------------------- */
 .cms-content-controls{
 
-	/*Styling of the backgroundcontrols sit on*/
+	/*Styling the background, controls sit on*/
 	&.cms-preview-controls {
 		z-index: 1;
 		background: $color-widget-bg;	
@@ -82,21 +82,24 @@
 				}
 			}
 
-			.chzn-drop{
-				left: auto !important; //over-ride chosen inline styles
-				right: 0;
-				position: absolute;
-				@include border-radius(3px 3px 0 3px);
-				display: none;
+			&.open{
+				.chzn-drop{
+					position:absolute;
+					left: auto !important; //over-ride chosen inline styles
+					right: 0;
+				}	
+			}
 
+			.chzn-drop{
+				@include border-radius(3px 3px 0 3px);
 				.chzn-results {
 					width: 135px;
 				}
-			}
-			
+			}			
 
 			.chzn-container.chzn-with-rise {
 				width:auto !important; //over-ride chosen inline styles
+
 
 				.chzn-drop {	
 					padding: 0;
@@ -156,7 +159,7 @@
 				}				
 			}
 			&.open .chzn-drop { 
-				display: block;
+				//display: block;
 			}
 		} 
 	}	
