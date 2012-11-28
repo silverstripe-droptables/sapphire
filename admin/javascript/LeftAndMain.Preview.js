@@ -232,6 +232,23 @@
 			//	this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
+		
+
+		
+		$('#cms-preview-size-dropdown').entwine({
+			onchange: function(e) {
+				e.preventDefault();
+
+				var preview = $('.cms-preview');
+				var size = $(this).val();
+
+				preview
+					.removeClass('auto desktop tablet mobile')
+					.addClass(size);
+
+				this.addIcon(); //run generic addIcon, on select.preview-dropdown
+			}
+		});
 
 
 		/*
@@ -304,17 +321,16 @@
 				var options = this.closest('.preview-selector').find('select option');	
 						
 				$.each(options, function(index, option){
-					var target = $(that).find("li:eq("+index+")");
-					var description = $(option).attr('data-description');								
-					if(description != undefined && !$(target).hasClass('description')){					
+					var target = $(that).find("li:eq(" + index + ")");
+					var description = $(option).attr('data-description');
+					if(description != undefined && !$(target).hasClass('description')){
 						$(target).append('<span>' + description + '</span>');
 						$(target).addClass('description');
 						
 					}
 				});
-				
 			}
-		});	
+		});
 
 		$('.cms-edit-form').entwine({
 			/**
