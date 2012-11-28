@@ -267,7 +267,8 @@
 					$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
 				});				
 			},			
-			addIcon: function(){			
+			addIcon: function(){	
+					
 				var selected = this.find(':selected');				
 				var iconClass = selected.attr('data-icon');	
 								
@@ -286,7 +287,7 @@
 		* Apply description text if applicable
 		*/
 		$('.preview-selector a.chzn-single').entwine({
-			onmatch: function() {					
+			onmatch: function() {								
 				this.closest('.preview-selector').find('select').addIcon();	
 			}
 		});
@@ -339,7 +340,7 @@
 					}
 				});
 			}
-		});
+		}); */
 
 
 		$('.cms-edit-form').entwine({
