@@ -261,6 +261,7 @@
 
 				this.chosen().bind("liszt:showing_dropdown", function(){	
 					$(this).siblings().find('.chzn-drop').addClass('open').alignRight();							
+					
 				});
 				this.chosen().bind("liszt:hiding_dropdown", function(){
 					$(this).siblings().find('.chzn-drop').removeClass('open').removeRightAlign();				
@@ -295,11 +296,13 @@
 			alignRight: function(){					
 				var that = this;
 				$(this).hide();
-				/* Delay so styles applied after chosen applies css */
+				/* Delay so styles applied after chosen applies css	
+				   (the line after we find out the dropdown is open)
+				*/
 				setTimeout(function(){ 
 					$(that).css({left:'auto', right:0});
 					$(that).show();	
-				},10);							
+				}, 100);							
 			},
 			removeRightAlign:function(){
 				$(this).css({right:'auto'});
@@ -312,25 +315,32 @@
 		* When chzn ul is ready, grab data-description from original select. 
 		* If it exists, append to option and add description class to list item
 		*/
+		/*
+
+		Currently buggy (adds dexcription, then re-renders). This may need to 
+		be done inside chosen. Chosen recommends to do this stuff in the css, 
+		but that option is inaccessible and untranslatable 
+		(https://github.com/harvesthq/chosen/issues/399)
+
 		$('.preview-selector .chzn-drop ul').entwine({
-			onmatch: function() {
-				this.redraw();
+			onmatch: function() {z
+				this.extraData();
 			},
-			redraw: function(){
+			extraData: function(){
 				var that = this;
 				var options = this.closest('.preview-selector').find('select option');	
-						
+					
 				$.each(options, function(index, option){
 					var target = $(that).find("li:eq(" + index + ")");
 					var description = $(option).attr('data-description');
 					if(description != undefined && !$(target).hasClass('description')){
 						$(target).append('<span>' + description + '</span>');
-						$(target).addClass('description');
-						
+						$(target).addClass('description');						
 					}
 				});
 			}
 		});
+
 
 		$('.cms-edit-form').entwine({
 			/**
