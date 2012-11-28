@@ -110,8 +110,7 @@ jQuery.noConflict();
 			LayoutOptions: {
 				minContentWidth: 820,
 				minPreviewWidth: 400,
-				contentVisible: true,
-				previewVisible: true,
+				mode: 'split'
 			},
 
 			/**
@@ -181,8 +180,7 @@ jQuery.noConflict();
 			 */
 			splitViewMode: function() {
 				this.updateLayoutOptions({
-					previewVisible: true,
-					contentVisible: true
+					mode: 'split'
 				});
 				this.redraw();
 			},
@@ -192,8 +190,7 @@ jQuery.noConflict();
 			 */
 			contentViewMode: function() {
 				this.updateLayoutOptions({
-					previewVisible: false,
-					contentVisible: true
+					mode: 'content'
 				});
 				this.redraw();
 			},
@@ -203,8 +200,7 @@ jQuery.noConflict();
 			 */
 			previewMode: function() {
 				this.updateLayoutOptions({
-					previewVisible: true,
-					contentVisible: false
+					mode: 'preview'
 				});
 				this.redraw();
 			},

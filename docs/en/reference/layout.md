@@ -72,14 +72,14 @@ The following methods are available as an interface to underlying _threeColumnCo
 
 * _getLayoutOptions_: get currently used _threeColumnCompressor_ options.
 * _updateLayoutOptions_: change specified options and trigger the laying out: 
-`$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true});`
+`$('.cms-container').updateLayoutOptions({mode: 'split'});`
 * _splitViewMode_: enable side by side editing.
 * _contentViewMode_: only menu and content areas are shown.
 * _previewMode_: only menu and preview areas are shown.
 
 ### CSS classes
 
-Setting _contentVisible_ or _previewVisible_ options to `false` will add a `hidden` class to the relevant column.
+If as a result of alogorithm's calculations the column becomes hidden, `column-hidden` class is added to it.
 
 ## ThreeColumnCompressor
 
@@ -107,8 +107,7 @@ The parameters are as follows:
 
 * _minContentWidth_: minimum size for the content display as long as the preview is visible
 * _minPreviewWidth_: preview will not be displayed below this size
-* _contentVisible_: whether the content column should be shown at all
-* _previewVisible_: whether the preview column should be shown at all
+* _mode_: one of "split", "content" (content-only), "preview" (preview-only)
 
 ## Related
 

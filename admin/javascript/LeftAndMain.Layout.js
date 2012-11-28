@@ -19,15 +19,14 @@
 	 * - `content` area in the middle (includes the EditForm, side tool panel, actions, breadcrumbs and tabs)
 	 * - `preview` on the right (will be shown if there is enough space)
 	 *
-	 * Spec also requires the following size parameters:
+	 * Required options:
 	 * - `minContentWidth`: minimum size for the content display as long as the preview is visible
 	 * - `minPreviewWidth`: preview will not be displayed below this size
-	 * - `contentVisible`: whether the content column should be shown at all
-	 * - `previewVisible`: whether the preview column should be shown at all
+	 * - `mode`: one of "split", "content" or "preview"
 	 *
 	 * The algorithm first checks which columns are to be visible and which hidden.
 	 *
-	 * In the case where both preview and content should be show, it first tries to assign half of non-menu space to
+	 * In the case where both preview and content should be shown it first tries to assign half of non-menu space to
 	 * preview and the other half to content. Then if there is not enough space for either content or preview, it tries
 	 * to allocate the minimum acceptable space to that column, and the rest to the other one. If the minimum
 	 * requirements are still not met, it falls back to showing content only.
@@ -43,10 +42,11 @@
 		}
 		if (typeof options.minContentWidth==='undefined' ||
 			typeof options.minPreviewWidth==='undefined' ||
-			typeof options.contentVisible==='undefined' ||
-			typeof options.previewVisible==='undefined') {
-			throw 'Spec is invalid. Please provide "minContentWidth", "minPreviewWidth", "contentVisible" '+
-				'and "previewVisible".';
+			typeof options.mode==='undefined') {
+			throw 'Spec is invalid. Please provide "minContentWidth", "minPreviewWidth", "mode"';
+		}
+		if (options.mode!=='split' && options.mode!=='content' && options.mode!=='preview') {
+			throw 'Spec is invalid. "mode" should be either "split", "content" or "preview"';
 		}
 
 		// Instance of the algorithm being produced.
@@ -75,15 +75,15 @@
 				contentWidth = 0,
 				previewWidth = 0;
 
-			if (this.options.previewVisible && !this.options.contentVisible) {
+			if (this.options.mode==='preview') {
 				// All non-menu space allocated to preview.
 				contentWidth = 0;
 				previewWidth = right - left - menuWidth;
-			} else if (!this.options.previewVisible && this.options.contentVisible) {
+			} else if (this.options.mode==='content') {
 				// All non-menu space allocated to content.
 				contentWidth = right - left - menuWidth;
 				previewWidth = 0;
-			} else {
+			} else { // ==='split'
 				// Split view - first try 50-50 distribution.
 				contentWidth = (right - left - menuWidth) / 2;
 				previewWidth = right - left - (menuWidth + contentWidth);
