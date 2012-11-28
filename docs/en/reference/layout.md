@@ -72,7 +72,7 @@ The following methods are available as an interface to underlying _threeColumnCo
 
 * _getLayoutOptions_: get currently used _threeColumnCompressor_ options.
 * _updateLayoutOptions_: change specified options and trigger the layouting: 
-`$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true, menuExpanded: true});`
+`$('.cms-container').updateLayoutOptions({contentVisible: false, previewVisible: true});`
 * _splitViewMode_: enable side by side editing.
 * _contentViewMode_: only menu and content areas are shown.
 * _previewMode_: only menu and preview areas are shown.
@@ -80,8 +80,6 @@ The following methods are available as an interface to underlying _threeColumnCo
 ### CSS classes
 
 Setting _contentVisible_ or _previewVisible_ options to `false` will add a `hidden` class to the relevant column.
-
-Setting _menuExpanded_ option to `false` will add a `collapsed` class to the column.
 
 ## ThreeColumnCompressor
 
@@ -107,13 +105,10 @@ The parameters are as follows:
 
 ### Available options
 
-* _minMenuWidth_: expanded menu size
-* _maxMenuWidth_: collapsed menu size
 * _minContentWidth_: minimum size for the content display as long as the preview is visible
 * _minPreviewWidth_: preview will not be displayed below this size
 * _contentVisible_: whether the content column should be shown at all
 * _previewVisible_: whether the preview column should be shown at all
-* _menuExpanded_: whether menu should use the maxMenuWidth or minMenuWidth
 
 ## Related
 

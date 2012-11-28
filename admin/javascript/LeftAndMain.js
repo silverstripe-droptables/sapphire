@@ -108,13 +108,10 @@ jQuery.noConflict();
 			 * See LeftAndMain.Layout.js for description of these options.
 			 */
 			LayoutOptions: {
-				minMenuWidth: 40,
-				maxMenuWidth: 150,
 				minContentWidth: 820,
 				minPreviewWidth: 400,
 				contentVisible: true,
 				previewVisible: true,
-				menuExpanded: true
 			},
 
 			/**

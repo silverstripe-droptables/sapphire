@@ -20,13 +20,10 @@
 	 * - `preview` on the right (will be shown if there is enough space)
 	 *
 	 * Spec also requires the following size parameters:
-	 * - `minMenuWidth`: expanded menu size
-	 * - `maxMenuWidth`: collapsed menu size
 	 * - `minContentWidth`: minimum size for the content display as long as the preview is visible
 	 * - `minPreviewWidth`: preview will not be displayed below this size
 	 * - `contentVisible`: whether the content column should be shown at all
 	 * - `previewVisible`: whether the preview column should be shown at all
-	 * - `menuExpanded`: whether menu should use the maxMenuWidth or minMenuWidth
 	 *
 	 * The algorithm first checks which columns are to be visible and which hidden.
 	 *
@@ -44,15 +41,12 @@
 			typeof spec.preview==='undefined') {
 			throw 'Spec is invalid. Please provide "menu", "content" and "preview" elements.';
 		}
-		if (typeof options.minMenuWidth==='undefined' ||
-			typeof options.maxMenuWidth==='undefined' ||
-			typeof options.minContentWidth==='undefined' ||
+		if (typeof options.minContentWidth==='undefined' ||
 			typeof options.minPreviewWidth==='undefined' ||
 			typeof options.contentVisible==='undefined' ||
-			typeof options.previewVisible==='undefined' ||
-			typeof options.menuExpanded==='undefined') {
-			throw 'Spec is invalid. Please provide "minMenuWidth", "maxMenuWidth", '
-				+ '"minContentWidth", "minPreviewWidth", "contentVisible", "previewVisible" and "menuExpanded".';
+			typeof options.previewVisible==='undefined') {
+			throw 'Spec is invalid. Please provide "minContentWidth", "minPreviewWidth", "contentVisible" '+
+				'and "previewVisible".';
 		}
 
 		// Instance of the algorithm being produced.
@@ -77,18 +71,9 @@
 				left = insets.left,
 				right = size.width - insets.right;
 
-			var menuWidth = 0, 
+			var menuWidth = spec.menu.width(), 
 				contentWidth = 0,
 				previewWidth = 0;
-
-			// Set the preferred menu width.
-			if (this.options.menuExpanded) {
-				menuWidth = this.options.maxMenuWidth;
-				spec.menu.removeClass('collapsed');
-			} else {
-				menuWidth = this.options.minMenuWidth;
-				spec.menu.addClass('collapsed');
-			}
 
 			if (this.options.previewVisible && !this.options.contentVisible) {
 				// All non-menu space allocated to preview.
@@ -120,16 +105,8 @@
 			}
 
 			// Apply classes for elements that might not be visible at all.
-			if (contentWidth===0) {
-				spec.content.addClass('column-hidden');
-			} else {
-				spec.content.removeClass('column-hidden');
-			}
-			if (previewWidth===0) {
-				spec.preview.addClass('column-hidden');
-			} else {
-				spec.preview.removeClass('column-hidden');
-			}
+			spec.content.toggleClass('column-hidden', contentWidth===0);
+			spec.preview.toggleClass('column-hidden', previewWidth===0);
 
 			// Apply the widths to columns, and call subordinate layouts to arrange the children.
 			menu.bounds({'x': left, 'y': top, 'height': bottom - top, 'width': menuWidth});
