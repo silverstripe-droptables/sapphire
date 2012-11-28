@@ -309,7 +309,7 @@ form.small .field, .field.small {
 
 	.Actions {
 		min-height: 30px;
-		overflow: auto;
+		overflow: visible;
 		padding: 8px 12px;
 	}
 	.south .Actions, .ui-tabs-panel .Actions,  .ui-tabs-panel iframe .Actions {

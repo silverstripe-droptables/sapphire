@@ -10,8 +10,32 @@
 		padding: $grid-y*1.5 $grid-y*1.5;
 	}
 
-	/* Styling for icons in controls*/
-	.icon-view, .cms-navigator .dropdown a.chzn-single{
+	.cms-navigator{
+		width: 100%;
+
+	}
+	.cms-preview-states{
+		float: right;
+		position: relative;
+		margin-top: 3px;
+		margin-right: 7px;
+		width: 100px;
+	}
+}
+
+/**
+ * Preview mode selector appears both near CMS actions and in the preview navigator.
+ * Overrides default chosen styles and applies its own.
+ */
+.cms-container .preview-selector {
+	float:right;
+	border-bottom:none;
+	position:relative;
+	@include box-shadow(none);
+	margin: 3px 0 0 4px;
+	padding: 0;
+
+	.icon-view, a.chzn-single{
 		white-space: nowrap;
 		&:before {
 			display:inline-block;
@@ -46,128 +70,107 @@
 	.icon-window:before {
 		background: sprite($sprites32, preview_dual_window) no-repeat;
 	}
-	.cms-navigator{
-		width: 100%;
 
-		.dropdown a.chzn-single{
-			text-indent:-200px;
+	a.chzn-single {
+		text-indent:-200px;
+		width: 20px;
+		padding: 6px 5px;
+		height: 18px;
+		margin: -3px 0 0;
+		background:none;
+		border:none;
+		@include box-shadow(none);
+		@include border-radius(3px);
+
+		&:hover, &:focus, &.chzn-single-with-drop  {
+			background-color: darken($color-widget-bg,6%);
 		}
-		/* Preview selectors. Overrides default chosen styles and applies its own */
-		.preview-selector{
-			float:right;
-			border-bottom:none;
-			position:relative;
-			@include box-shadow(none);
-			margin: 3px 0 0 4px;
+		&.chzn-single-with-drop {
+			@include border-radius(0 0 3px 3px);
+		}
+		div {
+			display: none;
+		}
+	}
+
+	&.open{
+		.chzn-drop{
+			position:absolute;
+			left: auto !important; //over-ride chosen inline styles
+			right: 0;
+		}       
+	}
+
+	.chzn-drop{
+		@include border-radius(3px 3px 0 3px);
+
+		.chzn-results {
+			width: 135px;
+		}
+	}
+
+	.chzn-container.chzn-with-rise {
+		width:auto !important; //over-ride chosen inline styles
+
+		.chzn-drop {
 			padding: 0;
-
-			a.chzn-single {
-				width: 20px;
-				padding: 6px 5px;
-				height: 18px;
-				margin: -3px 0 0;
-				background:none;
-				border:none;
-				@include box-shadow(none);
-				@include border-radius(3px);
-
-				&:hover, &:focus, &.chzn-single-with-drop  {
-					background-color: darken($color-widget-bg,6%);
-				}
-				&.chzn-single-with-drop {
-					@include border-radius(0 0 3px 3px);
-				}
-				div {
-					display: none;
-				}
+			border-bottom: 1px solid #aaa;
+			margin-top: -5px;
+			width: auto !important; //over-ride chosen inline width (doesn't take image into account)
+			
+			.chzn-search {
+				display: none;
 			}
 
-			&.open{
-				.chzn-drop{
-					position:absolute;
-					left: auto !important; //over-ride chosen inline styles
-					right: 0;
-				}	
-			}
+			ul{
+				padding:0;
+				margin:0;
 
-			.chzn-drop{
-				@include border-radius(3px 3px 0 3px);
-				.chzn-results {
-					width: 135px;
-				}
-			}			
-
-			.chzn-container.chzn-with-rise {
-				width:auto !important; //over-ride chosen inline styles
-
-
-				.chzn-drop {	
-					padding: 0;
-					border-bottom: 1px solid #aaa;
-					margin-top: -5px;
-					width: auto !important; //over-ride chosen inline width (doesn't take image into account)
-					
-					.chzn-search {
-						display: none;
+				li{
+					font-size: 12px;
+					line-height: 16px;
+					padding: 7px 16px 7px 6px;
+					color: $color-text-blue-link;
+					border-bottom: 1px solid $color-light-separator;
+					&:before{
+						margin-right: 2px;
+					}
+					&.description {
+						padding-top: 5px;
+						padding-bottom: 5px;
+						&:before{
+							margin-top: 5px;
+						}
 					}
 
-					ul{
-						padding:0;
-						margin:0;
-
-						li{
-							font-size: 12px;
-							line-height: 16px;
-							padding: 7px 16px 7px 6px;
-							color: $color-text-blue-link;
-							border-bottom: 1px solid $color-light-separator;
-							&:before{
-								margin-right: 2px;
-							}
-							&.description {
-								padding-top: 5px;
-								padding-bottom: 5px;
-								&:before{
-									margin-top: 5px;
-								}
-							}
-							&.highlighted, &:hover, &:focus {
-								color:$color-text-blue-link;
-								background: lighten($color-widget-bg,2%);
-								text-decoration: none;
-							}
-							&.first {
-								@include border-radius(4px 4px 0px 0px);
-							}
-							&.last {
-								@include border-radius(0px 0px 4px 4px);
-								border-bottom:none;
-							}
-							/* Description styling */
-							span { 
-								display:block;
-								color: lighten($color-text-dark, 30%);
-								font-size:0.85em;
-								line-height:1.1em;
-								padding-left:23px;
-							}
-							.icon-view {
-								margin-right: 4px;
-							}
-						}			
+					&.highlighted, &:hover, &:focus {
+						color:$color-text-blue-link;
+						background: lighten($color-widget-bg,2%);
+						text-decoration: none;
 					}
-				}				
+					&.first {
+						@include border-radius(4px 4px 0px 0px);
+					}
+					&.last {
+						@include border-radius(0px 0px 4px 4px);
+						border-bottom:none;
+					}
+					/* Description styling */
+					span { 
+						display:block;
+						color: lighten($color-text-dark, 30%);
+						font-size:0.85em;
+						line-height:1.1em;
+						padding-left:23px;
+					}
+					.icon-view {
+						margin-right: 4px;
+					}
+				}
 			}
-			&.open .chzn-drop { 
-				//display: block;
-			}
-		} 
-	}	
-	.cms-preview-states{
-		float: right;
-		position: relative; 
-		margin-top: 3px;
-		margin-right: 7px;
-		width: 100px;
+		}
+	}
+	&.open .chzn-drop { 
+		// display: block;
 	}
 }

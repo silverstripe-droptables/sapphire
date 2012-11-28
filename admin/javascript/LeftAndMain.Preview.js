@@ -212,9 +212,7 @@
 			}
 		});	
 		
-
-
-		$('#cms-preview-mode-dropdown').entwine({
+		$('.preview-mode-selector select').entwine({
 			onchange: function(e) {
 				e.preventDefault();
 
@@ -232,10 +230,8 @@
 			//	this.addIcon(); //run generic addIcon, on select.preview-dropdown
 			}
 		});
-		
 
-		
-		$('#cms-preview-size-dropdown').entwine({
+		$('.preview-size-selector select').entwine({
 			onchange: function(e) {
 				e.preventDefault();
 
@@ -250,6 +246,37 @@
 			}
 		});
 
+		/**
+		 * Adjust the CMS's preview-mode selector visibility according to changes of preview window.
+		 */
+		$('.cms-preview.column-hidden').entwine({
+			onmatch: function() {
+				$('#preview-mode-dropdown-in-content').show();
+				this._super();
+			},
+			onunmatch: function() {
+				$('#preview-mode-dropdown-in-content').hide();
+				this._super();
+			}
+		});
+
+		/**
+		 * Initialise the CMS preview-mode selector depending on the preview visibility.
+		 */
+		$('#preview-mode-dropdown-in-content').entwine({
+			onmatch: function() {
+				if ($('.cms-preview').is('.column-hidden')) {
+					this.show();
+				}
+				else {
+					this.hide();
+				}
+				this._super();
+			},
+			onunmatch: function() {
+				this._super();
+			}
+		});
 
 		/*
 		*	Add a class to the chzn select trigger based on the currently 
