@@ -8,13 +8,12 @@
  */
 
 .cms-logo-header {
-	background-color: $color-dark-bg;
 	position: relative !important;
 	top:auto !important;
 	height:auto !important;
 	padding: 0 8px;
 	line-height: 24px;
-
+	background-color: lighten($color-dark-bg,10%);
 	@include background-image(
 		linear-gradient(lighten($color-dark-bg,20%), $color-dark-bg)
 	);

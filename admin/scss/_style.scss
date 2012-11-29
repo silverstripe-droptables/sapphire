@@ -441,9 +441,11 @@ body.cms {
 	margin: 0;
 	padding: $grid-y*1.5 $grid-y*2;
 	z-index: 0;
-	border-top: 1px solid $color-light-separator;
-	border-top: 1px solid #FAFAFA;
-	@include box-shadow(1px 0 0 $tab-panel-texture-color, #CCC 0 -1px 1px);
+	border-top: 1px solid $color-separator;
+	@include box-shadow(
+		1px 0 0 $tab-panel-texture-color, 
+		$box-shadow-shine 0 1px 0px inset, 
+		$color-shadow-light 0 0 1px);
 	height: 28px;
 	background-color: $tab-panel-texture-color;
 }
@@ -687,7 +689,8 @@ p.message {
 	overflow-y: auto;	
 	overflow-x: hidden;
 	z-index: 70;
-	@include box-shadow($color-shadow-black 0 2px 3px);
+	border-right: 1px solid $color-separator;
+	@include box-shadow($box-shadow-shine -1px 0 0 inset, 0 0 1px $color-shadow-light);
 	float: left;
 	position: relative;
 
@@ -1204,7 +1207,8 @@ form.member-profile-form {
 	.cms-panel-toggle {
 		@include box-shadow(0 0 1px rgba(107, 120, 123, 0.5));
 		&.south {
-			border-top: 1px solid $color-light-separator;
+			border-top: 1px solid darken($color-base, 6%);
+			@include box-shadow(lighten($color-base, 4%) 0 1px 0px inset);
 			position: absolute;
 			bottom: 0;
 			width:100%;
@@ -1230,7 +1234,8 @@ form.member-profile-form {
 	}
 	&.cms-content-tools .cms-panel-toggle {
 		&.south {
-			border-top: 1px solid #FFF;
+			border-top: 1px solid darken($tab-panel-texture-color,10%);
+			@include box-shadow($box-shadow-shine 0 1px 0px inset);
 		}
 	}	
 	&.collapsed {

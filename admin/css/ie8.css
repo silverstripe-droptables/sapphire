@@ -11,8 +11,6 @@
 .cms .ss-ui-button.ss-ui-action-constructive.ui-state-hover { background-color: #23a93a; }
 .cms .ss-ui-button.ss-gridfield-button-filter { background: #55a4d2 url(../../images/icons/filter-icons.png) no-repeat -14px 4px; }
 
-.cms-content-toolbar { border-bottom: 1px solid #c9cdce; }
-
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { background-image: none; }
 
 .ss-gridfield-button-filter.ss-ui-button { background: #e6e6e6 url(../images/filter-icons.png) no-repeat -40px 6px; filter: none; }
@@ -46,7 +44,6 @@
 
 .cms-content-toolbar .cms-tree-view-modes .checkboxAboveTree { margin-right: 1px; }
 
-.cms .cms-content-tools { border-right: 1px solid #CCC; }
 .cms .cms-content-tools .cms-panel-content .dropdown select { width: 152px; }
 
 .filter-buttons button { width: 23px !important; height: 23px !important; }

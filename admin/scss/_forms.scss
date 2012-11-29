@@ -17,7 +17,7 @@ form.nostyle {
 .field {
 	display: block;
 	border-bottom: 1px solid $color-shadow-light;
-    @include box-shadow(0 1px 0 lighten($color-shadow-light, 16%));
+    @include box-shadow(0 1px 0 $box-shadow-shine-minimal);
 
 	//TODO: use single border line with shadow instead:: http://daverupert.com/2011/06/two-tone-borders-with-css3/
 	//overflow: hidden;
