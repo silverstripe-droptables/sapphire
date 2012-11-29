@@ -24,15 +24,93 @@
 			AllowedStates: ['StageLink', 'LiveLink'],
 
 			/**
+			 * API
 			 * Name of the current preview state - one of the "AllowedStates".
 			 */
 			CurrentStateName: null,
 
 			/**
+			 * API
 			 * Current size selection.
 			 */
 			CurrentSizeName: 'auto',
-			
+
+			/**
+			 * API
+			 * Switch the preview to different state.
+			 * stateName can be one of the "AllowedStates".
+			 */
+			changeState: function(stateName) {
+				this.setCurrentStateName(stateName);
+				this._updatePreview();
+				this.redraw();
+
+				return this;
+			},
+
+			/**
+			 * API
+			 * Change the preview mode.
+			 * modeName can be: split, content, preview.
+			 */
+			changeMode: function(modeName) {
+				var container = $('.cms-container');
+
+				if (modeName == 'split') {
+					container.entwine('.ss').splitViewMode();
+				} else if (modeName == 'content') {
+					container.entwine('.ss').contentViewMode();
+				} else {
+					container.entwine('.ss').previewMode();
+				}
+
+				this.redraw();
+
+				return this;
+			},
+
+			/**
+			 * API
+			 * Change the preview size.
+			 * sizeName can be: auto, desktop, tablet, mobile.
+			 */
+			changeSize: function(sizeName) {
+				this.setCurrentSizeName(sizeName);
+
+				this.removeClass('auto desktop tablet mobile')
+					.addClass(sizeName);
+
+				this.redraw();
+
+				return this;
+			},
+
+			/**
+			 * API
+			 * Update the visual appearance to match the internal preview state.
+			 */
+			redraw: function() {
+				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
+
+				// Update preview state selector.
+				var currentStateName = this.getCurrentStateName();
+				if (currentStateName) {
+					$('.cms-preview-states').changeVisibleState(currentStateName);
+				}
+
+				// Update preview mode selectors.
+				var layoutOptions = $('.cms-container').entwine('.ss').getLayoutOptions();
+				if (layoutOptions) {
+					$('.preview-mode-selector').changeVisibleMode(layoutOptions.mode);
+				}
+
+				// Update preview size selector.
+				var currentSizeName = this.getCurrentSizeName();
+				if (currentSizeName) {
+					$('.preview-size-selector').changeVisibleSize(this.getCurrentSizeName());
+				}
+			},
+
 			onadd: function() {
 				var self = this, layoutContainer = this.parent();
 				// this.resizable({
@@ -49,7 +127,7 @@
 
 					// Load edit view for new page, but only if the preview is activated at the moment.
 					// This avoids e.g. force-redirections of the edit view on RedirectorPage instances.
-					self.loadCurrentPage();
+					self._loadCurrentPage();
 				});
 				
 				this.data('cms-preview-initialized', true);
@@ -57,10 +135,10 @@
 				// Preview might not be available in all admin interfaces - block/disable when necessary
 				this.append('<div class="cms-preview-overlay ui-widget-overlay-light"></div>');
 				this.find('.cms-preview-overlay-light').hide();
-				$('.cms-preview-toggle-link')[this.canPreview() ? 'show' : 'hide']();
+				$('.cms-preview-toggle-link')[this._canPreview() ? 'show' : 'hide']();
 
 				self._fixIframeLinks();
-				this.updatePreview();
+				this._updatePreview();
 
 				this._super();
 			},
@@ -68,7 +146,7 @@
 			/**
 			 * Load the URL into the preview iframe.
 			 */
-			loadUrl: function(url) {
+			_loadUrl: function(url) {
 				this.find('iframe').attr('src', url);
 			},
 
@@ -76,7 +154,7 @@
 			 * Fetch available states from the current SilverStripeNavigator (SilverStripeNavigatorItems).
 			 * Navigator is supplied by the backend and contains all state options for the current object.
 			 */
-			getNavigatorStates: function() {
+			_getNavigatorStates: function() {
 				// Walk through available states and get the URLs.
 				var urlMap = $.map(this.getAllowedStates(), function(name) {
 					var stateLink = $('.cms-preview-states .switch-options a[name=' + name + ']');
@@ -90,8 +168,8 @@
 			 * Reload the preview while keeping current state.
 			 * Fall back to first preferred state if state is no longer available.
 			 */
-			updatePreview: function() {
-				var states = this.getNavigatorStates();
+			_updatePreview: function() {
+				var states = this._getNavigatorStates();
 				var currentStateName = this.getCurrentStateName();
 				var currentState = null;
 
@@ -104,24 +182,23 @@
 
 				if (currentState[0]) {
 					// State is available.
-					this.loadUrl(currentState[0].url);
-					this.unblock();
+					this._loadUrl(currentState[0].url);
+					this._unblock();
 				} else if (states.length) {
 					// Fall back to first preferred state.
 					this.setCurrentStateName(states[0].name);
-					this.loadUrl(states[0].url);
-					this.unblock();
+					this._loadUrl(states[0].url);
+					this._unblock();
 				} else {
 					// No state available.
-					this.block();
-					this.toggle();
+					this._block();
 				}
 				return this;
 			},
 
-			updateAfterXhr: function(){
-				$('.cms-preview-toggle-link')[this.canPreview() ? 'show' : 'hide']();
-				this.updatePreview();
+			_updateAfterXhr: function(){
+				$('.cms-preview-toggle-link')[this._canPreview() ? 'show' : 'hide']();
+				this._updatePreview();
 			},
 
 			/**
@@ -129,7 +206,7 @@
 			 */
 			'from .cms-container': {
 				onafterstatechange: function(){
-					this.updateAfterXhr();
+					this._updateAfterXhr();
 				}
 			},
 
@@ -139,7 +216,7 @@
 			 */
 			'from .cms-container .cms-edit-form': {
 				onaftersubmitform: function(){
-					this.updateAfterXhr();
+					this._updateAfterXhr();
 				}
 			},
 
@@ -147,10 +224,10 @@
 			 * Loads the matching edit form for a page viewed in the preview iframe,
 			 * based on metadata sent along with this document.
 			 */
-			loadCurrentPage: function() {
+			_loadCurrentPage: function() {
 				var doc = this.find('iframe')[0].contentDocument, containerEl = $('.cms-container');
 
-				if(!this.canPreview()) return;
+				if(!this._canPreview()) return;
 
 				// Load this page in the admin interface if appropriate
 				var id = $(doc).find('meta[name=x-page-id]').attr('content'); 
@@ -170,7 +247,7 @@
 			 *
 			 * Returns: {boolean}
 			 */
-			canPreview: function() {
+			_canPreview: function() {
 				var contentEl = $('.cms-container .cms-content');
 				// Only load if we're in the "edit page" view
 				var blockedClasses = ['CMSPagesController', 'CMSPageHistoryController'];
@@ -206,84 +283,12 @@
 				if(naviMsg) naviMsg.style.display = 'none';
 			},
 
-			block: function() {
+			_block: function() {
 				this.addClass('blocked');
 			},
 			
-			unblock: function() {
+			_unblock: function() {
 				this.removeClass('blocked');
-			},
-			
-			/**
-			 * Switch the preview to different state.
-			 * stateName can be one of the "AllowedStates".
-			 */
-			changeState: function(stateName) {
-				this.setCurrentStateName(stateName);
-				this.updatePreview();
-				this.redraw();
-
-				return this;
-			},
-
-			/**
-			 * Change the preview mode.
-			 * modeName can be: split, content, preview.
-			 */
-			changeMode: function(modeName) {
-				var container = $('.cms-container');
-
-				if (modeName == 'split') {
-					container.entwine('.ss').splitViewMode();
-				} else if (modeName == 'content') {
-					container.entwine('.ss').contentViewMode();
-				} else {
-					container.entwine('.ss').previewMode();
-				}
-
-				this.redraw();
-
-				return this;
-			},
-
-			/**
-			 * Change the preview size.
-			 * sizeName can be: auto, desktop, tablet, mobile.
-			 */
-			changeSize: function(sizeName) {
-				this.setCurrentSizeName(sizeName);
-
-				this.removeClass('auto desktop tablet mobile')
-					.addClass(sizeName);
-
-				this.redraw();
-
-				return this;
-			},
-
-			/**
-			 * Update the visual appearance to match the internal preview state.
-			 */
-			redraw: function() {
-				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
-
-				// Update preview state selector.
-				var currentStateName = this.getCurrentStateName();
-				if (currentStateName) {
-					$('.cms-preview-states').changeVisibleState(currentStateName);
-				}
-
-				// Update preview mode selectors.
-				var layoutOptions = $('.cms-container').entwine('.ss').getLayoutOptions();
-				if (layoutOptions) {
-					$('.preview-mode-selector').changeVisibleMode(layoutOptions.mode);
-				}
-
-				// Update preview size selector.
-				var currentSizeName = this.getCurrentSizeName();
-				if (currentSizeName) {
-					$('.preview-size-selector').changeVisibleSize(this.getCurrentSizeName());
-				}
 			}
 		});
 
@@ -362,7 +367,7 @@
 				this.find('select')
 					.val(mode)
 					.trigger('liszt:updated')
-					.addIcon();
+					._addIcon();
 			}
 		});
 
@@ -422,7 +427,7 @@
 				this.find('select')
 					.val(size)
 					.trigger('liszt:updated')
-					.addIcon();
+					._addIcon();
 			}
 		});
 
@@ -449,12 +454,12 @@
 		*/
 		$('.preview-selector select.preview-dropdown').entwine({
 			'onliszt:showing_dropdown': function() {
-				this.siblings().find('.chzn-drop').addClass('open').alignRight();
+				this.siblings().find('.chzn-drop').addClass('open')._alignRight();
 			},
 			'onliszt:hiding_dropdown': function() {
-				this.siblings().find('.chzn-drop').removeClass('open').removeRightAlign();
+				this.siblings().find('.chzn-drop').removeClass('open')._removeRightAlign();
 			},
-			addIcon: function(){	
+			_addIcon: function(){
 				var selected = this.find(':selected');				
 				var iconClass = selected.attr('data-icon');	
 								
@@ -474,7 +479,7 @@
 		*/
 		$('.preview-selector a.chzn-single').entwine({
 			onmatch: function() {								
-				this.closest('.preview-selector').find('select').addIcon();	
+				this.closest('.preview-selector').find('select')._addIcon();
 				this._super();
 			},
 			onunmatch: function() {
@@ -484,7 +489,7 @@
 
 
 		$('.preview-selector .chzn-drop').entwine({
-			alignRight: function(){					
+			_alignRight: function(){
 				var that = this;
 				$(this).hide();
 				/* Delay so styles applied after chosen applies css	
@@ -495,7 +500,7 @@
 					$(that).show();	
 				}, 100);							
 			},
-			removeRightAlign:function(){
+			_removeRightAlign:function(){
 				$(this).css({right:'auto'});
 			}
 
@@ -545,7 +550,7 @@
 			 */
 			ToolbarSize: 53,
 
-			redraw: function() {
+			_redraw: function() {
 				var toolbarSize = this.getToolbarSize();
 
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
@@ -554,7 +559,7 @@
 			}, 
 
 			onmatch: function() {
-				this.redraw();
+				this._redraw();
 				this._super();
 			},
 
