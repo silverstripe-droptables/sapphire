@@ -3,8 +3,8 @@
 ## Overview
 
 With the addition of side-by-side editing, the preview has the ability to appear within the CMS window when editing
-content in the _Pages_ section of the CMS. It will update itself whenever the content is saved, and relevant pages will
-be loaded for editing when the user navigates around in the preview.
+content in the _Pages_ section of the CMS. The site is rendered into an iframe. It will update itself whenever the
+content is saved, and relevant pages will be loaded for editing when the user navigates around in the preview.
 
 The root element for preview is `.cms-preview` which maintains the internal states neccessary for rendering. It provides
 function calls for transitioning between these states and has the ability to redraw the area.
@@ -33,9 +33,9 @@ You can invoke the state change by calling:
 	$('.cms-preview').entwine('.ss.preview').changeState('StageLink');
 	```
 
-Note the state names come from `SilverStripeNavigatorItems` class names - thus the _Link_ in the name. This call will 
-also redraw the state selector to fit with internal state. See `AllowedStates` in `.cms-preview` entwine for the list of
-supported states.
+Note the state names come from `SilverStripeNavigatorItems` class names - thus the _Link_ in their names. This call will
+also redraw the state selector to fit with the internal state. See `AllowedStates` in `.cms-preview` entwine for the
+list of supported states.
 
 You can get the current state by calling:
 
@@ -45,7 +45,7 @@ You can get the current state by calling:
 
 ## Preview sizes
 
-Preview sizes define how the preview iframe is rendered, and try to emulate different device sizes. The options are
+This selector defines how the preview iframe is rendered, and try to emulate different device sizes. The options are
 hardcoded. The option names map directly to CSS classes applied to the `.cms-preview` and are as follows:
 
 * _auto_: responsive layout
