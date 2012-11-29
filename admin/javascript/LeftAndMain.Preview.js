@@ -18,9 +18,6 @@
 		 */
 		$('.cms-preview').entwine({
 			
-			// Minimum width to keep the CMS operational
-			SharedWidth: null,
-			
 			onadd: function() {
 				var self = this, layoutContainer = this.parent();
 				// this.resizable({
@@ -29,9 +26,6 @@
 				// 		$('.cms-container').layout({resize: false});
 				// 	}
 				// });
-				
-				// TODO Compute dynamically
-				this.setSharedWidth(500);
 				
 				// Create layout and controls
 				this.find('iframe').addClass('center');
@@ -176,16 +170,6 @@
 			}
 		});
 		
-		$('.cms-preview.collapsed').entwine({
-			onmatch: function() {
-				this.find('a').text('<');
-				this._super();
-			},
-			onunmatch: function() {
-				this._super();
-			}
-		});
-		
 		$('.cms-preview.blocked').entwine({
 			onmatch: function() {
 				this.find('.cms-preview-overlay').show();
@@ -193,16 +177,6 @@
 			},
 			onunmatch: function() {
 				this.find('.cms-preview-overlay').hide();
-				this._super();
-			}
-		});
-		
-		$('.cms-preview.expanded').entwine({
-			onmatch: function() {
-				this.find('a').text('>');
-				this._super();
-			},
-			onunmatch: function() {
 				this._super();
 			}
 		});
