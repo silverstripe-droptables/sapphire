@@ -93,11 +93,11 @@ to appear as one horizontal bar.
 
 Namespace `ss.preview`, selector `.cms-preview`:
 
-* `getCurrentStateName`: get the name of the current state (e.g. _LiveLink_ or _StageLink_).
-* `getCurrentSizeName`: get the name of the current device size.
-* `changeState`: one of the `AllowedStates`.
-* `changeSize`: one of _auto_, _desktop_, _tablet_, _mobile_.
-* `changeMode`: maps to _threeColumnLayout_ modes - _split_, _preview_, _content_.
+* **getCurrentStateName**: get the name of the current state (e.g. _LiveLink_ or _StageLink_).
+* **getCurrentSizeName**: get the name of the current device size.
+* **changeState**: one of the `AllowedStates`.
+* **changeSize**: one of _auto_, _desktop_, _tablet_, _mobile_.
+* **changeMode**: maps to _threeColumnLayout_ modes - _split_, _preview_, _content_.
 
 ## Related
 
