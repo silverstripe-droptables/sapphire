@@ -112,4 +112,5 @@ The parameters are as follows:
 ## Related
 
  * [Reference: CMS Architecture](../reference/cms-architecture)
+ * [Reference: Preview](../reference/preview)
  * [Howto: Extend the CMS Interface](../howto/extend-cms-interface)
