@@ -289,15 +289,20 @@
 
 		$('.cms-edit-form').entwine({
 			/**
-			 * Initialise the navigator - move it from the EditForm to the preview (if not yet there).
+			 * Initialise the navigator - move it from the EditForm to the preview.
 			 */
 			onadd: function() {	
 				var previewEl = $('.cms-preview .cms-preview-controls');
-				if(previewEl.length) {
-					previewEl.html(this.find('.cms-navigator').detach());
-				}
+				var navigatorEl = $('.cms-edit-form .cms-navigator');
 
-				$('.cms-preview').redraw();
+				if (navigatorEl.length && previewEl.length) {
+					// Preview is available - install the navigator.
+					previewEl.html($('.cms-edit-form .cms-navigator').detach());
+					$('.cms-preview').changeMode('split');
+				} else {
+					// Preview not available.
+					$('.cms-preview').changeMode('content');
+				}
 			}
 		});
 		
