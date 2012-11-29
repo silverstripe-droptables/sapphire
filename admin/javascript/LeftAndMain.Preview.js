@@ -77,11 +77,21 @@
 				this.updatePreview();
 			},
 
+			/**
+			 * Update preview whenever any panels are reloaded.
+			 */
 			'from .cms-container': {
-				onaftersubmitform: function(){
-					this.updateAfterXhr();
-				},
 				onafterstatechange: function(){
+					this.updateAfterXhr();
+				}
+			},
+
+			/**
+			 * Update preview whenever form is submitted. This does not use the usual LeftAndmMain::loadPanel
+			 * functionality which is already covered in onafterstatechange above.
+			 */
+			'from .cms-container .cms-edit-form': {
+				onaftersubmitform: function(){
 					this.updateAfterXhr();
 				}
 			},
