@@ -1,5 +1,5 @@
 (function($) {
-	$.entwine('ss', function($){
+	$.entwine('ss.preview', function($){
 
 		/**
 		 * Shows a previewable website state alongside its editable version in backend UI, 
@@ -17,6 +17,9 @@
 		 * while all external links are disabled (via JavaScript).
 		 */
 		$('.cms-preview').entwine({
+
+			AllowedStates: ['PreviewURL', 'StageLink', 'LiveLink'],
+			CurrentStateName: null,
 			
 			onadd: function() {
 				var self = this, layoutContainer = this.parent();
@@ -50,20 +53,67 @@
 				this._super();
 			},
 
+			/**
+			 * Load the URL into the preview iframe.
+			 */
 			loadUrl: function(url) {
 				this.find('iframe').attr('src', url);
 			},
 
-			updatePreview: function() {
-				var url = $('.cms-edit-form').choosePreviewLink();
+			/**
+			 * Fetch available states from the current SilverStripeNavigator.
+			 * Navigator is supplied by the backend and contains all state options for the current object.
+			 */
+			getNavigatorStates: function() {
+				// Walk through available states and get the URLs.
+				var urlMap = $.map(this.getAllowedStates(), function(name) {
+					var stateLink = $('.cms-preview-states .switch-options a[name=' + name + ']');
+					return stateLink.length ? {name: name, url: stateLink.attr('href')} : null;
+				});
 
-				if(url) {
-					this.loadUrl(url);
+				return urlMap;
+			},
+
+			/**
+			 * Switch the preview to different state.
+			 */
+			changeState: function(stateName) {
+				this.setCurrentStateName(stateName);
+				this.updatePreview();
+				return this;
+			},
+
+			/**
+			 * Reload the preview while keeping current state.
+			 * Fall back to first preferred state if state is no longer available.
+			 */
+			updatePreview: function() {
+				var states = this.getNavigatorStates();
+				var currentStateName = this.getCurrentStateName();
+				var currentState = null;
+
+				// Find current state within currently available states.
+				if (states) {
+					currentState = $.grep(states, function(state, index) {
+						return currentStateName===state.name;
+					});
+				}
+
+				if (currentState[0]) {
+					// State is available.
+					this.loadUrl(currentState[0].url);
+					this.unblock();
+				} else if (states.length) {
+					// Fall back to first preferred state.
+					this.setCurrentStateName(states[0].name);
+					this.loadUrl(states[0].url);
 					this.unblock();
 				} else {
+					// No state available.
 					this.block();
 					this.toggle();
 				}
+				return this;
 			},
 
 			updateAfterXhr: function(){
@@ -108,7 +158,7 @@
 					// Ignore behaviour without history support (as we need ajax loading 
 					// for the new form to load in the background)
 					if(window.History.enabled) 
-						$('.cms-container').loadPanel(editLink);
+						$('.cms-container').entwine('.ss').loadPanel(editLink);
 				}
 			},
 
@@ -146,7 +196,7 @@
 					if (href.match(/^http:\/\//)) links[i].setAttribute('target', '_blank');
 				}
 
-				// Hide duplicate navigator, as it replicates existing UI in the CMS
+				// Hide the navigator from the preview iframe and use only the CMS one.
 				var navi = doc.getElementById('SilverStripeNavigator');
 				if(navi) navi.style.display = 'none';
 				var naviMsg = doc.getElementById('SilverStripeNavigatorMessage');
@@ -167,6 +217,30 @@
 			
 			redraw: function() {
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
+
+				// Make sure the preview display matches internal state.
+				var currentStateName = this.getCurrentStateName();
+				if (currentStateName) {
+					// TODO add getters for the most often used subelements, such as this one.
+					$('.cms-preview-states').changeState(currentStateName);
+				}
+
+				// TODO: update the preview mode and preview size selectors, so we can simply call redraw
+				// to update the visual appearance to reflect underlying state.
+			}
+		});
+
+		$('.cms-edit-form').entwine({
+			/**
+			 * Initialise the navigator - move it from the EditForm to the preview (if not yet there).
+			 */
+			onadd: function() {	
+				var previewEl = $('.cms-preview .cms-preview-controls');
+				if(previewEl.length) {
+					previewEl.html(this.find('.cms-navigator').detach());
+				}
+
+				$('.cms-preview').redraw();
 			}
 		});
 		
@@ -181,22 +255,39 @@
 			}
 		});
 		
-		$('.switch-options a').entwine({
-			onclick: function(e) {			
-				var preview = $('.cms-preview');
-				var loadSibling = $(this).siblings('a');
-				var checkbox = $(this).closest('.cms-preview-states').find('input');
-				if(checkbox.attr('checked') !== undefined){
-					checkbox.attr('checked', false);
-				}else{
-					checkbox.attr('checked', true);
+		$('.cms-preview-states').entwine({
+			/**
+			 * Change the displayed state.
+			 */
+			changeState: function(state) {
+				// Arbitrary mapping from checkbox state to the preview state.
+				if (state==='LiveLink') {
+					this.find('.cms-preview-checkbox').prop('checked', false);
+				} else {
+					this.find('.cms-preview-checkbox').prop('checked', true);
 				}
-				preview.loadUrl($(loadSibling).attr('href'));
+			}
+		});
+
+		$('.cms-preview-states .switch-options a').entwine({
+			/**
+			 * Reacts to the user changing the state of the preview.
+			 * TODO Rewrite this function to ensure we can handle 1,2,3+ states.
+			 */
+			onclick: function(e) {			
+				var targetStateName = $(this).siblings('a').attr('name');
+
+				// Reload preview with the selected state.
+				$('.cms-preview').changeState(targetStateName).redraw();
+
 				return false;
 			}
 		});	
 		
 		$('.preview-mode-selector select').entwine({
+			/**
+			 * Trigger change in the preview mode.
+			 */
 			onchange: function(e) {
 				e.preventDefault();
 
@@ -204,13 +295,14 @@
 				var state = $(this).val();
 
 				if (state == 'split') {
-					container.splitViewMode();
+					container.entwine('.ss').splitViewMode();
 				} else if (state == 'edit') {
-					container.contentViewMode();
+					container.entwine('.ss').contentViewMode();
 				} else {
-					container.previewMode();
+					container.entwine('.ss').previewMode();
 				}
 
+				// TODO: move this to the master redraw routine in the .cms-preview.
 				this.addIcon();
 
 				// Synchronise other preview-mode selectors to display the same state.
@@ -222,6 +314,9 @@
 		});
 
 		$('.preview-size-selector select').entwine({
+			/**
+			 * Trigger change in the preview size.
+			 */
 			onchange: function(e) {
 				e.preventDefault();
 
@@ -360,25 +455,6 @@
 				});
 			}
 		}); */
-
-
-		$('.cms-edit-form').entwine({
-			/**
-			 * Choose applicable preview link based on form data,
-			 * in a fixed order of priority: The PreviewURL field is used as an override,
-			 * which falls back to stage or live URLs.
-			 *
-			 * @return String Absolute URL
-			 */
-			choosePreviewLink: function() {
-				var self = this, urls = $.map(['PreviewURL', 'StageLink', 'LiveLink'], function(name) {
-					var val = self.find(':input[name=' + name + ']').val();
-					return val ? val : null;
-				});
-				return urls ? urls[0] : false;
-			}
-		});
-
 
 		// Recalculate the preview space to allow for horizontal scrollbar and the preview actions panel
 		var toolbarSize = 53; 							// Height of the preview actions panel
