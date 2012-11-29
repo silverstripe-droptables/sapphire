@@ -6,8 +6,6 @@
 		 * typically a page. This allows CMS users to seamlessly switch between preview and 
 		 * edit mode in the same browser window. The preview panel is embedded in the layout 
 		 * of the backend UI, and loads its content via an iframe.
-		 * 
-		 * The admin UI itself is collapsible, leaving most screen space to this panel.
 		 *
 		 * Relies on the server responses to indicate if a preview URL is available for the 
 		 * currently loaded admin interface. If no preview is available, the panel is "blocked"
@@ -18,8 +16,22 @@
 		 */
 		$('.cms-preview').entwine({
 
-			AllowedStates: ['PreviewURL', 'StageLink', 'LiveLink'],
+			/**
+			 * List of SilverStripeNavigator states (SilverStripeNavigatorItem classes) to search for.
+			 * The order is significant - if the state is not available, preview will start searching the list
+			 * from the beginning.
+			 */
+			AllowedStates: ['StageLink', 'LiveLink'],
+
+			/**
+			 * Name of the current preview state - one of the "AllowedStates".
+			 */
 			CurrentStateName: null,
+
+			/**
+			 * Current size selection.
+			 */
+			CurrentSizeName: 'auto',
 			
 			onadd: function() {
 				var self = this, layoutContainer = this.parent();
@@ -61,7 +73,7 @@
 			},
 
 			/**
-			 * Fetch available states from the current SilverStripeNavigator.
+			 * Fetch available states from the current SilverStripeNavigator (SilverStripeNavigatorItems).
 			 * Navigator is supplied by the backend and contains all state options for the current object.
 			 */
 			getNavigatorStates: function() {
@@ -72,15 +84,6 @@
 				});
 
 				return urlMap;
-			},
-
-			/**
-			 * Switch the preview to different state.
-			 */
-			changeState: function(stateName) {
-				this.setCurrentStateName(stateName);
-				this.updatePreview();
-				return this;
 			},
 
 			/**
@@ -145,7 +148,7 @@
 			 * based on metadata sent along with this document.
 			 */
 			loadCurrentPage: function() {
-				var doc = this.find('iframe')[0].contentDocument, containerEl = this.getLayoutContainer();
+				var doc = this.find('iframe')[0].contentDocument, containerEl = $('.cms-container');
 
 				if(!this.canPreview()) return;
 
@@ -168,7 +171,7 @@
 			 * Returns: {boolean}
 			 */
 			canPreview: function() {
-				var contentEl = this.getLayoutContainer().find('.cms-content');
+				var contentEl = $('.cms-container .cms-content');
 				// Only load if we're in the "edit page" view
 				var blockedClasses = ['CMSPagesController', 'CMSPageHistoryController'];
 				return !(contentEl.is('.' + blockedClasses.join(',.')));
@@ -211,22 +214,76 @@
 				this.removeClass('blocked');
 			},
 			
-			getLayoutContainer: function() {
-				return this.parents('.cms-container');
+			/**
+			 * Switch the preview to different state.
+			 * stateName can be one of the "AllowedStates".
+			 */
+			changeState: function(stateName) {
+				this.setCurrentStateName(stateName);
+				this.updatePreview();
+				this.redraw();
+
+				return this;
 			},
-			
+
+			/**
+			 * Change the preview mode.
+			 * modeName can be: split, content, preview.
+			 */
+			changeMode: function(modeName) {
+				var container = $('.cms-container');
+
+				if (modeName == 'split') {
+					container.entwine('.ss').splitViewMode();
+				} else if (modeName == 'content') {
+					container.entwine('.ss').contentViewMode();
+				} else {
+					container.entwine('.ss').previewMode();
+				}
+
+				this.redraw();
+
+				return this;
+			},
+
+			/**
+			 * Change the preview size.
+			 * sizeName can be: auto, desktop, tablet, mobile.
+			 */
+			changeSize: function(sizeName) {
+				this.setCurrentSizeName(sizeName);
+
+				this.removeClass('auto desktop tablet mobile')
+					.addClass(sizeName);
+
+				this.redraw();
+
+				return this;
+			},
+
+			/**
+			 * Update the visual appearance to match the internal preview state.
+			 */
 			redraw: function() {
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
 
-				// Make sure the preview display matches internal state.
+				// Update preview state selector.
 				var currentStateName = this.getCurrentStateName();
 				if (currentStateName) {
-					// TODO add getters for the most often used subelements, such as this one.
-					$('.cms-preview-states').changeState(currentStateName);
+					$('.cms-preview-states').changeVisibleState(currentStateName);
 				}
 
-				// TODO: update the preview mode and preview size selectors, so we can simply call redraw
-				// to update the visual appearance to reflect underlying state.
+				// Update preview mode selectors.
+				var layoutOptions = $('.cms-container').entwine('.ss').getLayoutOptions();
+				if (layoutOptions) {
+					$('.preview-mode-selector').changeVisibleMode(layoutOptions.mode);
+				}
+
+				// Update preview size selector.
+				var currentSizeName = this.getCurrentSizeName();
+				if (currentSizeName) {
+					$('.preview-size-selector').changeVisibleSize(this.getCurrentSizeName());
+				}
 			}
 		});
 
@@ -255,11 +312,15 @@
 			}
 		});
 		
+		/**
+		 * "Preview state" functions.
+		 * -------------------------------------------------------------------
+		 */
 		$('.cms-preview-states').entwine({
 			/**
 			 * Change the displayed state.
 			 */
-			changeState: function(state) {
+			changeVisibleState: function(state) {
 				// Arbitrary mapping from checkbox state to the preview state.
 				if (state==='LiveLink') {
 					this.find('.cms-preview-checkbox').prop('checked', false);
@@ -278,61 +339,42 @@
 				var targetStateName = $(this).siblings('a').attr('name');
 
 				// Reload preview with the selected state.
-				$('.cms-preview').changeState(targetStateName).redraw();
+				$('.cms-preview').changeState(targetStateName);
 
 				return false;
 			}
 		});	
 		
-		$('.preview-mode-selector select').entwine({
+		/**
+		 * "Preview mode" functions
+		 * -------------------------------------------------------------------
+		 */
+		$('.preview-mode-selector').entwine({
 			/**
-			 * Trigger change in the preview mode.
+			 * Change the displayed mode.
 			 */
-			onchange: function(e) {
-				e.preventDefault();
-
-				var container = $('.cms-container');
-				var state = $(this).val();
-
-				if (state == 'split') {
-					container.entwine('.ss').splitViewMode();
-				} else if (state == 'edit') {
-					container.entwine('.ss').contentViewMode();
-				} else {
-					container.entwine('.ss').previewMode();
-				}
-
-				// TODO: move this to the master redraw routine in the .cms-preview.
-				this.addIcon();
-
-				// Synchronise other preview-mode selectors to display the same state.
-				$('.preview-mode-selector select').not(this)
-					.val(this.val())
+			changeVisibleMode: function(mode) {
+				this.find('select')
+					.val(mode)
 					.trigger('liszt:updated')
 					.addIcon();
 			}
 		});
 
-		$('.preview-size-selector select').entwine({
+		$('.preview-mode-selector select').entwine({
 			/**
-			 * Trigger change in the preview size.
+			 * Reacts to the user changing the preview mode.
 			 */
 			onchange: function(e) {
 				e.preventDefault();
 
-				var preview = $('.cms-preview');
-				var size = $(this).val();
-
-				preview
-					.removeClass('auto desktop tablet mobile')
-					.addClass(size);
-
-				this.addIcon();
+				var targetStateName = $(this).val();
+				$('.cms-preview').changeMode(targetStateName);
 			}
 		});
 
 		/**
-		 * React to state view mode changes by showing/hiding the preview-mode selector.
+		 * Adjust the visibility of the preview-mode selector in the CMS part (hidden if preview is visible).
 		 */
 		$('.cms-preview.column-hidden').entwine({
 			onmatch: function() {
@@ -346,7 +388,7 @@
 		});
 
 		/**
-		 * Initialise the CMS's preview-mode selector.
+		 * Initialise the preview-mode selector in the CMS part (could be hidden if preview is visible).
 		 */
 		$('#preview-mode-dropdown-in-content').entwine({
 			onmatch: function() {
@@ -362,6 +404,39 @@
 				this._super();
 			}
 		});
+
+		/**
+		 * "Preview size" functions
+		 * -------------------------------------------------------------------
+		 */
+		$('.preview-size-selector').entwine({
+			/**
+			 * Change the displayed size.
+			 */
+			changeVisibleSize: function(size) {
+				this.find('select')
+					.val(size)
+					.trigger('liszt:updated')
+					.addIcon();
+			}
+		});
+
+		$('.preview-size-selector select').entwine({
+			/**
+			 * Trigger change in the preview size.
+			 */
+			onchange: function(e) {
+				e.preventDefault();
+
+				var targetSizeName = $(this).val();
+				$('.cms-preview').changeSize(targetSizeName);
+			}
+		});
+
+		/**
+		 * Chosen plumbing.
+		 * -------------------------------------------------------------------
+		 */
 
 		/*
 		*	Add a class to the chzn select trigger based on the currently 
@@ -456,22 +531,32 @@
 			}
 		}); */
 
-		// Recalculate the preview space to allow for horizontal scrollbar and the preview actions panel
-		var toolbarSize = 53; 							// Height of the preview actions panel
+		/**
+		 * Recalculate the preview space to allow for horizontal scrollbar and the preview actions panel
+		 */
 		$('.preview-scroll').entwine({
+			/**
+			 * Height of the preview actions panel
+			 */
+			ToolbarSize: 53,
+
 			redraw: function() {
+				var toolbarSize = this.getToolbarSize();
+
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
 				var previewHeight = (this.height() - toolbarSize);
 				this.height(previewHeight);
 			}, 
+
 			onmatch: function() {
 				this.redraw();
 				this._super();
 			},
+
 			onunmatch: function() {
 				this._super();
 			}
-			// Todo: Need to recalculate on resize of browser
+			// TODO: Need to recalculate on resize of browser
 
 		});
 
