@@ -87,7 +87,7 @@
 .cms-menu {
 	z-index: 80;
 	background: $color-base;
-	width: ($grid-x * 24); // Removed right border as it clashes with different blues
+	width: ($grid-x * 20);
 
 	@include box-shadow($color-shadow-blacker 0 0 3px);
 	a {
@@ -95,7 +95,7 @@
 	}
 	
 	.cms-panel-content {
-		width: ($grid-x * 24) - 1; /* 8x24 - 1 */
+		width: ($grid-x * 20);
 		overflow-x: hidden;
 		overflow-y: auto;
 		position: relative !important;

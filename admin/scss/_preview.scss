@@ -62,15 +62,17 @@
 		margin: 3px 0 0 4px;
 		padding: 0;
 
-		a.chzn-single {
+		a.chzn-single {						
 			width: 20px;
 			padding: 6px 5px;
 			height: 18px;
 			margin: -3px 0 0;
-			background:none;
-			border:none;
+			filter: none;	/* remove ie background */
+			background: none;
+			border: none;
 			@include box-shadow(none);
 			@include border-radius(3px);
+
 
 			&:hover, &:focus, &.chzn-single-with-drop  {
 				background-color: darken($color-widget-bg,6%);
@@ -93,8 +95,12 @@
 
 		.chzn-drop{
 			@include border-radius(3px 3px 0 3px);
+			@include box-shadow(0 0 3px rgba(0, 0, 0, 0.1));
 			.chzn-results {
 				width: 135px;
+				.result-selected {
+					background: $color-widget-bg;
+				}
 			}
 		}			
 
@@ -122,6 +128,7 @@
 						padding: 7px 16px 7px 6px;
 						color: $color-text-blue-link;
 						border-bottom: 1px solid $color-light-separator;
+
 						&:before{
 							margin-right: 2px;
 						}
@@ -133,16 +140,16 @@
 							}
 						}
 						&.highlighted, &:hover, &:focus {
-							color:$color-text-blue-link;
+							color: $color-text-blue-link;
 							background: lighten($color-widget-bg,2%);
 							text-decoration: none;
 						}
-						&.first {
-							@include border-radius(4px 4px 0px 0px);
+						&.first, &:first-child {
+							/*@include border-radius(4px 4px 0px 0px);*/
 						}
-						&.last {
-							@include border-radius(0px 0px 4px 4px);
-							border-bottom:none;
+						&.last, &:last-child {
+							/*@include border-radius(0px 0px 4px 4px);*/
+							border-bottom: none;
 						}
 						/* Description styling */
 						span { 
@@ -162,6 +169,14 @@
 		&.open .chzn-drop { 
 			//display: block;
 		}
+		.chzn-drop ul.chzn-results li.result-selected {
+			background: darken($color-widget-bg, 2%);
+			color: $color-text;
+			&.highlighted, &:hover, &:focus {
+				background: darken($color-widget-bg, 2%);
+				color: $color-text;
+			}
+		}	
 	} 
 
 	.cms-preview-states{

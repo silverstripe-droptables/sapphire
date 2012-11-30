@@ -289,15 +289,6 @@ body.cms {
 	&.ss-tabset-tabshidden .ui-tabs-panel {
 		border-top: none;
 	}
-
-	// Reset to default styles
-	.ss-ui-button {
-		line-height: $grid-x*3;
-
-		.ui-button-text {
-			line-height: 1.4;
-		}
-	}
 }
  
 /**
@@ -441,7 +432,7 @@ body.cms {
 	margin: 0;
 	padding: $grid-y*1.5 $grid-y*2;
 	z-index: 0;
-	border-top: 1px solid $color-separator;
+	border-top: 1px solid lighten($color-separator, 4%);
 	@include box-shadow(
 		1px 0 0 $tab-panel-texture-color, 
 		$box-shadow-shine 0 1px 0px inset, 
@@ -774,7 +765,7 @@ p.message {
 		}
 		
 		&.checkbox {
-			padding: 0 8px 0;
+			padding: 0 0 8px;
 			
 			input { 
 				margin: 2px 0; 
@@ -1581,6 +1572,9 @@ body.cms-dialog {
 	margin-bottom: $grid-y*2;
 	.filter &{
 		margin-bottom:0;
+	}
+	.Actions {
+		padding: 0;
 	}
 }
 
