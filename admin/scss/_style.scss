@@ -839,6 +839,7 @@ p.message {
 		padding: 4px 6px;
 		border: 1px solid #aaa;
 		margin-bottom: 8px;
+		background-color: #D9D9D9;
 		@include background-image(linear-gradient(top, #fff, #D9D9D9));
 		border-top-left-radius: 4px;
 		border-bottom-left-radius: 4px;	
@@ -963,12 +964,11 @@ select.preview-dropdown {
 			}
 		}
 	}
-	&.mobile, &.mobileLandscape, &.tablet, &.tabletLandscape {
+	&.mobile, &.mobileLandscape, &.tablet, &.tabletLandscape, &.desktop {
 		.preview-scroll {
 			background-color: $tab-panel-texture-color; 		/* hide website preview icon */
 			.preview-device-outer {
-				padding: 16px;
-				/*background-color: darken($tab-panel-texture-color,3%);*/
+				padding: 0 16px 16px;
 				background-color: #414141;
 			}
 		}
@@ -978,6 +978,7 @@ select.preview-dropdown {
 			width: 335px; 										/* add 15px for desktop scrollbar */
 			height: 568px;
 			margin: 30px auto 30px;
+			padding-top: 16px;
 
 			.preview-device-inner {
 				width: 335px;
@@ -988,6 +989,7 @@ select.preview-dropdown {
 		width: 583px;											/* add 15px for desktop scrollbar */
 		height: 320px;
 		margin: 12% auto;
+		padding-top: 16px;
 
 		.preview-device-inner {
 			width: 583px;
@@ -996,7 +998,6 @@ select.preview-dropdown {
 	&.tablet .preview-scroll .preview-device-outer { 
 		width: 783px;											/* add 15px for desktop scrollbar */
 		height: 1024px;
-		padding-top: 0;
 		margin: 0 auto;
 
 		.preview-device-inner {
@@ -1006,7 +1007,6 @@ select.preview-dropdown {
 	&.tabletLandscape .preview-scroll .preview-device-outer {
 		width: 1039px;											/* add 15px for desktop scrollbar */
 		height: 768px;
-		padding-top: 0;
 		margin: 0 auto;
 
 		.preview-device-inner {
@@ -1015,6 +1015,8 @@ select.preview-dropdown {
 	}
 	&.desktop .preview-scroll .preview-device-outer {
 		width: 1024px;
+		height: 800px;
+		margin: 0 auto;
 	}
 }
 
