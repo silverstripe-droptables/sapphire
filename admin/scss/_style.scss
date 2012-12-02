@@ -607,7 +607,7 @@ p.message {
 	display: block;
 	margin: 0 0 15px 0;
 	
-	@include doubleborder(bottom, $color-light-separator, lighten($color-light-separator, 50%));
+	@include doubleborder(bottom, $color-light-separator, $box-shadow-shine);
 	@include legacy-pie-clearfix();
 	
 	.cms-tree-view-modes {
@@ -694,7 +694,7 @@ p.message {
 		margin: 0 0 $grid-y - 1;
 		line-height: $grid-y * 3;
 		
-		@include doubleborder(bottom, $color-light-separator, lighten($color-shadow-light, 95%));
+		@include doubleborder(bottom, $color-light-separator, $box-shadow-shine);
 	}
 	
 	.cms-panel-content {
@@ -1198,7 +1198,7 @@ form.member-profile-form {
 .cms-panel {
 	overflow: hidden;
 	.cms-panel-toggle {
-		@include box-shadow(0 0 1px rgba(107, 120, 123, 0.5));
+		@include box-shadow(0 0 1px $box-shadow-shine);
 		&.south {
 			border-top: 1px solid darken($color-base, 6%);
 			@include box-shadow(lighten($color-base, 4%) 0 1px 0px inset);

@@ -2,7 +2,7 @@
 /* -------------------------- */
 .cms-content-controls{
 
-	/*Styling the background, controls sit on*/
+	/* Styling the background, controls sit on */
 	&.cms-preview-controls {
 		z-index: 1;
 		background: $color-widget-bg;	
@@ -10,8 +10,8 @@
 		padding: $grid-y*1.5 $grid-y*1.5;
 	}
 
-	/* Styling for icons in controls*/
-	.icon-view, .cms-navigator .dropdown a.chzn-single{
+	/* Styling for icons in controls */
+	.icon-view, .dropdown a.chzn-single {
 		white-space: nowrap;
 		&:before {
 			display:inline-block;
@@ -49,10 +49,10 @@
 	.cms-navigator{
 		width: 100%;
 	}
-
 	.dropdown a.chzn-single{
 		text-indent:-200px;
 	}
+
 	/* Preview selectors. Overrides default chosen styles and applies its own */
 	.preview-selector{
 		float:right;
@@ -146,6 +146,13 @@
 							background: lighten($color-widget-bg,2%);
 							text-decoration: none;
 						}
+						&.first {
+							@include border-radius(3px 3px 0 0);
+						}
+						&.last {
+							border-bottom: none;
+							@include border-radius(0 0 0 3px);
+						}
 
 						/* Description styling */
 						span { 
@@ -158,6 +165,7 @@
 						.icon-view {
 							margin-right: 4px;
 						}
+						
 					}			
 				}
 			}				

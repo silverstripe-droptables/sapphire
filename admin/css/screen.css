@@ -24,6 +24,8 @@ If more variables exist in the future, consider creating a variables file.*/
 /** ----------------------------- Theme ------------------------------ */
 /** This file contains the default theme definitions for the admin interface. Please put mostly SCSS variable definitions in here, and leave the actual styling to _style.scss and auxilliary files. */
 /** ----------------------------------------------- Colours ------------------------------------------------ */
+/* Keep as solid colours transparent borders wont work in ie */
+/* Only for use as shadows as they wont work in older browsers */
 /*$color-optional: #a1d2eb !default; */
 /** ----------------------------------------------- Textures ----------------------------------------------- */
 /** ----------------------------------------------- Typography.  ------------------------------------------------ */
@@ -161,7 +163,7 @@ form.nostyle label.left { float: none; display: inherit; width: auto; padding: 0
 form.nostyle .middleColumn { margin-left: 0; }
 form.nostyle input.text, form.nostyle textarea, form.nostyle select, form.nostyle .TreeDropdownField { width: auto; max-width: auto; }
 
-.field { display: block; border-bottom: 1px solid rgba(201, 205, 206, 0.8); -webkit-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); -moz-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); padding: 0 0 7px 0; margin: 0 0 8px 0; *zoom: 1; }
+.field { display: block; border-bottom: 1px solid #d0d3d5; -webkit-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); -moz-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8); padding: 0 0 7px 0; margin: 0 0 8px 0; *zoom: 1; }
 .field:last-child { border-bottom: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
 .field:after { content: "\0020"; display: block; height: 0; clear: both; overflow: hidden; visibility: hidden; }
 .field.nolabel .middleColumn { margin-left: 0; }
@@ -459,7 +461,7 @@ body.cms { overflow: hidden; }
 .ss-loading-screen .loading-animation { display: none; position: absolute; left: 49%; top: 75%; }
 
 /** -------------------------------------------- Actions -------------------------------------------- */
-.cms-content-actions, .cms-preview-controls { margin: 0; padding: 12px 16px; z-index: 0; border-top: 1px solid #cacacc; -webkit-box-shadow: 1px 0 0 #eceff1, rgba(245, 245, 245, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; -moz-box-shadow: 1px 0 0 #eceff1, rgba(245, 245, 245, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; box-shadow: 1px 0 0 #eceff1, rgba(245, 245, 245, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; height: 28px; background-color: #eceff1; }
+.cms-content-actions, .cms-preview-controls { margin: 0; padding: 12px 16px; z-index: 0; border-top: 1px solid #cacacc; -webkit-box-shadow: 1px 0 0 #eceff1, rgba(248, 248, 248, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; -moz-box-shadow: 1px 0 0 #eceff1, rgba(248, 248, 248, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; box-shadow: 1px 0 0 #eceff1, rgba(248, 248, 248, 0.9) 0 1px 0px inset, rgba(201, 205, 206, 0.8) 0 0 1px; height: 28px; background-color: #eceff1; }
 
 /** -------------------------------------------- Messages -------------------------------------------- */
 .message { display: block; clear: both; margin: 8px 0; padding: 10px 12px; font-weight: normal; border: 1px #ccc solid; background: #fff; background: rgba(255, 255, 255, 0.5); text-shadow: none; -webkit-border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -ms-border-radius: 3px 3px 3px 3px; -o-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px; }
@@ -502,7 +504,7 @@ p.message { margin-bottom: 12px; }
 #PageType ul li .description { font-style: italic; }
 
 /** -------------------------------------------- Content toolbar -------------------------------------------- */
-.cms-content-toolbar { min-height: 29px; display: block; margin: 0 0 15px 0; border-bottom: 1px solid rgba(201, 205, 206, 0.8); -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); *zoom: 1; /* smaller treedropdown */ }
+.cms-content-toolbar { min-height: 29px; display: block; margin: 0 0 15px 0; border-bottom: 1px solid #d0d3d5; -webkit-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); -moz-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); -o-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); *zoom: 1; /* smaller treedropdown */ }
 .cms-content-toolbar:after { content: "\0020"; display: block; height: 0; clear: both; overflow: hidden; visibility: hidden; }
 .cms-content-toolbar .cms-tree-view-modes { float: right; padding-top: 5px; }
 .cms-content-toolbar .cms-tree-view-modes * { display: inline-block; }
@@ -516,9 +518,9 @@ p.message { margin-bottom: 12px; }
 .cms-content-toolbar .ss-ui-button { margin-bottom: 8px; }
 
 /* -------------------------------------------------------- Content Tools is the sidebar on the left of the main content panel */
-.cms-content-tools { background: #eceff1; width: 192px; overflow-y: auto; overflow-x: hidden; z-index: 70; border-right: 1px solid #c0c0c2; -webkit-box-shadow: rgba(245, 245, 245, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); -moz-box-shadow: rgba(245, 245, 245, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); box-shadow: rgba(245, 245, 245, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); float: left; position: relative; }
+.cms-content-tools { background: #eceff1; width: 192px; overflow-y: auto; overflow-x: hidden; z-index: 70; border-right: 1px solid #c0c0c2; -webkit-box-shadow: rgba(248, 248, 248, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); -moz-box-shadow: rgba(248, 248, 248, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); box-shadow: rgba(248, 248, 248, 0.9) -1px 0 0 inset, 0 0 1px rgba(201, 205, 206, 0.8); float: left; position: relative; }
 .cms-content-tools.filter { padding: 0 !important; }
-.cms-content-tools .cms-panel-header { clear: both; margin: 0 0 7px; line-height: 24px; border-bottom: 1px solid rgba(201, 205, 206, 0.8); -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8); }
+.cms-content-tools .cms-panel-header { clear: both; margin: 0 0 7px; line-height: 24px; border-bottom: 1px solid #d0d3d5; -webkit-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); -moz-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); -o-box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); box-shadow: 0 1px 0 rgba(248, 248, 248, 0.9); }
 .cms-content-tools .cms-panel-content { width: 176px; padding: 8px 8px 0; overflow: auto; height: 100%; }
 .cms-content-tools .cms-panel-content .Actions .ss-ui-action-constructive { margin-right: 5px; }
 .cms-content-tools .cms-content-header { background-color: #748d9d; background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2IwYmVjNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzc0OGQ5ZCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA=='); background-size: 100%; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #b0bec7), color-stop(100%, #748d9d)); background-image: -webkit-linear-gradient(#b0bec7, #748d9d); background-image: -moz-linear-gradient(#b0bec7, #748d9d); background-image: -o-linear-gradient(#b0bec7, #748d9d); background-image: linear-gradient(#b0bec7, #748d9d); }
@@ -665,6 +667,7 @@ form.member-profile-form #Permissions .optionset li { float: none; width: auto; 
 
 /** -------------------------------------------- Panels -------------------------------------------- */
 .cms-panel { overflow: hidden; }
+<<<<<<< HEAD
 .cms-panel .cms-panel-toggle { -webkit-box-shadow: 0 0 1px rgba(107, 120, 123, 0.5); -moz-box-shadow: 0 0 1px rgba(107, 120, 123, 0.5); box-shadow: 0 0 1px rgba(107, 120, 123, 0.5); }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -687,12 +690,19 @@ form.member-profile-form #Permissions .optionset li { float: none; width: auto; 
 >>>>>>> NEW Side by side editing functionality - first cut (os#7412)
 .cms-panel.cms-content-tools .cms-panel-toggle.south { border-top: 1px solid #FFF; }
 =======
+=======
+.cms-panel .cms-panel-toggle { -webkit-box-shadow: 0 0 1px rgba(248, 248, 248, 0.9); -moz-box-shadow: 0 0 1px rgba(248, 248, 248, 0.9); box-shadow: 0 0 1px rgba(248, 248, 248, 0.9); }
+>>>>>>> BUG preview state icon missing from edit side and ie bugs
 .cms-panel .cms-panel-toggle.south { border-top: 1px solid #9eafba; -webkit-box-shadow: #bcc8cf 0 1px 0px inset; -moz-box-shadow: #bcc8cf 0 1px 0px inset; box-shadow: #bcc8cf 0 1px 0px inset; position: absolute; bottom: 0; width: 100%; }
 .cms-panel .cms-panel-toggle a { display: block; text-align: right; padding: 4px 0; width: 100%; text-decoration: none; }
 .cms-panel .cms-panel-toggle a span { display: inline-block; margin: 0 5px; color: #1f1f1f; font-size: 16px; }
 .cms-panel .cms-panel-toggle a.toggle-expand { width: 40px; display: none; }
+<<<<<<< HEAD
 .cms-panel.cms-content-tools .cms-panel-toggle.south { border-top: 1px solid #cfd6db; -webkit-box-shadow: rgba(245, 245, 245, 0.9) 0 1px 0px inset; -moz-box-shadow: rgba(245, 245, 245, 0.9) 0 1px 0px inset; box-shadow: rgba(245, 245, 245, 0.9) 0 1px 0px inset; }
 >>>>>>> BUG ie styles for riseup chosen selects, Menu width
+=======
+.cms-panel.cms-content-tools .cms-panel-toggle.south { border-top: 1px solid #cfd6db; -webkit-box-shadow: rgba(248, 248, 248, 0.9) 0 1px 0px inset; -moz-box-shadow: rgba(248, 248, 248, 0.9) 0 1px 0px inset; box-shadow: rgba(248, 248, 248, 0.9) 0 1px 0px inset; }
+>>>>>>> BUG preview state icon missing from edit side and ie bugs
 .cms-panel.collapsed { cursor: pointer; }
 .cms-panel.collapsed .cms-panel-header *, .cms-panel.collapsed .cms-panel-content, .cms-panel.collapsed .cms-panel-toggle a.toggle-collapse { display: none; }
 .cms-panel.collapsed .cms-panel-toggle a.toggle-expand { display: block; }
@@ -932,6 +942,7 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-logo .version { display: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .cms-logo a { position: absolute; top: 8px; bottom: 8px; left: 4px; display: block; width: 24px; background: url("../images/logo_small.png") no-repeat left center; text-indent: -9999em; padding-right: 7px; border-right: 1px solid #19435c; }
 .cms-logo span { font-weight: bold; font-size: 14px; line-height: 20px; padding: 2px 0; margin-left: 44px; }
 =======
@@ -939,6 +950,9 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 =======
 .cms-logo a { position: absolute; top: 8px; bottom: 8px; display: block; width: 24px; background: url("../images/logo_small.png") no-repeat left center; text-indent: -9999em; padding: 0 1px; }
 >>>>>>> BUG ie styles for riseup chosen selects, Menu width
+=======
+.cms-logo a { position: absolute; top: 8px; bottom: 8px; display: block; width: 24px; background: url("../images/logo_small.png") no-repeat left center; text-indent: -9999em; padding: 0 1px; left: 0; }
+>>>>>>> BUG preview state icon missing from edit side and ie bugs
 .cms-logo span { font-weight: bold; font-size: 12px; line-height: 16px; padding: 2px 0; margin-left: 30px; }
 >>>>>>> NEW Side by side editing functionality - first cut (os#7412)
 
@@ -1071,10 +1085,10 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-menu-list.collapsed li > li { display: none; }
 
 /* -------------------------- */
-.cms-content-controls { /*Styling the background, controls sit on*/ /* Styling for icons in controls*/ /* Preview selectors. Overrides default chosen styles and applies its own */ }
+.cms-content-controls { /* Styling the background, controls sit on */ /* Styling for icons in controls */ /* Preview selectors. Overrides default chosen styles and applies its own */ }
 .cms-content-controls.cms-preview-controls { z-index: 1; background: #eceff1; height: 30px; /* should be set in js Layout to match page actions */ padding: 12px 12px; }
-.cms-content-controls .icon-view, .cms-content-controls .cms-navigator .dropdown a.chzn-single { white-space: nowrap; }
-.cms-content-controls .icon-view:before, .cms-content-controls .cms-navigator .dropdown a.chzn-single:before { display: inline-block; float: left; content: ''; width: 23px; height: 17px; overflow: hidden; }
+.cms-content-controls .icon-view, .cms-content-controls .dropdown a.chzn-single { white-space: nowrap; }
+.cms-content-controls .icon-view:before, .cms-content-controls .dropdown a.chzn-single:before { display: inline-block; float: left; content: ''; width: 23px; height: 17px; overflow: hidden; }
 .cms-content-controls .icon-auto:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -108px no-repeat; }
 .cms-content-controls .icon-desktop:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -81px no-repeat; }
 .cms-content-controls .icon-tablet:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -162px no-repeat; }
@@ -1103,6 +1117,8 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li.description { padding-top: 5px; padding-bottom: 5px; }
 .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li.description:before { margin-top: 5px; }
 .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li.highlighted, .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li:hover, .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li:focus { color: #0073c1; filter: none; background: #f2f4f6; text-decoration: none; }
+.cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li.first { -webkit-border-radius: 3px 3px 0 0; -moz-border-radius: 3px 3px 0 0; -ms-border-radius: 3px 3px 0 0; -o-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; }
+.cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li.last { border-bottom: none; -webkit-border-radius: 0 0 0 3px; -moz-border-radius: 0 0 0 3px; -ms-border-radius: 0 0 0 3px; -o-border-radius: 0 0 0 3px; border-radius: 0 0 0 3px; }
 .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li span { display: block; color: #6c6c6c; font-size: 0.85em; line-height: 1.1em; padding-left: 23px; }
 .cms-content-controls .preview-selector .chzn-container.chzn-with-rise .chzn-drop ul li .icon-view { margin-right: 4px; }
 .cms-content-controls .preview-selector .chzn-drop ul.chzn-results li.result-selected { background: #e6eaed; color: #444444; }

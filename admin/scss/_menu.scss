@@ -42,11 +42,9 @@
 	.collapsed &{
 		padding:0;
 	}
-
 	.version {
 		display: none; 
 	} 
-
 	a {
 		position: absolute;
 		top: $grid-y;
@@ -56,8 +54,8 @@
 		background: $application-logo-small no-repeat left center;
 		text-indent: -9999em;
 		padding: 0 1px;
+		left: 0;
 	}
-
 	span {
 		font-weight: bold;
 		font-size: $font-base-size;
