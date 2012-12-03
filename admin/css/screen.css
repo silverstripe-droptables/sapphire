@@ -299,7 +299,8 @@ fieldset.switch-states { 	/*
 		but a dropdown would probably be more appropriate
 	*/ }
 fieldset.switch-states .switch { -webkit-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.1); -moz-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.1); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.1); -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; -webkit-animation: bugfix infinite 1s; background: #dee0e3; display: block; height: 25px; margin-top: 3px; padding: 0; position: relative; width: 100%; z-index: 5; }
-fieldset.switch-states .switch label { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); color: #1f1f1f; float: left; font-weight: bold; height: 100%; line-height: 25px; padding-left: 15px; position: relative; text-align: center; vertical-align: middle; z-index: 2; }
+fieldset.switch-states .switch label { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); color: #2c2c2c; color: rgba(31, 31, 31, 0.5); float: left; font-weight: bold; height: 100%; line-height: 25px; padding-left: 15px; position: relative; text-align: center; vertical-align: middle; z-index: 2; }
+fieldset.switch-states .switch label:hover { color: #1f1f1f; }
 fieldset.switch-states .switch label span { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 10px; }
 fieldset.switch-states .switch input { opacity: 0; position: absolute; }
 fieldset.switch-states .switch input:checked + label { -moz-transition: all 0.3s ease-out 0s; -webkit-transition: all 0.3s ease-out 0s; -o-transition: all 0.3s ease-out 0s; transition: all 0.3s ease-out 0s; color: #fff; text-shadow: 0 -1px 0 #287099; }

@@ -666,7 +666,8 @@ fieldset.switch-states{
 		z-index:5;
 		label{
 			@include text-shadow(0 1px 0 rgba(255,255,255,0.5));	
-			color:$color-text-dark;
+			color:lighten($color-text-dark,5%);
+			color:rgba($color-text-dark,0.5);
 			float:left;
 			font-weight:bold;
 			height: 100%;
@@ -675,7 +676,10 @@ fieldset.switch-states{
 			position:relative;
 			text-align:center;			
 			vertical-align: middle;		
-			z-index:2;		
+			z-index:2;	
+			&:hover{
+				color:$color-text-dark;
+			}	
 			span{
 				@include box-sizing('border-box');
 				padding:10px;				
