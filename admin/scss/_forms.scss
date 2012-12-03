@@ -677,8 +677,9 @@ fieldset.switch-states{
 			text-align:center;			
 			vertical-align: middle;		
 			z-index:2;	
-			&:hover{				
-				color:#2b9c32;
+			&:hover{
+				color:$color-text-dark;
+				//color:#2b9c32;
 			}	
 			span{
 				@include box-sizing('border-box');
