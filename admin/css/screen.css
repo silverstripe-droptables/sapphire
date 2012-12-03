@@ -1117,8 +1117,8 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 /* -------------------------- */
 .cms-content-controls { /* Styling the background, controls sit on */ /* Styling for icons in controls */ /* Preview selectors. Overrides default chosen styles and applies its own */ }
 .cms-content-controls.cms-preview-controls { z-index: 1; background: #eceff1; height: 30px; /* should be set in js Layout to match page actions */ padding: 12px 12px; }
-.cms-content-controls .icon-view, .cms-content-controls .dropdown a.chzn-single { white-space: nowrap; }
-.cms-content-controls .icon-view:before, .cms-content-controls .dropdown a.chzn-single:before { display: inline-block; float: left; content: ''; width: 23px; height: 17px; overflow: hidden; }
+.cms-content-controls .icon-view, .cms-content-controls .preview-selector.dropdown a.chzn-single { white-space: nowrap; }
+.cms-content-controls .icon-view:before, .cms-content-controls .preview-selector.dropdown a.chzn-single:before { display: inline-block; float: left; content: ''; width: 23px; height: 17px; overflow: hidden; }
 .cms-content-controls .icon-auto:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -108px no-repeat; }
 .cms-content-controls .icon-desktop:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -81px no-repeat; }
 .cms-content-controls .icon-tablet:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -162px no-repeat; }
@@ -1128,7 +1128,7 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-content-controls .icon-preview:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 0 no-repeat; }
 .cms-content-controls .icon-window:before { background: url('../images/sprites-32x32-se93fc83bf9.png') 0 -54px no-repeat; }
 .cms-content-controls .cms-navigator { width: 100%; }
-.cms-content-controls .dropdown a.chzn-single { text-indent: -200px; }
+.cms-content-controls .preview-selector.dropdown a.chzn-single { text-indent: -200px; }
 .cms-content-controls .preview-selector { float: right; border-bottom: none; position: relative; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; margin: 3px 0 0 4px; padding: 0; }
 .cms-content-controls .preview-selector a.chzn-single { width: 20px; padding: 6px 5px; height: 18px; margin: -3px 0 0; filter: none; /* remove ie background */ background: none; border: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
 .cms-content-controls .preview-selector a.chzn-single:hover, .cms-content-controls .preview-selector a.chzn-single:focus, .cms-content-controls .preview-selector a.chzn-single.chzn-single-with-drop { background-color: #dae0e5; }
@@ -1154,6 +1154,10 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 .cms-content-controls .preview-selector .chzn-drop ul.chzn-results li.result-selected { background: #e6eaed; color: #444444; }
 .cms-content-controls .preview-selector .chzn-drop ul.chzn-results li.result-selected.highlighted, .cms-content-controls .preview-selector .chzn-drop ul.chzn-results li.result-selected:hover, .cms-content-controls .preview-selector .chzn-drop ul.chzn-results li.result-selected:focus { background: #e6eaed; color: #444444; }
 .cms-content-controls .cms-preview-states { float: right; }
+.cms-content-controls .cms-preview-states select { max-width: 150px; }
+.cms-content-controls .cms-preview-states.dropdown { max-width: 150px; }
+.cms-content-controls .cms-preview-states.dropdown a.chzn-single span { margin: 0; }
+.cms-content-controls .cms-preview-states.dropdown .chzn-container { max-width: 150px; }
 
 .ModelAdmin .cms-content-fields { overflow: hidden; }
 .ModelAdmin .cms-content-fields .cms-edit-form { overflow-y: auto; overflow-x: hidden; }

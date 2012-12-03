@@ -159,7 +159,7 @@
 			_getNavigatorStates: function() {
 				// Walk through available states and get the URLs.
 				var urlMap = $.map(this.getAllowedStates(), function(name) {
-					var stateLink = $('.cms-preview-states .switch input[data-name=' + name + ']');
+					var stateLink = $('.cms-preview-states .state-name[data-name=' + name + ']');
 					return stateLink.length ? {name: name, url: stateLink.attr('data-link')} : null;
 				});
 
@@ -342,7 +342,7 @@
 			}
 		});
 
-		$('.cms-preview-states .switch input').entwine({
+		$('.cms-preview-states .state-name').entwine({
 			/**
 			 * Reacts to the user changing the state of the preview.
 			 * TODO Rewrite this function to ensure we can handle 1,2,3+ states.
