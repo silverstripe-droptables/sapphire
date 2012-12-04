@@ -1117,6 +1117,7 @@ li.class-ErrorPage > a a .jstree-pageicon { background-position: 0 -112px; }
 
 /* -------------------------- */
 .cms-content-controls { /* Styling the background, controls sit on */ /* Styling for icons in controls */ /* Preview selectors. Overrides default chosen styles and applies its own */ }
+.cms-content-controls .cms-preview-toggle-link { display: none; }
 .cms-content-controls.cms-preview-controls { z-index: 1; background: #eceff1; height: 30px; /* should be set in js Layout to match page actions */ padding: 12px 12px; }
 .cms-content-controls .icon-view, .cms-content-controls .preview-selector.dropdown a.chzn-single { white-space: nowrap; }
 .cms-content-controls .icon-view:before, .cms-content-controls .preview-selector.dropdown a.chzn-single:before { display: inline-block; float: left; content: ''; width: 23px; height: 17px; overflow: hidden; }

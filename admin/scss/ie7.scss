@@ -221,12 +221,13 @@ table.ss-gridfield-table {
 }	
 .cms-content-controls{
 	.preview-mode-selector.dropdown{
-		select{
-			display:block !important;
-		}
-		a.chzn-single{
-			display:none;
-		}
+		display:none !important;
 	} 
+}
+
+.cms-content-controls{
+	.cms-preview-toggle-link{
+		display:block !important;
+	}
 }
 @include IEVerticalPanelText;
