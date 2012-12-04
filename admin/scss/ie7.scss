@@ -214,11 +214,19 @@ table.ss-gridfield-table {
 	}	
 }
 
-
 .ss-ui-button{
 	&.ss-gridfield-button-filter{		
-			border:none !important;
+		border:none !important;
 	}
 }	
-
+.cms-content-controls{
+	.preview-mode-selector.dropdown{
+		select{
+			display:block !important;
+		}
+		a.chzn-single{
+			display:none;
+		}
+	} 
+}
 @include IEVerticalPanelText;

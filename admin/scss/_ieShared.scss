@@ -139,3 +139,28 @@
 		}		
 	}
 }
+
+/* Alternative styles for the switch in old IE */
+fieldset.switch-states{
+	.switch{
+		label{
+			padding:0 10px;
+			&.active{
+				color:#fff;
+				background-color: #2b9c32; 
+			}
+			span{
+				padding:0;
+			}
+		}
+		.slide-button{
+			display:none;
+		}
+	}
+}
+/* Hide size controls in IE - they won't work as intended */
+.cms-content-controls{
+	.preview-size-selector{
+		display:none;
+	}
+}

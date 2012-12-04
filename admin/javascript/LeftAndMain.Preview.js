@@ -54,7 +54,7 @@
 			 * Change the preview mode.
 			 * modeName can be: split, content, preview.
 			 */
-			changeMode: function(modeName) {
+			changeMode: function(modeName) {				
 				var container = $('.cms-container');
 
 				if (modeName == 'split') {
@@ -90,7 +90,7 @@
 			 * API
 			 * Update the visual appearance to match the internal preview state.
 			 */
-			redraw: function() {
+			redraw: function() {			
 
 				if(window.debug) console.log('redraw', this.attr('class'), this.get(0));
 
@@ -181,7 +181,7 @@
 			},
 
 			/**
-			 * Update the preview according to the CMS section capabilities.
+			 * Update the preview according to browser and CMS section capabilities.
 			 */
 			_initialiseFromContent: function() {
 				if (!$('.cms-previewable').length) {
@@ -383,7 +383,11 @@
 			/**
 			 * Reacts to the user changing the state of the preview.
 			 */
-			onclick: function(e) {			
+			onclick: function(e) {	
+				//Add and remove classes to make switch work ok in old IE
+				this.parent().find('.active').removeClass('active');
+				this.next('label').addClass('active');
+
 				var targetStateName = $(this).attr('data-name');
 				// Reload preview with the selected state.
 				$('.cms-preview').changeState(targetStateName);				
@@ -404,19 +408,41 @@
 					.trigger('liszt:updated')
 					._addIcon();
 			}
-		});
+		});	
 
 		$('.preview-mode-selector select').entwine({
 			/**
 			 * Reacts to the user changing the preview mode.
 			 */
-			onchange: function(e) {
+			onchange: function(e) {				
 				e.preventDefault();
 
 				var targetStateName = $(this).val();
 				$('.cms-preview').changeMode(targetStateName);
 			}
 		});
+
+		
+		$('.preview-mode-selector .chzn-results li').entwine({
+			/**
+			 *  IE8 doesn't support programatic access to onchange event 
+			 *	so react on click
+			 */
+			onclick:function(e){				
+				if ($.browser.msie) {
+					e.preventDefault();					
+					var index = this.index();
+					var targetStateName = this.closest('.preview-mode-selector').find('select option:eq('+index+')').val();					
+													
+					//var targetStateName = $(this).val();
+					$('.cms-preview').changeMode(targetStateName);
+				}
+			}
+		});
+		
+
+
+
 
 		/**
 		 * Adjust the visibility of the preview-mode selector in the CMS part (hidden if preview is visible).
@@ -458,7 +484,7 @@
 			/**
 			 * Change the appearance of the size selector.
 			 */
-			changeVisibleSize: function(size) {
+			changeVisibleSize: function(size) {				
 				this.find('select')
 					.val(size)
 					.trigger('liszt:updated')
@@ -478,6 +504,7 @@
 			}
 		});
 
+		
 		/**
 		 * "Chosen" plumbing.
 		 * -------------------------------------------------------------------
@@ -493,7 +520,7 @@
 			},
 			'onliszt:hiding_dropdown': function() {
 				this.siblings().find('.chzn-drop').removeClass('open')._removeRightAlign();
-			},
+			},			
 			_addIcon: function(){
 				var selected = this.find(':selected');				
 				var iconClass = selected.attr('data-icon');	
