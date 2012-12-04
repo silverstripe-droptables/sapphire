@@ -375,19 +375,13 @@
 			 * Change the appearance of the state selector.
 			 */
 			changeVisibleState: function(state) {
-				// Arbitrary mapping from checkbox state to the preview state.
-				if (state==='LiveLink') {
-					this.find('.cms-preview-checkbox').prop('checked', false);
-				} else {
-					this.find('.cms-preview-checkbox').prop('checked', true);
-				}
+				this.find('input[data-name="'+state+'"]').prop('checked', true);
 			}
 		});
 
 		$('.cms-preview-states .state-name').entwine({
 			/**
 			 * Reacts to the user changing the state of the preview.
-			 * TODO Rewrite this function to ensure we can handle 1,2,3+ states.
 			 */
 			onclick: function(e) {			
 				var targetStateName = $(this).attr('data-name');
