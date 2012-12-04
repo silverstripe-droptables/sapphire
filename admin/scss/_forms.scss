@@ -644,12 +644,14 @@ input.radio {
 *	<fieldset class="switch-states size_2"> 			
 *		<div class="switch">				
 *			<input id="Draft" class="first" name="view" type="radio" checked>
-*			<label for="Draft"><span>Draft</span></label>	
+*			<label for="Draft">Draft</label>	
 *			<input id="Published" class="last" name="view" type="radio">
-*			<label for="Published"><span>Published</span></label>						
+*			<label for="Published">Published</label>						
 *			<span class="slide-button"></span>	
 *		</div>			
 *	</fieldset>
+* Note: Switch works best if labels are all around equal width, but will 
+* hide overflow if necessary. For best results, keep labels short
 ****************************************************************/
 fieldset.switch-states{		
 	.switch{
@@ -666,33 +668,31 @@ fieldset.switch-states{
 		z-index:5;
 		
 		label{
+			@include box-sizing('border-box');
+			@include hide-text-overflow;
 			@include text-shadow(0 1px 0 rgba(255,255,255,0.5));	
 			color:lighten($color-text-dark,40%);
 			color:rgba($color-text-dark,0.5);
+			cursor: pointer;
 			float:left;
 			font-weight:bold;
 			height: 100%;
-			line-height: 25px;
-			padding-left:15px;
+			line-height: 25px;	
+			text-align:center;
+			padding:0 10px;			
 			position:relative;
-			text-align:center;			
-			vertical-align: middle;		
 			z-index:2;	
+			/* Make text unselectable in browsers that support that */
 			-webkit-touch-callout: none;
 			-webkit-user-select: none;
 			-khtml-user-select: none;
 			-moz-user-select: none;
 			-ms-user-select: none;
-			user-select: none;
-			cursor: pointer;
+			user-select: none;			
 			&:hover{
 				color:lighten($color-text-dark, 30%);	
 				color:rgba($color-text-dark,0.7);								
-			}				
-			span{
-				@include box-sizing('border-box');
-				padding:10px;				
-			}			
+			}	
 		}
 		input {
 			opacity: 0;
@@ -733,7 +733,7 @@ fieldset.switch-states{
 	*/
 	@for $i from 1 through 5 {
 		&.size_#{$i} {
-			label span, .slide-button { 
+			label, .slide-button { 
 				width:  100% / $i;				
 			}	  			
 			@if $i == 1{
