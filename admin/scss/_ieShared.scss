@@ -142,15 +142,24 @@
 
 /* Alternative styles for the switch in old IE */
 fieldset.switch-states{
+	padding:0;
 	.switch{
+		padding:0 10px 0 0;
 		label{
-			padding:0 10px;
+			overflow:visible;
+			text-overflow:visible;
+			white-space:normal;
+			padding:0;
 			&.active{
 				color:#fff;
 				background-color: #2b9c32; 
 			}
 			span{
-				padding:0;
+				display:inline;
+				padding:0 10px;
+				overflow:visible;
+				text-overflow:visible;
+				white-space:wrap;
 			}
 		}
 		.slide-button{

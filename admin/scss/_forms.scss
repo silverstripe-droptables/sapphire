@@ -735,7 +735,7 @@ fieldset.switch-states{
 	*/
 	@for $i from 1 through 5 {
 		&.size_#{$i} {
-			label, .slide-button { 
+			label span, .slide-button { 
 				width:  100% / $i;				
 			}	  			
 			@if $i == 1{
