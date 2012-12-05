@@ -133,7 +133,14 @@
 			enablePreview: function() {
 				if (!this.getIsPreviewEnabled()) {
 					this.setIsPreviewEnabled(true);
-					this.changeMode('split');
+
+					// Initialise mode.
+					if ($.browser.msie && $.browser.version.slice(0,3)<=7) {
+						// We do not support the split mode in IE < 8.
+						this.changeMode('content');
+					} else {
+						this.changeMode('split');
+					}
 				}
 				return this;
 			},
@@ -440,10 +447,6 @@
 			}
 		});
 		
-
-
-
-
 		/**
 		 * Adjust the visibility of the preview-mode selector in the CMS part (hidden if preview is visible).
 		 */
