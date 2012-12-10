@@ -9,14 +9,9 @@
 
 			/* Triggered by TabSet.js */
 			onafterredrawtabs: function() {
-				this.redraw();
 				this._super();
-			},
-			redraw: function() {
 				this.actionTabs();
-				var that = this;
 			},
-
 			/** 
 			 * Apply generic rules for action tabs, 
 			 * then call specific functions to handle each type of action tab 
