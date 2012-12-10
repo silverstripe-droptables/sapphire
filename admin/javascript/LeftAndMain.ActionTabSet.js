@@ -34,45 +34,44 @@
 				}
 			},
 
-			// Call riseUp function on beforeactivate to check if tabs should 
-			// open upwards (based on available space) and adjust
+			/**
+			 * Deal with available vertical space 
+			 */ 
 			'ontabsbeforeactivate': function(event, ui) {
 			  this.riseUp(event, ui);
 			},
 
-			//Handle opening and closing tab
+			/**
+			 * Handle opening and closing tabs
+			 */
 			onclick: function(event, ui) {
 				this.attachCloseHandler(event, ui);
 			},
 
 			/**
 			 * Apply custom rules to the Actions Menu
-			 * Currently includes positioning logic
 			 */
 			actionsMenu: function(){
-				this.tabs({
-					beforeActivate:function(event, ui){ //Set options before tab activated (but after clicked)
-						var activePanel = ui.newPanel, activeTab = ui.newTab;
-						//Set the position of the opening tab (if it exists)
-						if($(activePanel).length > 0){
-							$(activePanel).css('left', activeTab.position().left+"px");
-						}
+				this.on( "tabsbeforeactivate", function(event, ui) {
+					//Set the position of the opening tab (if it exists)
+					if($(ui.newPanel).length > 0){
+						$(ui.newPanel).css('left', ui.newTab.position().left+"px");
 					}
 				});
 			},
 
 			/**
-			 *	Apply rules to the siteTree actions. These action panels should 
-			 *	recieve different positions and classes depending on whether they are 
-			 *	appearing in the full page site tree view, or in the sidebar
+			 * Apply rules to the siteTree actions. These action panels should 
+			 * receive positioning and classes based on where they appearing 
+			 * (eg in the full page site tree view, or in the sidebar)
 			 */
 			siteTreeActions: function(){
 				var that = this, container = this.closest('.cms-tree-view-sidebar');
 
-				//Remove open classes on beforeactivate
+				
 				this.on( "tabsbeforeactivate", function(event, ui) {
-					// Remove tabset open classes (last gets a unique class 
-					// in the bigger sitetree, so remove this too)
+					// Remove tabset open classes (Last gets a unique class 
+					// in the bigger sitetree. Remove this if we have it)
 					$(that).closest('.ss-ui-action-tabset')
 							.removeClass('tabset-open tabset-open-last');
 				});
@@ -90,44 +89,34 @@
 
 					// Reset position of tabs, else anyone going between the large 
 					// and the small sitetree will see broken tabs
-					this.tabs({
-						// Note: beforeActivate runs when a tab is clicked, 
-						// but before it is visible.
-						beforeActivate:function(event, ui){
-							var activePanel = ui.newPanel; //the new active panel
+					this.on( "tabsbeforeactivate", function(event, ui) {
+						// Apply styles with .css, to avoid overriding currently applied styles	
+						$(ui.newPanel).css({'left': 'auto', 'right': 'auto'});
 
-							// Apply styles with .css, to avoid overriding currently applied styles	
-							$(activePanel).css({'left': 'auto', 'right': 'auto'});
-
-							if($(activePanel).length > 0){
-								$(activePanel).parent().addClass('tabset-open');
-							}
+						if($(ui.newPanel).length > 0){
+							$(ui.newPanel).parent().addClass('tabset-open');
 						}
 					});
 				}else{
 					// If the tabs are in the full site tree view, do some 
 					// positioning so tabPanel stays with relevent tab
-					this.tabs({
-						beforeActivate:function(event, ui){
-							var activePanel = ui.newPanel, activeTab = ui.newTab;
+					this.on( "tabsbeforeactivate", function(event, ui) {
+						if($( ui.newPanel).length > 0){
+							if($(ui.newTab).hasClass("last")){
+								// Align open tab to the right (because opened tab is last)
+								$(ui.newPanel).css({'left': 'auto', 'right': '0px'});
 
-							if($(activePanel).length > 0){
-								if($(activeTab).hasClass("last")){
-									// Align open tab to the right (because opened tab is last)
-									$(activePanel).css({'left': 'auto', 'right': '0px'});
+								// Last needs to be styled differently when open, so apply a unique class
+								$(ui.newPanel).parent().addClass('tabset-open-last');
+							}else{
+								// Assign position to tabpanel based on position of relivent active tab item
+								$(ui.newPanel).css('left', ui.newTab.position().left+"px");
 
-									// last needs to be styled differently when open, so apply a unique class
-									$(activePanel).parent().addClass('tabset-open-last');
-								}else{
-									// Assign position to tabpanel based on position of relivent activeTab item
-									$(activePanel).css('left', activeTab.position().left+"px");
-
-									// If this is the first tab, make sure the position doesn't include border 
-									// (hard set position to 0 ), and add the tab-set open class
-									if($(activeTab).hasClass("first")){
-										$(activePanel).css('left',"0px");
-										$(activePanel).parent().addClass('tabset-open');
-									}
+								// If this is the first tab, make sure the position doesn't include border 
+								// (hard set position to 0 ), and add the tab-set open class
+								if($(ui.newTab).hasClass("first")){
+									$(ui.newPanel).css('left',"0px");
+									$(ui.newPanel).parent().addClass('tabset-open');
 								}
 							}
 						}
