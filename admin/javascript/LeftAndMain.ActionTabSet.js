@@ -24,23 +24,11 @@
 			actionTabs: function(){
 				var that = this;
 
-				//Set ignoreTabState to true so it will not be opened on form submission
+				//Ignore tab state so it will not be reopened on form submission
 				this.data('ignoreTabState', true);
 
 				//Set actionTabs to allow closing and be closed by default
-
 				this.tabs({'collapsible': true, 'active': false});
-
-				// Call riseUp function on beforeactivate to check if tabs should 
-				// open upwards (based on available space) and adjust
-				this.on( "tabsbeforeactivate", function(event, ui) {
-					that.riseUp(event, ui);
-				});
-
-				//Run attachCloseHandler function on click event
-				this.on( "click", function(event, ui) {
-					that.attachCloseHandler(event, ui);
-				});
 
 				// Apply special behaviour depending on whether tabs are 
 				// sitetree actions, or an actionmenu
@@ -49,6 +37,17 @@
 				} else if(this.hasClass('cms-actions-row')){
 					this.siteTreeActions();
 				}
+			},
+
+			// Call riseUp function on beforeactivate to check if tabs should 
+			// open upwards (based on available space) and adjust
+			'ontabsbeforeactivate': function(event, ui) {
+			  this.riseUp(event, ui);
+			},
+
+			//Handle opening and closing tab
+			onclick: function(event, ui) {
+				this.attachCloseHandler(event, ui);
 			},
 
 			/**
@@ -156,7 +155,7 @@
 				closeHandler = function(event){
 					var panel, frame;
 					panel = $(event.target).closest('.ss-ui-action-tabset .ui-tabs-panel');
-					
+
 					// If anything except the ui-nav button is clicked, 
 					// close panel and remove handler
 					if (!$(event.target).closest(that).length || $(panel).length) {
