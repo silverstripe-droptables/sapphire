@@ -6,9 +6,11 @@
 		 * * Actions menu (Edit page actions)
 		 */
 		$('.ss-tabset.ss-ui-action-tabset').entwine({
+			//Ignore tab state so it will not be reopened on form submission
+			IgnoreTabState: true,
 
 			/* Triggered by TabSet.js */
-			onafterredrawtabs: function() {
+			onadd: function() {
 				this._super();
 				this.actionTabs();
 			},
@@ -18,9 +20,6 @@
 			 */
 			actionTabs: function(){
 				var that = this;
-
-				//Ignore tab state so it will not be reopened on form submission
-				this.data('ignoreTabState', true);
 
 				//Set actionTabs to allow closing and be closed by default
 				this.tabs({'collapsible': true, 'active': false});
