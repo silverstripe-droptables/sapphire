@@ -156,6 +156,7 @@
 				closeHandler = function(event){
 					var panel, frame;
 					panel = $(event.target).closest('.ss-ui-action-tabset .ui-tabs-panel');
+					
 					// If anything except the ui-nav button is clicked, 
 					// close panel and remove handler
 					if (!$(event.target).closest(that).length || $(panel).length) {
