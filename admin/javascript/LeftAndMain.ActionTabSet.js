@@ -72,7 +72,7 @@
 			 *	appearing in the full page site tree view, or in the sidebar
 			 */
 			siteTreeActions: function(){
-				var that = this, container = this.parent().parent();
+				var that = this, container = this.closest('.cms-tree-view-sidebar');
 
 				//Remove open classes on beforeactivate
 				this.on( "tabsbeforeactivate", function(event, ui) {
@@ -85,7 +85,7 @@
 				// Apply specific rules if the actions panel appears in the side-bar:
 				//  - hover helper class (for animation)
 				//  - reset panel positions
-				if($(container).hasClass('cms-tree-view-sidebar')){	
+				if(container.length > 0){	
 					// If actions panel is within the sidebar, apply active class 
 					// to help animate open/close on hover
 					$('.ui-tabs-nav li').hover(function(){
