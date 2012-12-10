@@ -49,13 +49,8 @@
 				this.data('ignoreTabState', true);
 
 				//Set actionTabs to allow closing and be closed by default
-				this.tabs(
-					'option', 
-					'collapsible',
-					true					
-				).tabs('option', 'active', false);
+				this.tabs({'collapsible': true, 'active': false});
 
-								
 				// Call riseUp function on beforeactivate to check if tabs should 
 				// open upwards (based on available space) and adjust				
 				this.on( "tabsbeforeactivate", function(event, ui) {
